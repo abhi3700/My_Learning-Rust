@@ -1,0 +1,1 @@
+All the projects will be available in form of folders.
