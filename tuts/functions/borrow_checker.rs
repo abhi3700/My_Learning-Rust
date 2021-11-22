@@ -17,11 +17,6 @@
 	REFERENCE: https://blog.logrocket.com/introducing-the-rust-borrow-checker/
 */
 
-
-// fn hold_my_vec<T>(_: Vec<T>) {}				// M-1
-fn hold_my_vec<T>(_: &Vec<T>) {}			// M-2 (RECOMMENDED)
-
-
 fn main() {
     let v = vec![2, 3, 5, 7, 11, 13, 17];
 
@@ -32,3 +27,6 @@ fn main() {
 
     println!("I got this element from the vector: {:?}", element);
 }
+
+// fn hold_my_vec<T>(_: Vec<T>) {}				// M-1
+fn hold_my_vec<T>(_: &Vec<T>) {}			// M-2 (RECOMMENDED)

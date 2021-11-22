@@ -2,11 +2,6 @@
     Addition of 2 no.s
 */
 
-// Addition function
-fn add(x: i32, y: i32) -> i32 {
-	return x + y;
-}
-
 // main function
 fn main() {
 	let x = 1;
@@ -15,3 +10,9 @@ fn main() {
 	// println!("Addition of {0} & {1} is {2}", x, y, add(x, y));
 	println!("Addition of {} & {} is {}", x, y, add(x, y));
 }
+
+// Addition function
+fn add(x: i32, y: i32) -> i32 {
+	return x + y;
+}
+
