@@ -33,7 +33,7 @@ $ ./hello
 1. Booleans (bool)
 1. Characters (char). Note these can represent unicode scalar values (i.e. beyond ASCII)
 
-#### Printing
+#### Print
 ```
 let name = "Abhijit";
 let age = 28;
@@ -42,7 +42,8 @@ println!("My name is {name}, and age is {age}");					// ❌
 println!("My name is {0}, and age is {1}", name, age);		// ✔️
 ```
 
-#### 
+#### Variables
+
 
 ## References
 * [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
