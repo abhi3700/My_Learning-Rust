@@ -26,6 +26,11 @@ $ ./hello
 ```
 
 ## Concepts
+> “Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.”
+
+> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation.
+> - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
+
 ### Basics
 #### Primitive types and Variables
 1. Various sizes of integers, signed and unsigned (i32, u8, etc.)
@@ -34,13 +39,17 @@ $ ./hello
 1. Characters (char). Note these can represent unicode scalar values (i.e. beyond ASCII)
 
 #### Print
+* 1.
 ```
 let name = "Abhijit";
 let age = 28;
 
 println!("My name is {name}, and age is {age}");					// ❌
 println!("My name is {0}, and age is {1}", name, age);		// ✔️
+println!("My name is {}, and age is {}", name, age);			// ✔️
 ```
+* 2.
+
 
 #### Variables
 
@@ -58,3 +67,4 @@ println!("My name is {0}, and age is {1}", name, age);		// ✔️
 
 ### Blogs
 * [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
+* [Understanding the Rust borrow checker](https://blog.logrocket.com/introducing-the-rust-borrow-checker/)
