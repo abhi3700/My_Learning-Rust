@@ -33,6 +33,17 @@ $ ./hello
 1. Booleans (bool)
 1. Characters (char). Note these can represent unicode scalar values (i.e. beyond ASCII)
 
+#### Printing
+```
+let name = "Abhijit";
+let age = 28;
+
+println!("My name is {name}, and age is {age}");					// ❌
+println!("My name is {0}, and age is {1}", name, age);		// ✔️
+```
+
+#### 
+
 ## References
 * [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 * [Book: The Rust Programming Language](https://doc.rust-lang.org/book/)
@@ -42,3 +53,7 @@ $ ./hello
 	- [Part 3: Data Types](https://www.mmhaskell.com/rust/data)
 	- [Part 4: Cargo Package Manager](https://www.mmhaskell.com/rust/cargo)
 	- [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
+* Rustlings: [Github repo](https://github.com/rust-lang/rustlings)
+
+### Blogs
+* [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
