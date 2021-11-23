@@ -31,6 +31,9 @@ $ ./hello
 > <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
 > - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
 
+* By default, all the variables are defined as `immutable` equivalent to `const` in JS/TS.
+* The value of mutable variable can be changed, but not the type.
+
 ### Basics
 #### Primitive types and Variables
 1. Various sizes of integers, signed and unsigned (i32, u8, etc.)
