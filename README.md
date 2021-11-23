@@ -28,7 +28,7 @@ $ ./hello
 ## Concepts
 > “Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.”
 
-> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation.
+> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
 > - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
 
 ### Basics
@@ -39,7 +39,7 @@ $ ./hello
 1. Characters (char). Note these can represent unicode scalar values (i.e. beyond ASCII)
 
 #### Print
-* 1.
+* 1. formatting variables inside `println` function
 ```
 let name = "Abhijit";
 let age = 28;
@@ -48,7 +48,13 @@ println!("My name is {name}, and age is {age}");					// ❌
 println!("My name is {0}, and age is {1}", name, age);		// ✔️
 println!("My name is {}, and age is {}", name, age);			// ✔️
 ```
-* 2.
+* 2. Multiple usage of variables without repetition
+```
+let alice = "Alice";
+let bob = "Bob";
+
+println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
+```
 
 
 #### Variables
