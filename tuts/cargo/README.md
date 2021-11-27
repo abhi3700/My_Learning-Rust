@@ -19,5 +19,15 @@
 
 > It happens pretty quickly than the `build` time. E.g. `build`: 0.91s, `check`: `0.29s`.
 
+* Build for optimization: `$ cargo build --release` (or use `b` instead of `build`). This is used for giving the output file to user for fast execution. The output file is available in the folder: `./target/release`.
+
+> If time is a benchmark, then instead of `$ cargo build`, use `$ cargo build --release`.
+
+* Run the release version via `$ cargo run --release` or `$ cargo r --release`
+* Clean the project directory via `$ cargo clean`. It removes the `target` directory.
+* Run the tests via `$ cargo t`.
+* Update dependencies listed in `Cargo.lock` via `$ cargo update`
+
+
 ## References
 * [Rust: Hello Cargo](https://doc.rust-lang.org/book/ch01-03-hello-cargo.html)
