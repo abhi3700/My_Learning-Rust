@@ -3,9 +3,16 @@ Rust programming language
 
 ## Installation
 ### Linux or MacOS
+* Install
 ```console
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
+
+* Update using `$ rustup update`
+
+## Commands
+* View installed version via `$ rustup show`
+* Check latest version via `$ rustup check`
 
 ## Getting Started
 ### Code
