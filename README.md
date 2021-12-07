@@ -81,6 +81,7 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 	- [Part 3: Data Types](https://www.mmhaskell.com/rust/data)
 	- [Part 4: Cargo Package Manager](https://www.mmhaskell.com/rust/cargo)
 	- [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
+* [Learn Rust Documentation](https://learning-rust.github.io/)
 * Rustlings: [Github repo](https://github.com/rust-lang/rustlings)
 
 ### Blogs
