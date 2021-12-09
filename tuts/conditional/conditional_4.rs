@@ -2,7 +2,7 @@
 
         Conditional: match control
         - print the statement
-        - output as result
+        - assign output to a variable
 
 */
 

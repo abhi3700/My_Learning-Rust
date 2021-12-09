@@ -107,6 +107,47 @@ After:
 
 ```
 
+### 2. warning: variant is never constructed, error[E0277]: `UsState` doesn't implement `Debug`
+* _Cause_: It simply means that the variant is never used, "constructed", anywhere in your program. There is no `AppAction::Task` anywhere in the program. Rust expects that if you say an enum variant exists, you will use it for something somewhere.
+* _Solution_: by putting this before the enum, or individually before intentionally unused items, you can make the warning disappear:
+
+Before:
+```rs
+enum UsState {
+	California,
+	Mexico,
+	Alaska,
+}
+
+enum Coin {
+	Penny,
+	Nickel,
+	Dime,
+	Quarter,
+	Custom(UsState),
+}
+```
+
+After:
+```rs
+#[allow(dead_code)]
+#[derive(Debug)]		// this use is recommended, otherwise there is error.
+enum UsState {
+	California,
+	Mexico,
+	Alaska,
+}
+
+#[allow(dead_code)]
+enum Coin {
+	Penny,
+	Nickel,
+	Dime,
+	Quarter,
+	Custom(UsState),
+}
+```
+
 ## References
 * [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 * [Book: The Rust Programming Language](https://doc.rust-lang.org/book/)
