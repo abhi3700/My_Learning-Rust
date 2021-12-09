@@ -72,6 +72,41 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 #### Variables
 
 
+## Troubleshoot
+### 1. warning: path statement with no effect
+* _Cause_: there is a statement having no effect
+* _Solution_: Assign the variable to `_`.
+
+Before:
+```rs
+    let result = match grade {
+        "A" => { println!("Excellent!"); },
+        "B" => { println!("Great!"); },
+        "C" => { println!("Good"); },
+        "D" => { println!("You passed"); },
+        "F" => { println!("Sorry, you failed"); },
+        _ => { println!("Unknown Grade"); }
+    };
+
+    result;
+```
+
+After:
+```rs
+    let result = match grade {
+        "A" => { println!("Excellent!"); },
+        "B" => { println!("Great!"); },
+        "C" => { println!("Good"); },
+        "D" => { println!("You passed"); },
+        "F" => { println!("Sorry, you failed"); },
+        _ => { println!("Unknown Grade"); }
+    };
+
+    // result;             // warning: path statement with no effect, Solution --> assign to `_` 
+    let _ = result;
+
+```
+
 ## References
 * [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 * [Book: The Rust Programming Language](https://doc.rust-lang.org/book/)
