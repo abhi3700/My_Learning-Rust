@@ -1,4 +1,4 @@
-# `proj1`
+# Guess game
 
 ## Build
 * `$ cargo build`
