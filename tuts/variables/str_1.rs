@@ -6,9 +6,9 @@
 fn main() {
 	// let mut x: String = String::from("abhijit");		// throws warning: the value not used.
 	
-	let mut x: String;
+	let x: String;
 
-	x = "raman".into();		// throws warning: the value not used.
+	let _x: String = "raman".into();		// throws warning: the value not used.
 	x = "raman_2".into();
 
 	println!("{}", x);

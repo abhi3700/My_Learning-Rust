@@ -4,6 +4,7 @@
 	Observation:
 	- float var defined in 2 methods
 	- auto type deduction in `z`
+	- float var are automatically typed as `f64`
 */
 
 fn main() {
