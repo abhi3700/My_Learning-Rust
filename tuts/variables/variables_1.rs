@@ -1,5 +1,7 @@
 /*
 	Addition of 2 variables
+	- int var are automatically typed as `i32`
+
 */
 
 fn main() {
