@@ -1,5 +1,6 @@
 /*
 	Use array
+	- arrays are stack allocated
 	- define array with elements
 	- print elements via for-loop
 */

@@ -2,6 +2,7 @@
 	Tuple
 	- create alongwith `mut` type
 	- display
+	- tuple max length is `12`
 */
 
 fn main() {
@@ -14,8 +15,8 @@ fn main() {
 	x.0 = 'b';
 	x.2 = 5.6;
 
-	println!("{:?}", x);		// diplay horizontally
-	println!("{:#?}", x);		// diplay vertically
+	println!("{:?}", x);		// display horizontally
+	println!("{:#?}", x);		// display vertically
 
 	let (a, _, b, _) = x;
 	println!("{}, {}", a, b);
