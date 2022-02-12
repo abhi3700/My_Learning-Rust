@@ -1,37 +1,51 @@
-/*
-    Implement Dog for Animal & Speaks traits types.
+/* 
+    Car example
+    - implement a trait `Detail` for different car objects (defined in `struct`)
+
+    NOTE: here, the `String` type creates a problem in return
+
 */
 
-trait Speaks {
-    fn speak(&self);
-
-    fn noise(&self) -> &str;
+pub trait Detail {
+    fn brand(&self) -> String;
+    fn color(&self) -> String;
+    fn driving_mode(&self) -> bool;
+    fn manu_year(&self) -> u16;
 }
 
-trait Animal {
-    fn animal_type(&self) -> &str;
+#[derive(Debug)]            // used for printing via `println!`
+struct Car {
+    brand: String,
+    color: String,
+    mode: bool,         // manual: false, automatic: true
+    year: u16
 }
 
-struct Dog {}
-
-impl Animal for Dog {
-    fn animal_type(&self) -> &str {
-        "dog"
+impl Detail for Car {
+    fn brand(&self) -> String {
+        // using `format` instead of directly returning the brand bcoz it throws error:
+        // "move occurs because `self.brand` has type `String`, which does not implement the `Copy` trait"
+        return format!("{}", self.brand);           
     }
-}
-
-impl Speaks for Dog {
-    fn speak(&self) {
-        println!("The dog speaks {}", self.noise());
+    fn color(&self) -> String {
+        return format!("{}", self.color);
     }
-
-    fn noise(&self) -> &str {
-        "woof"
+    fn driving_mode(&self) -> bool {
+        return self.mode;
     }
+    fn manu_year(&self) -> u16 {
+        return self.year;
+    }
+    
 }
-
 
 fn main() {
-    let dog = Dog {};
-    dog.speak();
+    let c1 = Car {
+        brand: "BMW".to_string(),
+        color: "Dark Blue".to_string(),
+        mode: true,
+        year: 2012
+    };
+
+    println!("Car c1: \n{:#?}", &c1);
 }

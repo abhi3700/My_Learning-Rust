@@ -148,6 +148,39 @@ enum Coin {
 }
 ```
 
+### 3. Error: "move occurs...which does not implement the Copy trait"
+* _Cause_: Copy designates types for which making a bitwise copy creates a valid instance without invalidating the original instance.
+
+This isn't true for String, because String contains a pointer to the string data on the heap and assumes it has unique ownership of that data. When you drop a String, it deallocates the data on the heap. If you had made a bitwise copy of a String, then both instances would try to deallocate the same memory block, which is undefined behaviour.
+
+* _Solution_: Just use `format` like this:
+
+Before:
+```rs
+impl Detail for Car {
+    fn brand(&self) -> String {
+        return self.brand;           
+    }
+    fn color(&self) -> String {
+        return self.color;
+    }    
+}
+```
+
+After:
+```rs
+impl Detail for Car {
+    fn brand(&self) -> String {
+        // using `format` instead of directly returning the brand bcoz it throws error:
+        // "move occurs because `self.brand` has type `String`, which does not implement the `Copy` trait"
+        return format!("{}", self.brand);           
+    }
+    fn color(&self) -> String {
+        return format!("{}", self.color);
+    }    
+}
+```
+
 ## References
 * [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 * [Book: The Rust Programming Language](https://doc.rust-lang.org/book/)
