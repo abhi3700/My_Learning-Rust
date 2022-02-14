@@ -195,6 +195,7 @@ impl Detail for Car {
 * [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
 * [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 * [Rust for C++ programmers](https://github.com/nrc/r4cppp)
+* [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
 
 ### Blogs
 * [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
