@@ -13,6 +13,7 @@ pub trait Detail {
     fn manu_year(&self) -> u16;
 }
 
+// NOTE: Even after using Clone in derive attribute, it throws the same error
 #[derive(Debug)]            // used for printing via `println!`
 struct Car {
     brand: String,
@@ -25,16 +26,18 @@ impl Detail for Car {
     fn brand(&self) -> String {
         // using `format` instead of directly returning the brand bcoz it throws error:
         // "move occurs because `self.brand` has type `String`, which does not implement the `Copy` trait"
-        return format!("{}", self.brand);           
+        return format!("{}", self.brand);
+        // return self.brand;      // throws Error          
     }
     fn color(&self) -> String {
         return format!("{}", self.color);
+        // return self.color;      // throws Error          
     }
     fn driving_mode(&self) -> bool {
-        return self.mode;
+        self.mode
     }
     fn manu_year(&self) -> u16 {
-        return self.year;
+        self.year
     }
     
 }
@@ -47,5 +50,6 @@ fn main() {
         year: 2012
     };
 
-    println!("Car c1: \n{:#?}", &c1);
+    println!("Car c1: \n{:#?}", &c1);       // print the whole car c1
+    println!("Car c1 brand: {}", c1.brand());    // only print the c1's brand
 }

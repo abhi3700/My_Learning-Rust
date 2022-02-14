@@ -3,9 +3,10 @@
 ## About
 * In Rust, there is no concept of "inheriting" the properties of a struct. Instead, when you are designing the relationship between objects do it in a way that one's functionality is defined by an interface (a trait in Rust). This promotes __composition over inheritance__, which is considered more useful and easier to extend to larger projects.
 * For defining attributes, use `struct`, `enum`. But, for behavior, define everything in `traits` like an `interface` i.e. w/o definition (in Solidity, Java).
+* `trait` name is supposed to be written in CamelCase.
 * Define `trait` like this:
 ```rs
-<visibility: pub, priv> trait <trait_name> {
+<visibility: pub, priv> trait <TraitName> {
     ///
     /// method declaration
     /// 
@@ -13,7 +14,7 @@
 ```
 * Implementing `trait` for a `type` like this:
 ```rs
-impl <trait_name> for <type_name> {
+impl <TraitName> for <TypeName> {
     ///
     /// method definition
     /// 
@@ -30,4 +31,4 @@ impl <trait_name> for <type_name> {
 |--|--|--|
 | trait | interface | abstract class | interface |
 
-* 
+
