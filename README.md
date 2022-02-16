@@ -245,3 +245,4 @@ impl Detail for Car {
 * [Ownership in Rust by thoughtram](https://blog.thoughtram.io/ownership-in-rust/)
 * [References in Rust by thoughtram](https://blog.thoughtram.io/references-in-rust/)
 * [Iterators in Rust by thoughtram](https://blog.thoughtram.io/iterators-in-rust/)
+* [Lifetimes in Rust by thoughram](https://blog.thoughtram.io/lifetimes-in-rust/)
