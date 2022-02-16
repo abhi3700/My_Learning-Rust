@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/ownership/dereference_4.rs"]
-mod dereference_4;
+#[path = "../tuts/iterator/iterator_3.rs"]
+mod iterator_3;
 
 
 fn main() {
-    dereference_4::run();
+    iterator_3::run();
 }
