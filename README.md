@@ -62,7 +62,24 @@ fn main() {
     }
 }
 ```
+* Rust doesn't allow _dangling pointer_ by design. This means that any variable, struct, enum, etc can't live more than the lifetime of the referenced type
+```rs
+struct Config {
 
+}
+
+// INCORRECT ❌
+struct App {
+    config: &Config     // `Config` used as reference
+}
+
+// CORRECT ✅
+/// Here, it is used as lifetime ownership of the code.
+struct App<'a> {
+    config: &'a Config
+}
+```
+* `lifetimes` are a compile-time feature and don’t exist at runtime.
 
 ### Basics
 #### Primitive types and Variables
