@@ -41,7 +41,28 @@ $ ./hello
 > - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
 
 * By default, all the variables are defined as `immutable` equivalent to `const` in JS/TS.
+* In Rust, borrowing is analogous to referencing in C++ & dereferencing is same as that of C++.
 * The value of mutable variable can be changed, but not the type.
+* In Rust, every value has a single owner that determines its lifetime.
+* The memory of the declared variables are dropped (or freed) when the program leaves a block in which the variable is declared. 
+    - E.g. Normally, inside the `main` function, whenever a variable is defined, it is dropped after exiting the `main` function.
+```rs
+fn main() {
+    // Case-1
+    let x = 10;
+    let r = &x;
+
+    let k;
+    {
+        let y = Box::new(5);            // Using Box pointer for storing into heap
+        let y = 5;              // stored in stack
+        // let y <'a> = 5;
+        // k = &y;         // y dropped here as it is not available for lifetime. Moreover the block is getting over after this
+        k = y;          // this implies that the ownership of 5 is transferred to `k` from `y`
+    }
+}
+```
+
 
 ### Basics
 #### Primitive types and Variables
@@ -201,3 +222,8 @@ impl Detail for Car {
 * [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
 * [Understanding the Rust borrow checker](https://blog.logrocket.com/introducing-the-rust-borrow-checker/)
 * [No auto type deduction for function, but for local variable](https://stackoverflow.com/questions/24977365/differences-in-type-inference-for-closures-and-functions-in-rust)
+* [Including Files and Deeply Directories in Rust](https://hackernoon.com/including-files-and-deeply-directories-in-rust-q35o3yer)
+* [Understand Rust Ownership model](https://blog.thoughtram.io/rust/2015/05/11/rusts-ownership-model-for-javascript-developers.html)
+* [Memory Safety in Rust: A Case Study with C](https://willcrichton.net/notes/rust-memory-safety/)
+* [Ownership in Rust](https://blog.thoughtram.io/ownership-in-rust/)
+* [References in Rust](https://blog.thoughtram.io/references-in-rust/)
