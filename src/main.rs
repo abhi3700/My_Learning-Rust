@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/ownership/lifetime_3.rs"]
-mod lifetime_3;
+#[path = "../tuts/traits/traits_0.rs"]
+mod traits_0;
 
 
 fn main() {
-    lifetime_3::run();
+    traits_0::run();
 }
