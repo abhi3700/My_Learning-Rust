@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/traits_0.rs"]
-mod traits_0;
+#[path = "../tuts/arg/arg_1.rs"]
+mod arg_1;
 
 
 fn main() {
-    traits_0::run();
+    arg_1::run();
 }
