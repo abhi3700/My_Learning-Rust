@@ -8,20 +8,41 @@
 * Compile optimized: `$ cargo build --release`
 
 ## Output
+### Add
 * Add `1` & `2.5`
 ```console
 ❯ cargo run -- 1 + 2.5
    Compiling calculator v0.1.0 (/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator)
-warning: unused import: `Args`
- --> src/main.rs:6:22
-  |
-6 | use std::env::{args, Args};         // `Args` is optional to use
-  |                      ^^^^
-  |
-  = note: `#[warn(unused_imports)]` on by default
-
-warning: `calculator` (bin "calculator") generated 1 warning
     Finished dev [unoptimized + debuginfo] target(s) in 0.37s
      Running `/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator/target/debug/calculator 1 + 2.5`
 Result: 3.5
+```
+
+### Mul
+* Muliply `2` & `2.5` using `*`
+```console
+❯ cargo run -- 2 \* 2.5
+     Running `/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator/target/debug/calculator 2 '*' 2.5`
+2 * 2.5 = 5
+```
+* Muliply `2` & `2.5` using `x`
+```console
+❯ cargo run -- 2 x 2.5
+     Running `/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator/target/debug/calculator 2 x 2.5`
+2 x 2.5 = 0.8
+```
+* Muliply `2` & `2.5` using `X`
+```console
+❯ cargo run -- 2 X 2.5
+     Running `/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator/target/debug/calculator 2 X 2.5`
+2 X 2.5 = 0.8
+```
+
+### Error handling
+* Run with number as oper. Throws error
+```console
+❯ cargo run -- 1 4 5
+     Running `/Users/abhi3700/F/coding/github_repos/My_Learning-Rust/pro/calculator/target/debug/calculator 1 4 5`
+thread 'main' panicked at 'Invalid operator used', src/main.rs:44:14
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```

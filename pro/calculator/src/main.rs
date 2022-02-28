@@ -40,8 +40,8 @@ fn operate(oper: char, first_input: f64, second_input: f64) -> f64 {
         '+' => first_input + second_input,
         '-' => first_input - second_input,
         '*' => first_input * second_input,
-        '/' => first_input / second_input,
-        _ => 0.0
+        '/' | 'x' | 'X' => first_input / second_input,
+        _ => panic!("Invalid operator used")
     };
 
     res
