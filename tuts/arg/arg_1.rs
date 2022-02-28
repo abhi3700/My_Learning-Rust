@@ -1,5 +1,7 @@
 /*
     NOTE: `unwrap()` return the value into `first` instead of Some()
+
+    For more: refer from root: "./pro/calculator" project
 */
 
 use std::env::{args, Args};
