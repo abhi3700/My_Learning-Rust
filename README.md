@@ -80,6 +80,9 @@ struct App<'a> {
 }
 ```
 * `lifetimes` are a compile-time feature and don’t exist at runtime.
+* Rust memory safety is based on this rule: Given an object T, it is only possible to have one of the following:
+  - Having several immutable references (&T) to the object (also known as aliasing).
+  - Having one mutable reference (&mut T) to the object (also known as mutability).
 
 ### Basics
 #### Primitive types and Variables

@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/borrow_1.rs"]
-mod borrow_1;
+#[path = "../tuts/pointer/rc_1.rs"]
+mod rc_1;
 
 
 fn main() {
-    borrow_1::run();
+    rc_1::run();
 }
