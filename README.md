@@ -83,6 +83,8 @@ struct App<'a> {
 * Rust memory safety is based on this rule: Given an object T, it is only possible to have one of the following:
   - Having several immutable references (&T) to the object (also known as aliasing).
   - Having one mutable reference (&mut T) to the object (also known as mutability).
+* Apply `#[derive(Debug)]` for making the struct, enum printable
+* Apply `#[derive(Clone)]` for making the struct, enum copyable. 
 
 ### Basics
 #### Primitive types and Variables
