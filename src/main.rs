@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/clone_2.rs"]
-mod clone_2;
+#[path = "../libs/time/time_2.rs"]
+mod time_2;
 
 
 fn main() {
-    clone_2::run();
+    time_2::run();
 }
