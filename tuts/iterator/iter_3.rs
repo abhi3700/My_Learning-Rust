@@ -13,7 +13,7 @@ pub fn run() {
     println!("{}", it.next().unwrap());
     
     // throws error as 
-    // thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src/../tuts/iterator/iterator_3.rs:14:30
+    // thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src/../tuts/iterator/iter_3.rs:14:30
     // note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
     println!("{}", it.next().unwrap());     
 }
