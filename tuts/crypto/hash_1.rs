@@ -1,5 +1,7 @@
 /* 
     For no control over how the hashing happens, just use Hash trait with derive over the type
+
+    SOURCE: https://docs.rs/sp-std/latest/sp_std/hash/index.html
 */
 
 use std::collections::hash_map::DefaultHasher;
