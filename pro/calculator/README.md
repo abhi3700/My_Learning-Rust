@@ -38,6 +38,16 @@ Result: 3.5
 2 X 2.5 = 0.8
 ```
 
+### Divide
+* Divide `1` by `0` throws panic error as defined in the code.
+```console
+❯ cargo run -- 1 / 0  
+    Finished dev [unoptimized + debuginfo] target(s) in 0.39s
+     Running `target/debug/calculator 1 / 0`
+thread 'main' panicked at 'Error: Divide by zero', src/main.rs:45:17
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
 ### Error handling
 * Run with number as oper. Throws error
 ```console

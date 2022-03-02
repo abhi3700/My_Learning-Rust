@@ -39,8 +39,14 @@ fn operate(oper: char, first_input: f64, second_input: f64) -> f64 {
     let res = match oper {
         '+' => first_input + second_input,
         '-' => first_input - second_input,
-        '*' => first_input * second_input,
-        '/' | 'x' | 'X' => first_input / second_input,
+        '*' | 'x' | 'X' => first_input * second_input,
+        '/' => {
+            if second_input == 0.0 {
+                panic!("Error: Divide by zero")
+            } else {
+                first_input / second_input
+            }
+        },
         _ => panic!("Invalid operator used")
     };
 
