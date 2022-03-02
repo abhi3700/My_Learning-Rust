@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/print/fmt_1.rs"]
-mod fmt_1;
+#[path = "../tuts/crypto/hash_1.rs"]
+mod hash_1;
 
 
 fn main() {
-    fmt_1::run();
+    hash_1::run();
 }
