@@ -12,6 +12,8 @@ enum TicTacToe {
     O,
 }
 
+// There is a system trait to add support for default values.
+// This is especially important when implementing generic types.
 impl Default for TicTacToe {
     fn default() -> Self {
         TicTacToe::Empty
