@@ -115,6 +115,10 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 #### Variables
 
 
+## Tools
+* Check behind-the-code for a code snippet - https://play.rust-lang.org/
+  - Tools >> Expand Macros
+
 ## Troubleshoot
 ### 1. warning: path statement with no effect
 * _Cause_: there is a statement having no effect
