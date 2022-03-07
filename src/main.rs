@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/error_handling/expect_err_1.rs"]
-mod expect_err_1;
+#[path = "../tuts/iterator/iter_4.rs"]
+mod iter_4;
 
 
 fn main() {
-    expect_err_1::run();
+    iter_4::run();
 }
