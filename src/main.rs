@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/traits_5.rs"]
-mod traits_5;
+#[path = "../tuts/error_handling/asserteq_2.rs"]
+mod asserteq_2;
 
 
 fn main() {
-    traits_5::run();
+    asserteq_2::run();
 }
