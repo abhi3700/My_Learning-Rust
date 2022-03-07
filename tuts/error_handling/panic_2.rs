@@ -1,5 +1,7 @@
 /* 
   panic macro supports println!() i.e. able to print the panic message in console.
+
+  The next lines then won't be reachable. In this case add allow macro
 */
 
 #[derive(Debug)]
