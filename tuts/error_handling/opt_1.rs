@@ -2,6 +2,9 @@
     Option can have either Some or None as output
     It has also built_in methods like `is_some` & `is_none`
 
+    An optional value can have either Some value or no value/ None.
+    The Option type is a way to use Rust’s type system to express the possibility of absence.
+    
     In this eg,
     - `Option<String>` is used as function's o/p, instead of `String` because the output could be None as well.
     - reference is being used because in the 1st println!, a is used twice.

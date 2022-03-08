@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/iterator/iter_4.rs"]
-mod iter_4;
+#[path = "../tuts/error_handling/res_4.rs"]
+mod res_4;
 
 
 fn main() {
-    iter_4::run();
+    res_4::run();
 }

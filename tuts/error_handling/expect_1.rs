@@ -3,7 +3,7 @@
     - Apply for Option
     - 'n' denotes for 'None'
 
-    In simple words, `expect` or `expect_ok` throws error if the value is not Some or Ok
+    In simple words, `expect` or `expect_ok`/`expect_some` throws error if the value is not Some or Ok
 */
 
 pub fn run() {

@@ -1,6 +1,9 @@
 /* 
     Result<Ok, Err>
     E.g. If a function can output `u8` with Error as String type.
+
+    A result can represent either success/ Ok or failure/ Err
+    Result expresses the possibility of error.
     
     It has also built_in methods like `is_ok` & `is_err`
 */
