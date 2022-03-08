@@ -28,7 +28,7 @@ impl <TraitName> for <TypeName> {
 * __Analogy__
 
 | Rust | Java | C++ | Solidity |
-|--|--|--|
+|--|--|--|---|
 | trait | interface | abstract class | interface |
 
 
