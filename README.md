@@ -38,6 +38,7 @@ $ ./hello
 > “Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.”
 
 > <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
+
 > - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
 
 * By default, all the variables are defined as `immutable` equivalent to `const` in JS/TS.
@@ -253,6 +254,9 @@ impl Detail for Car {
 * [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 * [Rust for C++ programmers](https://github.com/nrc/r4cppp)
 * [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
+* [Learn Rust by Practical Projects](https://www.youtube.com/watch?v=LPzx2Fzd7Vs&list=PLK_g1a_cAfaZDdybJzwI1m7AVl4tSo87Z)
+* [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
+* [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
 
 ### Blogs
 * [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
