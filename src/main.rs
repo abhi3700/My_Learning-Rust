@@ -3,10 +3,10 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/ops_1.rs"]
-mod ops_1;
+#[path = "../tuts/ownership/move_semantics2.rs"]
+mod move_semantics2;
 
 
 fn main() {
-    ops_1::run();
+    move_semantics2::run();
 }
