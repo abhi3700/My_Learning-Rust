@@ -1,3 +1,10 @@
+/*
+    3 main iterators:
+    - `.iter`
+    - `.into_iter` (by default in case of for-loop)
+    - `.iter_mut`
+*/
+
 pub fn run() {
     let v1 = vec![1, 5, 6, 8];
 

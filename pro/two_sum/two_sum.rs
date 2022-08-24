@@ -4,11 +4,20 @@ pub fn run(nums: Vec<u32>, target: u32) {
     let mut res2 = Vec::new();
 
     // 1. shortlist the elements smaller than the target
-    for n in nums.iter() {
-        if n <= &target {
+    // for n in nums.into_iter() {
+    //     if n <= &target {
+    //         res1.push(n);
+    //     }
+    // }
+
+    // OR
+
+    nums.into_iter().for_each(|n| {
+        if n <= target {
             res1.push(n);
         }
-    }
+    });
+
     println!("Shortened array: {:?}", res1);
 
     // 2. check for 2 elements if they sum up to the target

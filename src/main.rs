@@ -3,9 +3,12 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/loop/for_2.rs"]
-mod for_2;
+#[path = "../pro/two_sum/two_sum.rs"]
+mod two_sum;
 
 fn main() {
-    for_2::run();
+    // Creating a vector of numbers.
+    let nums = vec![1, 5, 8, 10];
+    let target = 13;
+    two_sum::run(nums, target);
 }
