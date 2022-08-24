@@ -8,8 +8,8 @@ mod two_sum;
 
 fn main() {
     // Creating a vector of numbers.
-    let nums = vec![1, 5, 8, 10];
-    let target = 13;
+    let nums = vec![2, 7, 11, 15];
+    let target = 9;
     let res = two_sum::run(nums, target);
     println!("{:?}", res);
 }
