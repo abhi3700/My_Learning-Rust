@@ -1,7 +1,7 @@
-pub fn run(nums: Vec<u32>, target: u32) {
+pub fn run(nums: Vec<i32>, target: i32) -> Vec<i32> {
     println!("Original array: {:?}", &nums);
-    let mut res1 = Vec::new();
-    let mut res2 = Vec::new();
+    let mut res1: Vec<i32> = Vec::new();
+    let mut res2: Vec<i32> = Vec::new();
 
     // 1. shortlist the elements smaller than the target
     // for n in nums.into_iter() {
@@ -24,10 +24,12 @@ pub fn run(nums: Vec<u32>, target: u32) {
     for i in 0..res1.len() {
         for j in 1..res1.len() {
             if (i < j) && (res1[i] + res1[j] == target) {
-                res2.push(i);
-                res2.push(j);
+                res2.push(i.try_into().unwrap());
+                res2.push(j.try_into().unwrap());
             }
         }
     }
     println!("Final indices: {:?}", res2);
+
+    return res2;
 }

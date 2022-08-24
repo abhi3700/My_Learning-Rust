@@ -10,5 +10,6 @@ fn main() {
     // Creating a vector of numbers.
     let nums = vec![1, 5, 8, 10];
     let target = 13;
-    two_sum::run(nums, target);
+    let res = two_sum::run(nums, target);
+    println!("{:?}", res);
 }
