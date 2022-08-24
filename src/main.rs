@@ -3,10 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/collection/tuple1.rs"]
-mod tuple1;
-
+#[path = "../tuts/loop/for_1.rs"]
+mod for_1;
 
 fn main() {
-    tuple1::run();
+    for_1::run();
 }
