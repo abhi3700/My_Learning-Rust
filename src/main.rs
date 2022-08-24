@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/loop/for_1.rs"]
-mod for_1;
+#[path = "../tuts/loop/for_2.rs"]
+mod for_2;
 
 fn main() {
-    for_1::run();
+    for_2::run();
 }
