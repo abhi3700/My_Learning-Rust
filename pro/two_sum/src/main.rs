@@ -1,4 +1,12 @@
-pub fn run(nums: Vec<i32>, target: i32) -> Vec<i32> {
+fn main() {
+    // Creating a vector of numbers.
+    let nums = vec![2, 7, 11, 15];
+    let target = 9;
+    let res = run(nums, target);
+    println!("{:?}", res);
+}
+
+fn run(nums: Vec<i32>, target: i32) -> Vec<i32> {
     println!("Original array: {:?}", &nums);
     let mut res1: Vec<i32> = Vec::new();
     let mut res2: Vec<i32> = Vec::new();

@@ -6,4 +6,6 @@
 
 ## Solution
 
-View [this](two_sum.rs)
+View [this](./src/main.rs)
+
+> You can see the changelog in git.
