@@ -3,13 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../pro/two_sum/two_sum.rs"]
-mod two_sum;
+#[path = "../tuts/iterator/enumerate_3.rs"]
+mod enumerate_3;
 
 fn main() {
-    // Creating a vector of numbers.
-    let nums = vec![2, 7, 11, 15];
-    let target = 9;
-    let res = two_sum::run(nums, target);
-    println!("{:?}", res);
+    enumerate_3::run();
 }
