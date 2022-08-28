@@ -1,43 +1,18 @@
+#[path = "./v1.rs"]
+mod v1;
+
+#[path = "./v2.rs"]
+mod v2;
+
 fn main() {
-    // Creating a vector of numbers.
-    let nums = vec![2, 7, 11, 15];
-    let target = 9;
-    let res = run(nums, target);
-    println!("{:?}", res);
-}
+    println!("=======v1: capture only single/1st combination=========");
+    let nums1 = vec![2, 7, 11, 15];
+    let target1 = 9;
+    v1::two_sum(nums1, target1);
 
-fn run(nums: Vec<i32>, target: i32) -> Vec<i32> {
-    println!("Original array: {:?}", &nums);
-    let mut res1: Vec<i32> = Vec::new();
-    let mut res2: Vec<i32> = Vec::new();
-
-    // 1. shortlist the elements smaller than the target
-    // for n in nums.into_iter() {
-    //     if n <= &target {
-    //         res1.push(n);
-    //     }
-    // }
-
-    // OR
-
-    nums.into_iter().for_each(|n| {
-        if n <= target {
-            res1.push(n);
-        }
-    });
-
-    println!("Shortened array: {:?}", res1);
-
-    // 2. check for 2 elements if they sum up to the target
-    for i in 0..res1.len() {
-        for j in 1..res1.len() {
-            if (i < j) && (res1[i] + res1[j] == target) {
-                res2.push(i.try_into().unwrap());
-                res2.push(j.try_into().unwrap());
-            }
-        }
-    }
-    println!("Final indices: {:?}", res2);
-
-    return res2;
+    // v2
+    println!("=======v2: capture all the combination=========");
+    let nums2 = vec![2, 7, 2, 15];
+    let target2 = 9;
+    v2::two_sum(nums2, target2);
 }

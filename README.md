@@ -277,6 +277,17 @@ impl Detail for Car {
 }
 ```
 
+### 4. Error: mismatched types expected `i32`, found `usize`
+
+_Cause_: Because of type mismatch
+![](img/error_type_mismatch.png)
+
+_Solution_: Just typecast it as the required type
+
+```rs
+res.push(i as i32);
+```
+
 ## References
 
 - [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
