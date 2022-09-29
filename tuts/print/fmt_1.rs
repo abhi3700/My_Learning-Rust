@@ -1,4 +1,4 @@
-/* 
+/*
     format gives output as String
 
     In this eg, format the name with title - Mr./Mrs.

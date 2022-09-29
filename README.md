@@ -153,6 +153,34 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 #### Variables
 
+## Miscellaneous
+
+Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html)
+
+### Idioms
+
+#### Use Borrowed types for arguments
+
+```rs
+&String -> &str
+&Vec<T> -> &[T]
+&Box<T> -> &T
+```
+
+[Code](./pro/three_vowels/)
+
+[Reference](https://rust-unofficial.github.io/patterns/idioms/coercion-arguments.html)
+
+#### Concatenate strings with format
+
+```rs
+format!("{} World!", s1)
+```
+
+[Code](./pro/concat_str/)
+
+[Reference](https://rust-unofficial.github.io/patterns/idioms/concat-format.html)
+
 ## Tools
 
 - Check behind-the-code for a code snippet - https://play.rust-lang.org/
