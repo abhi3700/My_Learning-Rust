@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
-#[allow(warnings)]
-#[warn(dead_code)]
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Todo {
     items: HashMap<String, String>,
@@ -15,6 +14,10 @@ impl Todo {
     }
 
     fn add(&mut self, key: String, value: String) {
+        self.items.entry(key).or_insert(value);
+    }
+
+    fn update(&mut self, key: String, value: String) {
         self.items.insert(key, value);
     }
 
@@ -23,9 +26,14 @@ impl Todo {
     }
 
     fn list(&self) {
+        println!("Todo List:");
         for (key, value) in &self.items {
             println!("{}: {}", key, value);
         }
+    }
+
+    fn get(&self, key: String) -> Option<&String> {
+        self.items.get(&key)
     }
 }
 
@@ -37,7 +45,12 @@ fn main() {
     todo.add("35435".to_string(), "Charlie".to_string());
     todo.remove("2434".to_string());
     todo.add("7979".to_string(), "Den".to_string());
+    todo.update("7979".to_string(), "Denis".to_string());
 
-    println!("{}\n---", todo.items.len());
+    println!("Total todo list count: {}\n---", todo.items.len());
     todo.list();
+    println!(
+        "--\nGet value of a key: {}",
+        todo.get("35435".to_string()).unwrap()
+    );
 }
