@@ -4,7 +4,7 @@ Rust programming language
 
 ## Installation
 
-### Linux or MacOS
+### Linux or macOS
 
 - Install
 
@@ -13,6 +13,7 @@ $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
 - Update using `$ rustup update`
+- After `cargo` installation, install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in Cargo.toml
 
 ## Commands
 
