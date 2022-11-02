@@ -22,13 +22,17 @@ $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
 > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
 
+## Repositories
+
+- [calamine](https://github.com/tafia/calamine)
+
 ## Getting Started
 
 ### Code
 
 ```rs
 fn main() {
-	println!("Hello World!");
+    println!("Hello World!");
 }
 ```
 
