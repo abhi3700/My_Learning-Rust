@@ -1,3 +1,4 @@
+use core::num;
 #[allow(unused_imports)]
 use rand::Rng;
 use std::io;
@@ -9,15 +10,26 @@ use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 #[allow(unused)]
 fn main() {
-    const ONE_MIL: u32 = 1_000_000;
-    const PI: f32 = 3.14;
+    println!("Max u32: {}", std::u32::MAX);
+    println!("Max u64: {}", std::u64::MAX);
+    println!("Max u128: {}", std::u128::MAX);
+    println!("Max usize: {}", std::usize::MAX);
+    println!("Max f32: {}", std::f32::MAX);
 
-    println!("Please enter your age: ");
-    let mut age = String::new();
-    io::stdin()
-        .read_line(&mut age)
-        .expect("Failed to read line");
-    let mut age: u8 = age.trim().parse().expect("Not a number");
-    age = age + 1;
-    println!("I am {} and I want ${}", age, ONE_MIL);
+    let is_true: bool = true;
+    println!("{}", is_true);
+
+    let my_grade = 'A';
+
+    let num_1: f32 = 1.111111111111111111;
+    println!("f32: {}", num_1 + 0.111111111111111111);
+    let num_2: f64 = 1.111111111111111111;
+    println!("f64: {}", num_2 + 0.111111111111111111);
+
+    let mut num_3: u32 = 5;
+    let num_4: u32 = 4;
+    println!("{} + {} = {}", num_3, num_4, num_3 + num_4);
+    println!("{} - {} = {}", num_3, num_4, num_3 - num_4);
+    println!("{} * {} = {}", num_3, num_4, num_3 * num_4);
+    println!("{} / {} = {}", num_3, num_4, num_3 / num_4);
 }
