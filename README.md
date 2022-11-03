@@ -134,6 +134,10 @@ struct App<'a> {
 1. Booleans (bool)
 1. Characters (char). Note these can represent unicode scalar values (i.e. beyond ASCII)
 
+> `usize`: the size is dependent on the kind of computer your program is running on: 32 bits if you’re on a 32-bit architecture and 64 bits if you’re on a 64-bit architecture.
+
+---
+
 #### Print
 
 - 1. formatting variables inside `println` function
@@ -156,7 +160,11 @@ let bob = "Bob";
 println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 ```
 
-#### Variables
+---
+
+#### Attributes
+
+- `#[allow(unused)]` - to ignore the warning for unused variable
 
 ## Miscellaneous
 
