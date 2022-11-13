@@ -176,6 +176,10 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
   - For dynamic allocation of memory for variables.
   - When there is a lot of data that we need to transfer ownership and we don’t want that they are copied.
 
+#### Conditional
+
+In Rust, `match` is used more often than `if-else`.
+
 ## Miscellaneous
 
 Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html)
