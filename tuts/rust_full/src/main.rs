@@ -17,11 +17,6 @@ fn main() {
         .expect("Please enter a valid age");
 
     let age: u8 = age.trim().parse().expect("Please enter a valid age");
-    if (age >= 1) && (age <= 18) {
-        println!("Imp. birthdays");
-    } else if (age == 21) && (age == 50) {
-        println!("Imp. birthday");
-    } else {
-        println!("Non imp. bday");
-    }
+    let is_adult = if (age > 18) { true } else { false };
+    println!("Is adult: {}", is_adult);
 }
