@@ -32,6 +32,6 @@ fn main() {
     match age.cmp(&voting_age) {
         Ordering::Less => println!("Can't vote"),
         Ordering::Greater => println!("Can vote"),
-        Ordering::Equal => println!("Can vote"),
+        Ordering::Equal => println!("You gained the right to vote"),
     }
 }
