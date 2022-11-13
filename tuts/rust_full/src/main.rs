@@ -10,18 +10,18 @@ use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 #[allow(unused)]
 fn main() {
-    let random_num = rand::thread_rng().gen_range(1..101);
-    println!("Guess the number!");
-    let mut guess_num = String::new();
+    println!("Enter your age:");
+    let mut age: String = String::new();
     io::stdin()
-        .read_line(&mut guess_num)
-        .expect("Failed to read line");
+        .read_line(&mut age)
+        .expect("Please enter a valid age");
 
-    let guess_num: u32 = guess_num.trim().parse().expect("Please type a number!");
-    if guess_num == random_num {
-        println!("You win!");
+    let age: u8 = age.trim().parse().expect("Please enter a valid age");
+    if (age >= 1) && (age <= 18) {
+        println!("Imp. birthdays");
+    } else if (age == 21) && (age == 50) {
+        println!("Imp. birthday");
     } else {
-        println!("You lose!");
-        println!("The secret number is: {}", random_num);
+        println!("Non imp. bday");
     }
 }
