@@ -10,28 +10,38 @@ use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 #[allow(unused)]
 fn main() {
-    println!("Enter your age:");
-    let mut age: String = String::new();
-    io::stdin()
-        .read_line(&mut age)
-        .expect("Please enter a valid age");
+    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    println!("1st element: {}", arr1[0]);
+    println!("length: {}", arr1.len());
+    println!("last element: {:?}", arr1.last().expect("empty array"));
 
-    let age: u8 = age.trim().parse().expect("Please enter a valid age");
+    // v1: loop using `for`
+    for i in arr1 {
+        println!("{}", i);
+    }
 
-    //v1
-    // Here, the simple match pattern is used
-    let can_vote = match age {
-        1..=17 => false,
-        _ => true,
-    };
-    println!("Can vote: {}", can_vote);
+    let mut loop_idx = 0;
 
-    // v2
-    // Here, the Ordering built-in is used
-    let voting_age = 18;
-    match age.cmp(&voting_age) {
-        Ordering::Less => println!("Can't vote"),
-        Ordering::Greater => println!("Can vote"),
-        Ordering::Equal => println!("You gained the right to vote"),
+    println!("\n===");
+    // v2: loop using `loop`
+    loop {
+        if (arr1[loop_idx] % 2 == 0) {
+            loop_idx += 1;
+            continue;
+        }
+
+        if (arr1[loop_idx] == 9) {
+            break;
+        }
+        println!("{}th element: {}", loop_idx, arr1[loop_idx]);
+        loop_idx += 1;
+    }
+
+    // v3: loop using `while`
+    println!("\n===");
+    let mut loop_idx_2 = 0;
+    while loop_idx_2 < arr1.len() {
+        println!("{}", arr1[loop_idx_2]);
+        loop_idx_2 += 1;
     }
 }
