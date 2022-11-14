@@ -14,9 +14,56 @@ Rust programming language
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-- Update using `$ rustup update`
+Following commands get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
+
+```console
+This will download and install the official compiler for the Rust
+programming language, and its package manager, Cargo.
+
+Rustup metadata and toolchains will be installed into the Rustup
+home directory, located at:
+
+  /Users/abhi3700/.rustup
+
+This can be modified with the RUSTUP_HOME environment variable.
+
+The Cargo home directory located at:
+
+  /Users/abhi3700/.cargo
+
+This can be modified with the CARGO_HOME environment variable.
+
+The cargo, rustc, rustup and other commands will be added to
+Cargo's bin directory, located at:
+
+  /Users/abhi3700/.cargo/bin
+
+This path will then be added to your PATH environment variable by
+modifying the profile files located at:
+
+  /Users/abhi3700/.profile
+  /Users/abhi3700/.zshenv
+
+You can uninstall at any time with rustup self uninstall and
+these changes will be reverted.
+```
+
+- Update using `$ rustup update` [RECOMMENDED]
+- Update to stable version: `$ rustup update stable`
 - Uninstall using `$ rustup self uninstall`
 - After `cargo` installation, install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+
+---
+
+> NOTE: If there is any error related to `linker` with C, follow this:
+
+> You will also need a linker, which is a program that Rust uses to join its compiled outputs into one file. It is likely you already have one. If you get linker errors, you should install a C compiler, which will typically include a linker. A C compiler is also useful because some common Rust packages depend on C code and will need a C compiler.
+
+> On macOS, you can get a C compiler by running:
+
+```console
+xcode-select --install
+```
 
 ## Commands
 
