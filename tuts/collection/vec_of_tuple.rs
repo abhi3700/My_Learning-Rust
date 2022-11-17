@@ -8,8 +8,13 @@ pub fn run() {
 
     println!("{:?}", &v1);
 
+    // looping over tuples
+    for (a, b) in &v1 {
+        println!("{}, {}", a, b);
+    }
+
     // read item
-    println!("{}", &v1[0].0);
+    println!("==\nread item: {}", &v1[0].0);
 
     // update & display
     v1[0].0 = "abhi";
