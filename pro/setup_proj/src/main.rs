@@ -1,3 +1,10 @@
+/*
+Rust automagically looks for it inside the file, if doesn't find it,
+looks for a file with the module name in the same folder (in this case src/)
+and if still doesn't find it looks for a folder with the module name and a file mod.rs inside,
+there it looks for the code.
+*/
+
 mod something;
 
 use crate::something::*;
