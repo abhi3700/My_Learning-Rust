@@ -7,7 +7,8 @@ there it looks for the code.
 
 mod something;
 
-use crate::something::*;
+use crate::something::a::*;
+use crate::something::b::*;
 
 fn main() {
     let first = A { a: 67 };
