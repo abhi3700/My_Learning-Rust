@@ -5,7 +5,7 @@ and if still doesn't find it looks for a folder with the module name and a file 
 there it looks for the code.
 */
 
-mod something;
+pub mod something;
 
 use crate::something::a::*;
 use crate::something::b::*;
