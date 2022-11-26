@@ -256,6 +256,8 @@ use crate::something::b::*;
 #### Trait
 
 - A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
+- "Indeed, traits are more like interfaces than classes. You don't store "fields" or "data" in a trait, you describe functionality in it. You would put your data in another type declaration, like a struct or an enum. Then you would externally implement your trait for that struct or enum, etc. In order to achieve a true object-oriented style, you'll need to use traits and you want to compose them in a way that allows them to be used as "trait objects". This means that each fn in the trait needs to have &self of &mut self, basically "getters" and "setters" for your "object"."
+
 - `&self` - used as getter
 - `&mut self` - used as setter
 
