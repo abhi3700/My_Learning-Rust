@@ -230,6 +230,40 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 In Rust, `match` is used more often than `if-else`.
 
+#### Modules
+
+- any folder can have a `mod.rs` which is going to be like `index.js` in JS.
+- tree structure is as follows:
+
+```bash
+src/
+├── main.rs
+└── something
+    ├── a.rs
+    ├── b.rs
+    └── mod.rs
+```
+
+When `Rust` check for `something.rs` and doesn't find it will check for the folder `something/` and then inside look for a file named `mod.rs`.
+
+We can call `a` like this in the `main.rs`:
+
+```rs
+use crate::something::a::*;
+use crate::something::b::*;
+```
+
+#### Trait
+
+- A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
+- `&self` - used as getter
+- `&mut self` - used as setter
+
+#### lib or bin
+
+- `$ cargo init --lib <name>` creates a lib
+- `$ cargo init <name>` creates a package
+
 ## Miscellaneous
 
 Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html)

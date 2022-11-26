@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/collection/vec_of_tuple.rs"]
-mod vec_of_tuple;
+#[path = "../tuts/traits/traits_0.rs"]
+mod traits_0;
 
 fn main() {
-    vec_of_tuple::run();
+    traits_0::run();
 }
