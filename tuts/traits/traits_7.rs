@@ -3,7 +3,7 @@
     The meal is prepared based on the fav. food habits of each player.
 */
 
-// ======FOOD=======================
+// ======FOOD w fav fruit, veggies=======================
 #[derive(Debug)]
 struct Food {
     fruits: Vec<String>,
@@ -55,11 +55,15 @@ impl Person {
         }
     }
 
-    fn change_fav_food(&mut self, food: Food) {
+    fn replace_fav_food(&mut self, food: Food) {
         self.fav_food = Food {
             fruits: food.fruits,
             veggies: food.veggies,
         };
+    }
+
+    fn update_age(&mut self, age: u8) {
+        self.age = age;
     }
 }
 
@@ -71,9 +75,8 @@ struct team {
 }
 
 impl team {
-    fn new(id: u8, name: String) -> team {
+    fn new(name: String) -> team {
         team {
-            id,
             name,
             players: vec![],
         }
@@ -83,15 +86,15 @@ impl team {
         self.players.push(player);
     }
 
-    fn remove_player(&mut self, player: Person) {
-        self.players.retain(|x| x.name.ne(&player.name));
+    fn remove_player(&mut self, name: String) {
+        self.players.retain(|x| x.name.ne(&name));
     }
 }
 
 // main
 pub fn run() {
     // create a team
-    let mut t1 = team::new(1, "India".to_string());
+    let mut t1 = team::new("India".to_string());
 
     // add players with fav food into the team
     t1.add_player(Person::new(
@@ -206,4 +209,63 @@ pub fn run() {
             ],
         ),
     ));
+
+    // print the team
+    println!("{:?}", t1);
+
+    // remove a player
+    t1.remove_player("Pant".to_string());
+
+    println!("===\nAfter removal, the team is: {:?}", t1);
+
+    // add a fav fruit to "Dhoni" in the team due to his good performance
+    t1.players
+        .iter_mut()
+        .find(|x| x.name.eq("Dhoni"))
+        .unwrap()
+        .fav_food
+        .add_fruit("banana".to_string());
+
+    // remove a fav fruit from "Virat" in the team due to his allergy
+    t1.players
+        .iter_mut()
+        .find(|x| x.name.eq("Virat"))
+        .unwrap()
+        .fav_food
+        .remove_fav_fruit("lichu".to_string());
+
+    // replace the fav food of "Jadeja" in the team due to his change in diet
+    t1.players
+        .iter_mut()
+        .find(|x| x.name.eq("Jadeja"))
+        .unwrap()
+        .replace_fav_food(Food::new(
+            vec![
+                "pomegranate".to_string(),
+                "grapes".to_string(),
+                "avocado".to_string(),
+            ],
+            vec![
+                "carrot".to_string(),
+                "potato".to_string(),
+                "lauki".to_string(),
+            ],
+        ));
+
+    // update age of "Bumrah" in the team due to his birthday
+    t1.players
+        .iter_mut()
+        .find(|x| x.name.eq("Bumrah"))
+        .unwrap()
+        .update_age(31);
+}
+
+// TODO: write test
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        assert_eq!(1, 1);
+    }
 }
