@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/traits/traits_7.rs"]
-mod traits_7;
+#[path = "../tuts/type_of/type_of1.rs"]
+mod type_of1;
 
 fn main() {
-    traits_7::run();
+    type_of1::run();
 }
