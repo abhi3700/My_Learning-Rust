@@ -260,6 +260,15 @@ use crate::something::b::*;
 
 - `&self` - used as getter
 - `&mut self` - used as setter
+- implement multiple traits for a struct using `#[derive(Debug, Clone, ....)]`:
+
+  ```rs
+  #[derive(Debug, Clone, Copy, Eq, PartialEq)]
+  struct Person {
+      name: String,
+      age: u8,
+  }
+  ```
 
 #### lib or bin
 
