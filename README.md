@@ -260,6 +260,7 @@ use crate::something::b::*;
 
 - `&self` - used as getter
 - `&mut self` - used as setter
+- return self like this - `fn build(&self) -> Self`
 - implement multiple traits for a struct using `#[derive(Debug, Clone, ....)]`:
 
   ```rs
@@ -269,6 +270,44 @@ use crate::something::b::*;
       age: u8,
   }
   ```
+
+- trait can be defined implemented for `enum`, `struct`, etc. Anything which contains data (const, variable). `enum` contains `const` data and `struct` contains `variable` data.
+
+  ```rs
+  enum TrafficLight {
+      Red,
+      Yellow,
+      Green,
+  }
+  impl TrafficLight {
+      fn duration(&self) -> u8 {
+          match self {
+              TrafficLight::Red => 30,
+              TrafficLight::Yellow => 10,
+              TrafficLight::Green => 60,
+              _ => 0,
+          }
+      }
+  }
+  ```
+
+  ```rs
+  struct TrafficLight {
+      color: String,
+  }
+  impl TrafficLight {
+      fn duration(&self) -> u8 {
+          match self.color.as_str() {
+              "Red" => 30,
+              "Yellow" => 10,
+              "Green" => 60,
+              _ => 0,
+          }
+      }
+  }
+  ```
+
+  The eg above shows how the single trait is used for both `struct` & `enum` data type in Rust.
 
 #### lib or bin
 
