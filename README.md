@@ -48,10 +48,25 @@ You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
 ```
 
-- Update using `$ rustup update` [RECOMMENDED]
+- **Update** using `$ rustup update` [RECOMMENDED]
 - Update to stable version: `$ rustup update stable`
-- Uninstall using `$ rustup self uninstall`
+- View installed version via `$ rustup show`
+- Check latest version via `$ rustup check`
+- install a **specific version** via `$ rustup install 1.64.0` or `$ rustup install 1.64.0-aarch64-apple-darwin`
+- set a specific version via `$ rustup default 1.64.0` or `$ rustup override set 1.64.0`
+- **Uninstall** using `$ rustup self uninstall`
+- **lib**:
+  - Show all available lib using `$ rustup component list`
+  - Show all installed lib using `$ rustup component list --installed`
+  - Install rust std lib using `$ rustup component add rust-src`
+- **target**:
+  - Show all available target using `$ rustup target list`
+  - show all installed target using `$ rustup target list --installed`
+  - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
+    > Here, `unknown` means that it is for any OS.
 - After `cargo` installation, install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+
+> Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
 
 ---
 
@@ -64,13 +79,6 @@ these changes will be reverted.
 ```console
 xcode-select --install
 ```
-
-## Commands
-
-- View installed version via `$ rustup show`
-- Check latest version via `$ rustup check`
-
-> Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
 
 ## Repositories
 
