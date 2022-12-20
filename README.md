@@ -14,7 +14,15 @@ Rust programming language
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-Following commands get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
+Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
+
+> **Different release channels**
+>
+> - stable
+> - beta
+> - nightly
+>
+> `rustup` is for managing different rust toolchain versions for different targets/architectures (arm, x86, etc.)
 
 ```console
 This will download and install the official compiler for the Rust
@@ -88,13 +96,15 @@ xcode-select --install
 
 ### Code
 
-```rs
+```rust
 fn main() {
     println!("Hello World!");
 }
 ```
 
 ### Compile
+
+`cargo` can also be used for compiling the code.
 
 ```console
 $ rustc hello.rs
