@@ -18,9 +18,9 @@ Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
 
 > **Different release channels**
 >
-> - stable
-> - beta
-> - nightly
+> - stable: stable, but has a 6-week stabilization period
+> - beta: unstable, but has a 6-week stabilization period
+> - nightly: unstable, but has the latest features
 >
 > `rustup` is for managing different rust toolchain versions for different targets/architectures (arm, x86, etc.)
 
@@ -527,3 +527,4 @@ res.push(i as i32);
 - [References in Rust by thoughtram](https://blog.thoughtram.io/references-in-rust/)
 - [Iterators in Rust by thoughtram](https://blog.thoughtram.io/iterators-in-rust/)
 - [Lifetimes in Rust by thoughram](https://blog.thoughtram.io/lifetimes-in-rust/)
+- [Creating a Rust Web App with Rocket and Diesel](https://itnext.io/creating-a-rust-web-app-with-rocket-and-diesel-58f5f6cacd27)
