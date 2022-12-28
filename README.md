@@ -92,6 +92,8 @@ xcode-select --install
 
 - [calamine](https://github.com/tafia/calamine)
 
+## [C++ vs Rust](./cpp_vs_rust.md)
+
 ## Getting Started
 
 ### Code
@@ -327,10 +329,20 @@ use crate::something::b::*;
 
   The eg above shows how the single trait is used for both `struct` & `enum` data type in Rust.
 
+#### Generics
+
+Generics are a way to reduce the need to write repetitive code and instead delegate this task to the compiler while also making the code more flexible. Many languages support some way to do this, even though they might call it something different.
+
+Using generics, we can write code that can be used with multiple data types without having to rewrite the same code for each data type, making life easier and coding less error-prone.
+
 #### lib or bin
 
 - `$ cargo init --lib <name>` creates a lib
 - `$ cargo init <name>` creates a package
+
+#### Move | Copy | Clone
+
+Refer [this](./tuts/move_copy_clone)
 
 ## Miscellaneous
 
@@ -373,6 +385,14 @@ format!("{} World!", s1)
   1. **Rocket** (good docs) [Familiar]
   2. **Actix_web** (under development) [Recommended]
      > `2` is much faster than `1` in terms of performance. Infact, it is closer to [`drogon-core (in C++)`](https://github.com/drogonframework/drogon)
+
+### Blockchain
+
+### AI | ML | DL
+
+### Embedded Systems
+
+### Data Science
 
 ## Troubleshoot
 
@@ -523,6 +543,8 @@ res.push(i as i32);
 - [Learn Rust by Practical Projects](https://www.youtube.com/watch?v=LPzx2Fzd7Vs&list=PLK_g1a_cAfaZDdybJzwI1m7AVl4tSo87Z)
 - [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
 - [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
+- [Hashrust Blogs](https://hashrust.com/blog/)
+- [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
 
 ### Blogs
 
@@ -537,3 +559,4 @@ res.push(i as i32);
 - [Iterators in Rust by thoughtram](https://blog.thoughtram.io/iterators-in-rust/)
 - [Lifetimes in Rust by thoughram](https://blog.thoughtram.io/lifetimes-in-rust/)
 - [Creating a Rust Web App with Rocket and Diesel](https://itnext.io/creating-a-rust-web-app-with-rocket-and-diesel-58f5f6cacd27)
+- [Understanding Rust generics and how to use them](https://blog.logrocket.com/understanding-rust-generics/)

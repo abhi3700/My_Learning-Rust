@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/string/str_6.rs"]
-mod str_6;
+#[path = "../tuts/generics/generics_1.rs"]
+mod generics_1;
 
 fn main() {
-    str_6::run();
+    generics_1::run();
 }
