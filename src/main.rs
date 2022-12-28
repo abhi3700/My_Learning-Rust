@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/generics/generics_1.rs"]
-mod generics_1;
+#[path = "../tuts/pointer/array_addr.rs"]
+mod array_addr;
 
 fn main() {
-    generics_1::run();
+    array_addr::main();
 }

@@ -1,6 +1,6 @@
-/* 
+/*
     - Vector: Resizeable arrays
-    Try vector with: 
+    Try vector with:
     1. for-range
     2. iterator
 */
@@ -31,7 +31,7 @@ fn main() {
     // If this line doesn't exist, then it throws error like 'can't be used' as already used before in `for-range`
     let names: Vec<&str> = vec!["Abhi", "Sam", "McLaren", "Gary"];
     let mut iterator = (&names).into_iter();
-    
+
     while let Some(name) = iterator.next() {
         println!("{}", name);
     }
@@ -41,10 +41,10 @@ fn main() {
     }
 
     //--------------------------------------------------------------
-    println!("{}", names.len());
+    println!("length: {}", names.len()); // number of elements in the vector i.e. <= capacity
+    println!("capacity: {}", names.capacity()); // memory allocated for the vector without resizing i.e. >= length
     println!("Vector occupies: {} bytes", std::mem::size_of_val(&names));
 
     let slice = &names[1..3];
     println!("Slice: {:?}", slice);
-
 }

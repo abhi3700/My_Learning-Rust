@@ -133,7 +133,7 @@ Put the code inside a file & link into `./src/main.rs`
 
 > <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
 
-> - Stack (fixed size like char, bool, int; less costly; quick to access by calling var like easy to copy the var) | Heap (variable size like string, list, class; more costly; access var or object via pointer)
+> - **Stack** (fixed size like char, bool, int, array; less costly; quick to access by calling var like easy to copy the var) | **Heap** (variable size like string, vector, class; more costly; access var or object via pointer)
 
 - By default, all the variables are defined as `immutable` equivalent to `const` in JS/TS.
 - In Rust, borrowing is analogous to referencing in C++ & dereferencing is same as that of C++.
@@ -195,9 +195,7 @@ struct App<'a> {
 | Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
 | E.g. "./tuts/error_handling/opt"                                                                                                                                                        | E.g. "./tuts/error_handling/res"                                                                                                   |
 
-### Basics
-
-#### Primitive types and Variables
+### Primitive types and Variables
 
 1. Various sizes of integers, signed and unsigned (i32, u8, etc.)
 1. Floating point types f32 and f64.
@@ -208,7 +206,7 @@ struct App<'a> {
 
 ---
 
-#### Print
+### Print
 
 - 1. formatting variables inside `println` function
 
@@ -232,11 +230,11 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 ---
 
-#### Attributes
+### Attributes
 
 - `#[allow(unused)]` - to ignore the warning for unused variable
 
-#### Pointer
+### Pointer
 
 - `Box<T>` - A pointer type for heap allocation
 
@@ -246,11 +244,22 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
   - For dynamic allocation of memory for variables.
   - When there is a lot of data that we need to transfer ownership and we don’t want that they are copied.
 
-#### Conditional
+### Array
+
+- Arrays are fixed length. They are stored in stack.
+- E.g.
+
+  ```rs
+  let array: [i32; 4] = [42, 10, 5, 2];
+  ```
+
+  ![](img/array.png)
+
+### Conditional
 
 In Rust, `match` is used more often than `if-else`.
 
-#### Modules
+### Modules
 
 - any folder can have a `mod.rs` which is going to be like `index.js` in JS.
 - tree structure is as follows:
@@ -273,7 +282,7 @@ use crate::something::a::*;
 use crate::something::b::*;
 ```
 
-#### Trait
+### Trait
 
 - A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
 - "Indeed, traits are more like interfaces than classes. You don't store "fields" or "data" in a trait, you describe functionality in it. You would put your data in another type declaration, like a struct or an enum. Then you would externally implement your trait for that struct or enum, etc. In order to achieve a true object-oriented style, you'll need to use traits and you want to compose them in a way that allows them to be used as "trait objects". This means that each fn in the trait needs to have &self of &mut self, basically "getters" and "setters" for your "object"."
@@ -329,18 +338,18 @@ use crate::something::b::*;
 
   The eg above shows how the single trait is used for both `struct` & `enum` data type in Rust.
 
-#### Generics
+### Generics
 
 Generics are a way to reduce the need to write repetitive code and instead delegate this task to the compiler while also making the code more flexible. Many languages support some way to do this, even though they might call it something different.
 
 Using generics, we can write code that can be used with multiple data types without having to rewrite the same code for each data type, making life easier and coding less error-prone.
 
-#### lib or bin
+### lib or bin
 
 - `$ cargo init --lib <name>` creates a lib
 - `$ cargo init <name>` creates a package
 
-#### Move | Copy | Clone
+### Move | Copy | Clone
 
 Refer [this](./tuts/move_copy_clone)
 

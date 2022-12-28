@@ -44,7 +44,9 @@ fn main() {
 }
 ```
 
-> It throws different values in C++. In Rust, the size of the array is always the size of the array.
+> Rust's strictness also prevents problems like array to pointer decay in C/C++. In C++, the **size of the array** is the **size of the pointer**, not the **size of the array**. This is because the array decays to a pointer when passed to a function. In Rust, the **size of the array** is always the **size of the array**.
+>
+> Hence, It throws different values in C++. In Rust, the **size of the array** is always the **size of the array**.
 
 ## 2. Get element at index of array
 
@@ -79,4 +81,4 @@ It throws an error in Rust. In C++, it is undefined behaviour. So, hence Rust is
 
 ## Conclusion
 
-- Rust is a safer language than C++.
+- Rust is a **safer** language than C++.
