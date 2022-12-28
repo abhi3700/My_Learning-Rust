@@ -365,6 +365,15 @@ format!("{} World!", s1)
 - Check behind-the-code for a code snippet - https://play.rust-lang.org/
   - Tools >> Expand Macros
 
+## Fields
+
+### Application Development
+
+- Best 2:
+  1. **Rocket** (good docs) [Familiar]
+  2. **Actix_web** (under development) [Recommended]
+     > `2` is much faster than `1` in terms of performance. Infact, it is closer to [`drogon-core (in C++)`](https://github.com/drogonframework/drogon)
+
 ## Troubleshoot
 
 ### 1. warning: path statement with no effect
