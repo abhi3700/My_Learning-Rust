@@ -11,7 +11,7 @@ fn add<T: Add<Output = T>>(x: T, y: T) -> T {
     x + y
 }
 
-pub fn run() {
+pub fn main() {
     let a = 2.0;
     let b = 4.0;
 

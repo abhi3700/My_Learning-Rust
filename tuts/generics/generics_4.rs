@@ -1,4 +1,4 @@
-/* 
+/*
     Apply generics over Enum
 */
 
@@ -9,9 +9,7 @@ enum Option<T> {
 
 enum Result<T, E> {
     Ok(T),
-    Err(E)
+    Err(E),
 }
 
-pub fn run() {
-
-}
+pub fn main() {}

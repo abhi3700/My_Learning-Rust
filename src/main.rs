@@ -3,9 +3,9 @@
     - Also, the Rust-Analyzer gets activated & gives red flags at errors w/o compiling.
 */
 
-#[path = "../tuts/pointer/array_addr.rs"]
-mod array_addr;
+#[path = "../tuts/traits/traits_8.rs"]
+mod traits_8;
 
 fn main() {
-    array_addr::main();
+    traits_8::main();
 }

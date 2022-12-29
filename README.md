@@ -317,6 +317,16 @@ use crate::something::b::*;
 ### Trait
 
 - A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
+- A trait is a common interface that a group of types can implement. The Rust standard library has many useful traits, such as:
+
+  - `io::Read` for values that can read bytes from a source.
+  - `io::Write` for values that can write out bytes.
+  - `Debug` for values that can be printed in the console using the "{:?}" format specifier.
+  - `Clone` for values that can be explicitly duplicated in memory.
+  - `ToString` for values that can be converted to a String.
+  - `Default` for types that have a sensible default value, like zero for numbers, empty for vectors, and “” for String.
+  - `Iterator` for types that can produce a sequence of values.
+
 - "Indeed, traits are more like interfaces than classes. You don't store "fields" or "data" in a trait, you describe functionality in it. You would put your data in another type declaration, like a struct or an enum. Then you would externally implement your trait for that struct or enum, etc. In order to achieve a true object-oriented style, you'll need to use traits and you want to compose them in a way that allows them to be used as "trait objects". This means that each fn in the trait needs to have &self of &mut self, basically "getters" and "setters" for your "object"."
 
 - `&self` - used as getter
