@@ -1,4 +1,4 @@
-/* 
+/*
     Implement operator overloading for struct
 */
 
@@ -14,9 +14,9 @@ impl Add for Point {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
-        Self{
+        Self {
             x: self.x + rhs.x,
-            y: self.y + rhs.y 
+            y: self.y + rhs.y,
         }
     }
 }
@@ -27,15 +27,14 @@ impl Sub for Point {
     fn sub(self, rhs: Self) -> Self::Output {
         Self {
             x: self.x - rhs.x,
-            y: self.y - rhs.y
+            y: self.y - rhs.y,
         }
     }
 }
 
-pub fn run() {
+pub fn main() {
     assert_eq!(
-        Point{x: 4.0, y: 5.0}, 
-        Point{x: 2.0, y: 2.0} + Point{x: 2.0, y: 3.0}
+        Point { x: 4.0, y: 5.0 },
+        Point { x: 2.0, y: 2.0 } + Point { x: 2.0, y: 3.0 }
     );
-
 }
