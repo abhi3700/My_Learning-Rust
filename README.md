@@ -622,6 +622,7 @@ res.push(i as i32);
   - [Part 4: Cargo Package Manager](https://www.mmhaskell.com/rust/cargo)
   - [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
 - [Learn Rust Documentation](https://learning-rust.github.io/)
+- [Rust by Practice](https://practice.rs/why-exercise.html)
 - [Rustlings](https://github.com/rust-lang/rustlings)
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
 - [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
