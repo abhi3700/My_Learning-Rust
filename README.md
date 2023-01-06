@@ -281,6 +281,7 @@ fn main() {
 
 ### Lifetimes
 
+- Lifetimes are another kind of generic that we’ve already been using. Rather than ensuring that a type has the behavior we want, lifetimes ensure that references are valid as long as we need them to be. [source](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html#preventing-dangling-references-with-lifetimes)
 - Rust doesn't allow _dangling pointer_ by design. This means that any variable, struct, enum, etc can't live more than the lifetime of the referenced type
 
 ```rs
@@ -626,9 +627,6 @@ res.push(i as i32);
 - [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 - [Rust for C++ programmers](https://github.com/nrc/r4cppp)
 - [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
-- [Learn Rust by Practical Projects](https://www.youtube.com/watch?v=LPzx2Fzd7Vs&list=PLK_g1a_cAfaZDdybJzwI1m7AVl4tSo87Z)
-- [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
-- [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
 - [Hashrust Blogs](https://hashrust.com/blog/)
 - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
 
@@ -646,3 +644,10 @@ res.push(i as i32);
 - [Lifetimes in Rust by thoughram](https://blog.thoughtram.io/lifetimes-in-rust/)
 - [Creating a Rust Web App with Rocket and Diesel](https://itnext.io/creating-a-rust-web-app-with-rocket-and-diesel-58f5f6cacd27)
 - [Understanding Rust generics and how to use them](https://blog.logrocket.com/understanding-rust-generics/)
+- [Understanding lifetimes in Rust](https://blog.logrocket.com/understanding-lifetimes-in-rust/)
+
+### Videos
+
+- [Learn Rust by Practical Projects](https://www.youtube.com/watch?v=LPzx2Fzd7Vs&list=PLK_g1a_cAfaZDdybJzwI1m7AVl4tSo87Z)
+- [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
+- [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)

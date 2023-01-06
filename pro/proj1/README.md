@@ -1,10 +1,13 @@
 # `proj1`
 
 ## Build
-* `$ cargo build`
+
+- `$ cargo build`
 
 ## Run
-* `$ cargo run`
+
+- `$ cargo run`
 
 ## Test
-* `$ cargo test`
+
+- `$ cargo test`
