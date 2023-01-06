@@ -3,7 +3,11 @@
 
 trait Speak {
     fn say_hello(&self) -> String {
-        "Hello!".to_string()
+        "Hello".to_string()
+    }
+
+    fn celebrate_bday(&self) -> String {
+        "Happy B'day".to_string()
     }
 }
 
@@ -19,11 +23,15 @@ trait Speak {
 
 // more production way of using trait bounds
 // M-3
-fn greeting<T>(p: T, person_name: String)
+fn greeting<T>(p: T, age: i32, person_name: String)
 where
     T: Speak,
 {
-    println!("{} {}", p.say_hello(), person_name);
+    if age == 18 {
+        println!("{} {}!", p.celebrate_bday(), person_name);
+    } else {
+        println!("{} {}!", p.say_hello(), person_name);
+    }
 }
 
 struct Person {}
@@ -33,5 +41,5 @@ impl Speak for Person {}
 // main
 pub fn main() {
     let p = Person {};
-    greeting(p, "Abhi".to_string());
+    greeting(p, 19, "Alice".to_string());
 }

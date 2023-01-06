@@ -106,10 +106,14 @@ fn main() {
 
 ### Compile
 
-`cargo` can also be used for compiling the code.
+`cargo` can also be used for compiling a project like `node` in NodeJS project.
 
-```console
+```sh
 $ rustc hello.rs
+```
+
+```sh
+$ cargo build
 ```
 
 ### Output
@@ -120,80 +124,16 @@ $ ./hello
 
 ## Practice
 
-Put the code inside a file & link into `./src/main.rs`
+Put the code inside a `.rs` file & link into [`./src/main.rs`](./src/main.rs) using `#[path= "path/to/file"]` macro.
 
 ## Concepts
 
-- `..` used for range like `1..4` i.e. 1, 2, 3. But, if `1..=4` i.e. 1, 2, 3, 4
-- There are different types of struct
-  - normal struct: with parameters
-  - unit struct: without parameters
-
 > “Ownership is Rust’s most unique feature, and it enables Rust to make memory safety guarantees without needing a garbage collector.”
-
-> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
-
-> - **Stack** (fixed size like char, bool, int, array; less costly; quick to access by calling var like easy to copy the var) | **Heap** (variable size like string, vector, class; more costly; access var or object via pointer)
 
 - By default, all the variables are defined as `immutable` equivalent to `const` in JS/TS.
 - In Rust, borrowing is analogous to referencing in C++ & dereferencing is same as that of C++.
 - The value of mutable variable can be changed, but not the type.
 - In Rust, every value has a single owner that determines its lifetime.
-- The memory of the declared variables are dropped (or freed) when the program leaves a block in which the variable is declared.
-  - E.g. Normally, inside the `main` function, whenever a variable is defined, it is dropped after exiting the `main` function.
-
-```rs
-fn main() {
-    // Case-1
-    let x = 10;
-    let r = &x;
-
-    let k;
-    {
-        let y = Box::new(5);            // Using Box pointer for storing into heap
-        let y = 5;              // stored in stack
-        // let y <'a> = 5;
-        // k = &y;         // y dropped here as it is not available for lifetime. Moreover the block is getting over after this
-        k = y;          // this implies that the ownership of 5 is transferred to `k` from `y`
-    }
-}
-```
-
-- Rust doesn't allow _dangling pointer_ by design. This means that any variable, struct, enum, etc can't live more than the lifetime of the referenced type
-
-```rs
-struct Config {
-
-}
-
-// INCORRECT ❌
-struct App {
-    config: &Config     // `Config` used as reference
-}
-
-// CORRECT ✅
-/// Here, it is used as lifetime ownership of the code.
-struct App<'a> {
-    config: &'a Config
-}
-```
-
-- `lifetimes` are a compile-time feature and don’t exist at runtime.
-- Rust memory safety is based on this rule: Given an object T, it is only possible to have one of the following:
-  - Having several immutable references (&T) to the object (also known as aliasing).
-  - Having one mutable reference (&mut T) to the object (also known as mutability).
-- Apply `#[derive(Debug)]` for making the struct, enum printable
-- Apply `#[derive(Clone)]` for making the struct, enum copyable.
-- `Option` vs `Result`
-
-| Option                                                                                                                                                                                  | Result                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Some or None                                                                                                                                                                            | Ok or Err                                                                                                                          |
-| An optional value can have either Some value or no value/ None.                                                                                                                         | A result can represent either success/ Ok or failure/ Err                                                                          |
-| The Option type is a way to use Rust’s type system to express the possibility of absence                                                                                                | Result expresses the possibility of error                                                                                          |
-| mainly used for var, function output. For struct, the parameters can have Option type. E.g. In full name, middle_name can be missing for cases, so define `middle_name: Option<String>` | mainly used for operation, function. As normally a variable won't have Err unless there is some calculation involved with this var |
-| Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
-| E.g. "./tuts/error_handling/opt"                                                                                                                                                        | E.g. "./tuts/error_handling/res"                                                                                                   |
 
 ### Primitive types and Variables
 
@@ -287,9 +227,93 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 > If you do not see a different address after pushing more elements onto a vector, it might be because the allocator had enough space at the end of the original buffer such that the new and the old buffers have the same starting address. Try pushing more elements and you will see a different address. Read about C library function `realloc` to understand how this might happen.
 
-### Conditional
+### Memory: stack, heap
 
-In Rust, `match` is used more often than `if-else`.
+> - **Stack** (fixed size like char, bool, int, array; less costly; quick to access by calling var like easy to copy the var)
+>
+> - **Heap** (variable size like string, vector, class; more costly; access var or object via pointer)
+
+- The memory of the declared variables are dropped (or freed) when the program leaves a block in which the variable is declared.
+  - E.g. Normally, inside the `main` function, whenever a variable is defined, it is dropped after exiting the `main` function.
+
+```rs
+fn main() {
+    // Case-1
+    let x = 10;
+    let r = &x;
+
+    let k;
+    {
+        let y = Box::new(5);            // Using Box pointer for storing into heap
+        let y = 5;              // stored in stack
+        // let y <'a> = 5;
+        // k = &y;         // y dropped here as it is not available for lifetime. Moreover the block is getting over after this
+        k = y;          // this implies that the ownership of 5 is transferred to `k` from `y`
+    }
+}
+```
+
+### Conditional, Loops
+
+- In Rust, `match` is used more often than `if-else`.
+- `..` used for range like `1..4` i.e. 1, 2, 3. But, if `1..=4` i.e. 1, 2, 3, 4
+
+### Borrowing & Ownership
+
+> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
+
+- Rust memory safety is based on this rule: Given an object T, it is only possible to have one of the following:
+
+  - Having several immutable references (&T) to the object (also known as aliasing).
+  - Having one mutable reference (&mut T) to the object (also known as mutability).
+
+  ```rs
+  // ✅
+  let x = 5;
+  let y = &x;
+  let z = &x
+
+  // ❌
+  let mut x = 5;
+  let y = &mut x;
+  let z = &mut x
+  ```
+
+### Lifetimes
+
+- Rust doesn't allow _dangling pointer_ by design. This means that any variable, struct, enum, etc can't live more than the lifetime of the referenced type
+
+```rs
+struct Config {
+
+}
+
+// INCORRECT ❌
+struct App {
+    config: &Config     // `Config` used as reference
+}
+
+// CORRECT ✅
+/// Here, it is used as lifetime ownership of the code.
+struct App<'a> {
+    config: &'a Config
+}
+```
+
+- `lifetimes` are a compile-time feature and don’t exist at runtime.
+
+### Option, Result
+
+- `Option` vs `Result`
+
+| Option                                                                                                                                                                                  | Result                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Some or None                                                                                                                                                                            | Ok or Err                                                                                                                          |
+| An optional value can have either Some value or no value/ None.                                                                                                                         | A result can represent either success/ Ok or failure/ Err                                                                          |
+| The Option type is a way to use Rust’s type system to express the possibility of absence                                                                                                | Result expresses the possibility of error                                                                                          |
+| mainly used for var, function output. For struct, the parameters can have Option type. E.g. In full name, middle_name can be missing for cases, so define `middle_name: Option<String>` | mainly used for operation, function. As normally a variable won't have Err unless there is some calculation involved with this var |
+| Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
+| E.g. "./tuts/error_handling/opt"                                                                                                                                                        | E.g. "./tuts/error_handling/res"                                                                                                   |
 
 ### Modules
 
@@ -313,6 +337,12 @@ We can call `a` like this in the `main.rs`:
 use crate::something::a::*;
 use crate::something::b::*;
 ```
+
+### Struct
+
+- There are different types of struct
+  - normal struct: with parameters
+  - unit struct: without parameters
 
 ### Trait
 
@@ -385,6 +415,11 @@ use crate::something::b::*;
 Generics are a way to reduce the need to write repetitive code and instead delegate this task to the compiler while also making the code more flexible. Many languages support some way to do this, even though they might call it something different.
 
 Using generics, we can write code that can be used with multiple data types without having to rewrite the same code for each data type, making life easier and coding less error-prone.
+
+### Macros
+
+- Apply `#[derive(Debug)]` for making the struct, enum printable
+- Apply `#[derive(Clone)]` for making the struct, enum copyable.
 
 ### lib or bin
 

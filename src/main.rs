@@ -4,9 +4,9 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/traits/traits_12b_bounds.rs"]
-mod traits_12b_bounds;
+#[path = "../tuts/lifetimes/lifetime_4b.rs"]
+mod lifetime_4b;
 
 fn main() {
-    traits_12b_bounds::main();
+    lifetime_4b::main();
 }
