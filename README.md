@@ -56,6 +56,9 @@ You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
 ```
 
+- set `stable` as default toolchain via `$ rustup default stable`
+- set `nightly` as default toolchain via `$ rustup default nightly`
+- set `nightly` as default toolchain for a specific project via `$ rustup override set nightly`
 - **Update** using `$ rustup update` [RECOMMENDED]
 - Update to stable version: `$ rustup update stable`
 - View installed version via `$ rustup show`
@@ -73,6 +76,8 @@ these changes will be reverted.
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
     > Here, `unknown` means that it is for any OS.
 - After `cargo` installation, install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+- build using `nightly` toolchain for a project via `$ cargo +nightly build`
+- build a releasable (optimized) version of a project via `$ cargo build --release`
 
 > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
 
