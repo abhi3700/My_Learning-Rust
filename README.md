@@ -635,6 +635,7 @@ res.push(i as i32);
 - [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
 - [Hashrust Blogs](https://hashrust.com/blog/)
 - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
+- [This week in Rust](https://this-week-in-rust.org/)
 
 ### Blogs
 
