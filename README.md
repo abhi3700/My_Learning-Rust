@@ -440,6 +440,12 @@ Refer [this](./tuts/move_copy_clone)
 
 Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html)
 
+Look for files with `_opt` suffix like this at the repo root:
+
+```sh
+❯ find . | grep _opt
+```
+
 ### Idioms
 
 #### Use Borrowed types for arguments
@@ -454,6 +460,8 @@ Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/
 
 [Reference](https://rust-unofficial.github.io/patterns/idioms/coercion-arguments.html)
 
+---
+
 #### Concatenate strings with format
 
 ```rs
@@ -463,6 +471,20 @@ format!("{} World!", s1)
 [Code](./pro/concat_str/)
 
 [Reference](https://rust-unofficial.github.io/patterns/idioms/concat-format.html)
+
+---
+
+#### Use `collect` wherever possible to create a collection
+
+```rs
+let s = "Abhijit is a good boy"; // collection of bytes like
+// [65, 98, 104, 105, 106, 105, 116, 32, 105, 115, 32, 97, 32, 103, 111, 111, 100, 32, 98, 111, 121]
+let v = s.bytes().collect::<Vec<u8>>(); // RECOMMENDED for iteration
+```
+
+[Code](./tuts/iterator/collect_4_opt.rs)
+
+[Reference](https://www.dotnetperls.com/collect-rust)
 
 ## Tools
 
@@ -628,7 +650,9 @@ res.push(i as i32);
   - [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
 - [Learn Rust Documentation](https://learning-rust.github.io/)
 - [Rust by Practice](https://practice.rs/why-exercise.html)
-- [Rustlings](https://github.com/rust-lang/rustlings)
+- [Rustlings | Play like a game to learn Rust](https://github.com/rust-lang/rustlings)
+  - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
+  - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
 - [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 - [Rust for C++ programmers](https://github.com/nrc/r4cppp)
@@ -636,6 +660,8 @@ res.push(i as i32);
 - [Hashrust Blogs](https://hashrust.com/blog/)
 - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
 - [This week in Rust](https://this-week-in-rust.org/)
+- **Courses**
+  - https://egghead.io/q/rust?q=rust
 
 ### Blogs
 
