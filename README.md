@@ -8,6 +8,8 @@ Rust programming language
 
 > Including VMs
 
+#### Compiler
+
 - Install
 
 ```console
@@ -93,6 +95,16 @@ these changes will be reverted.
 xcode-select --install
 ```
 
+#### Editor
+
+Use VSCode.
+
+Extensions:
+
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
+- 
+
 ## Repositories
 
 - [calamine](https://github.com/tafia/calamine)
@@ -155,18 +167,18 @@ Put the code inside a `.rs` file & link into [`./src/main.rs`](./src/main.rs) us
 
 - 1. formatting variables inside `println` function
 
-```
+```rs
 let name = "Abhijit";
 let age = 28;
 
-println!("My name is {name}, and age is {age}");					// ❌
-println!("My name is {0}, and age is {1}", name, age);		// ✔️
-println!("My name is {}, and age is {}", name, age);			// ✔️
+println!("My name is {name}, and age is {age}");        // ❌
+println!("My name is {0}, and age is {1}", name, age);  // ✔️
+println!("My name is {}, and age is {}", name, age);    // ✔️
 ```
 
 - 2. Multiple usage of variables without repetition
 
-```
+```rs
 let alice = "Alice";
 let bob = "Bob";
 
@@ -674,6 +686,8 @@ res.push(i as i32);
 
 ### Blogs
 
+- Series:
+  - [BecomBetterProgrammer](https://www.becomebetterprogrammer.com/rust/)
 - [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
 - [Understanding the Rust borrow checker](https://blog.logrocket.com/introducing-the-rust-borrow-checker/)
 - [No auto type deduction for function, but for local variable](https://stackoverflow.com/questions/24977365/differences-in-type-inference-for-closures-and-functions-in-rust)

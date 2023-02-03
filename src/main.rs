@@ -4,9 +4,11 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/ownership/reference_2.rs"]
-mod reference_2;
+use std::{clone, vec};
+
+#[path = "../tuts/move_copy_clone/clone_2.rs"]
+mod clone_2;
 
 fn main() {
-    reference_2::main();
+    clone_2::main();
 }
