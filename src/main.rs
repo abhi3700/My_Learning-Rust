@@ -4,8 +4,6 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-use std::{clone, vec};
-
 #[path = "../tuts/move_copy_clone/clone_2.rs"]
 mod clone_2;
 
