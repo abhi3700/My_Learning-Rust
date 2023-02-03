@@ -99,11 +99,15 @@ xcode-select --install
 
 Use VSCode.
 
-Extensions:
+**Extensions**:
+
+[Source](https://www.becomebetterprogrammer.com/rust-recommended-vscode-extensions/)
 
 - [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 - [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
-- 
+- [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) [OPTIONAL]
+- [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml)
+- [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
 
 ## Repositories
 
