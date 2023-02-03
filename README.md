@@ -486,6 +486,15 @@ let v = s.bytes().collect::<Vec<u8>>(); // RECOMMENDED for iteration
 
 [Reference](https://www.dotnetperls.com/collect-rust)
 
+#### Some macros implicitly always borrow. So, not need to use `&` explicitly
+
+```rs
+let x = 5;
+println!("x = {}", x);
+```
+
+[Reference](https://stackoverflow.com/a/30451360/6774636)
+
 ## Tools
 
 - Check behind-the-code for a code snippet - https://play.rust-lang.org/

@@ -1,65 +1,24 @@
 /*
-    Learning
+    Learning mutable reference via `&mut`
 */
 
-struct Person {
-    first_name: String,
-    last_name: String,
-    age: u8
-}
+pub fn main() {
+    let mut x = 3;
+    let r = &mut x;
+    *r = 5; // this assigns 5 to x using the reference
+            // x = 5; // this assigns 5 to x w/o using the reference
 
-pub fn run() {
-    // Case-1
-    // let p = Person{
-    //     first_name: "Abhijit".to_string(),
-    //     last_name: "Roy".to_string(),
-    //     age: 28
-    // };
+    // Case-1: Throws error, can't be used both to get printed at the same time.
+    // REASON: x is borrowed mutably & then borrowed immutably (implicitly done by println macro)
+    // Also, you can't use a variable 'x' & its reference at the same time via `println!`.
+    // println!("x: {}", x);
+    // println!("r is at: {}", &r);
 
-    // let r = &p;         // Ok
-    // r.age = 29;                 // Throws error: cannot assign to `r.age`, which is behind a `&` reference `r` is a `&` reference, so the data it refers to cannot be written
+    // Case-2: SUCCESS
+    println!("x: {}", x);
+    println!("x is at: {:p}", &x); // get its address -> 0x16f8ce0bc
 
-    //---------------------------------------------------
-    // Case-2
-    // let mut p = Person{
-    //     first_name: "Abhijit".to_string(),
-    //     last_name: "Roy".to_string(),
-    //     age: 28
-    // };
-
-    // let r = &mut p;         // for this, declare `p` as mut
-    // r.age = 29;
-
-
-    //---------------------------------------------------
-    // Case-3
-    // let p = Person{
-    //     first_name: "Abhijit".to_string(),
-    //     last_name: "Roy".to_string(),
-    //     age: 28
-    // };
-
-    // let r = &p;
-    // let r2 = &p;         // if p is mut, then multiple mutable references is not possible, as the p can change at any moment.
-    // let r3 = &p;    
-    // let r4 = &p;    
-    // let r5 = &p;    
-    // let r6 = &p;    
-    // let r7 = &p;    
-
-    //---------------------------------------------------
-    // Case-4
-    let p = Person{
-        first_name: "Abhijit".to_string(),
-        last_name: "Roy".to_string(),
-        age: 28
-    };
-
-    let r = &p;
-    let r2 = &r;
-    let r3 = &r2;    
-    let r4 = &r3;    
-    let r5 = &r4;    
-    let r6 = &r5;    
-    let r7 = &r6;    
+    // Case-3: SUCCESS
+    // println!("r: {}", r);
+    // println!("r is at: {:p}", &r); // get its address -> 0x16f58a0c0
 }

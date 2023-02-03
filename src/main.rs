@@ -4,9 +4,9 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/iterator/collect_4_opt.rs"]
-mod collect_4_opt;
+#[path = "../tuts/ownership/reference_2.rs"]
+mod reference_2;
 
 fn main() {
-    collect_4_opt::main();
+    reference_2::main();
 }
