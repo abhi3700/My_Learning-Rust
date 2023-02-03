@@ -25,7 +25,7 @@ To:
 
 ![](../../img/move_to.png)
 
-- Now, this is what happens in the memory when we try to access `v` after the assignment in this code:
+- Now, this is what happens in the memory when we try to access `v` after the assignment in this following code as it is stored in the **heap**:
 
   ```rs
   let v: Vec<i32> = vec![1, 2, 3];
@@ -39,8 +39,9 @@ To:
 
 ## Copy
 
-- It is implicitly implemented for all the primitive data types like `i32`, `f32`, `bool`, `char` etc.
-- In this code:
+- It is implicitly implemented for all the primitive data types like `i32`, `f32`, `bool`, `char` etc as these data types are stored in the **stack** rather than **heap**.
+
+- In this code (stack based):
 
   ```rs
   let v: i32 = 42;
@@ -51,6 +52,8 @@ To:
   The following happens at the memory level:
 
   ![](../../img/copy.png)
+
+  > That's why `v` is not moved as it is stored in the stack, not in the heap. That is why it is ok to allow access through both v and v1 — they are completely independent copies.
 
 - Without `clone`, it is not possible. As `Clone` is a super-trait of `Copy` used like this:
 

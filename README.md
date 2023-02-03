@@ -368,7 +368,7 @@ use crate::something::b::*;
 - `&self` - used as getter
 - `&mut self` - used as setter
 - return self like this - `fn build(&self) -> Self`
-- implement multiple traits for a struct using `#[derive(Debug, Clone, ....)]`:
+- implement multiple traits for a struct using `derive macro` like `#[derive(Debug, Clone, ....)]`:
 
   ```rs
   #[derive(Debug, Clone, Copy, Eq, PartialEq)]
