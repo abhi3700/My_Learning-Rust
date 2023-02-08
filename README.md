@@ -77,7 +77,11 @@ these changes will be reverted.
   - show all installed target using `$ rustup target list --installed`
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
     > Here, `unknown` means that it is for any OS.
-- After `cargo` installation, install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+- After `cargo` installation,
+  - add package locally into the repo via `$ cargo add <package-name>`. E.g. `$ cargo add dotenv`.
+  - list globally installed packages via `$ cargo install --list`.
+  - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+  - install `cargo-watch` for watching for changes in the project and automatically recompile it via `$ cargo watch -x run`
 - build using `nightly` toolchain for a project via `$ cargo +nightly build`
 - build a releasable (optimized) version of a project via `$ cargo build --release`
 
@@ -288,17 +292,19 @@ fn main() {
   - Having several immutable references (&T) to the object (also known as aliasing).
   - Having one mutable reference (&mut T) to the object (also known as mutability).
 
-  ```rs
-  // ✅
-  let x = 5;
-  let y = &x;
-  let z = &x
+<!-- TODO: correct this with telegram msg -->
 
-  // ❌
-  let mut x = 5;
-  let y = &mut x;
-  let z = &mut x
-  ```
+```rs
+// ✅
+let x = 5;
+let y = &x;
+let z = &x
+
+// ❌
+let mut x = 5;
+let y = &mut x;
+let z = &mut x;
+```
 
 ### Lifetimes
 

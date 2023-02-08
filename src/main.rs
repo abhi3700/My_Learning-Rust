@@ -8,5 +8,8 @@
 mod clone_2;
 
 fn main() {
-    clone_2::main();
+    // clone_2::main();
+    let mut x = 5;
+    let y = &mut x;
+    let z = &mut x;
 }
