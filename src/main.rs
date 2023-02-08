@@ -4,12 +4,9 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/move_copy_clone/clone_2.rs"]
-mod clone_2;
+#[path = "../tuts/ownership/dereference_6.rs"]
+mod dereference_6;
 
 fn main() {
-    // clone_2::main();
-    let mut x = 5;
-    let y = &mut x;
-    let z = &mut x;
+    dereference_6::main();
 }

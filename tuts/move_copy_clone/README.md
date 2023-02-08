@@ -102,18 +102,21 @@ To:
      let cloned_number = number.clone(); // type u8
 
      let string: String = String::from("Hello, world!"); // type String
-     let cloned_string = string.to_owned(); // type String
+     let cloned_string = string.clone(); // type String
 
      let my_object = MyObject::new(); // type MyObject
      let cloned_my_object = my_object.clone(); // type MyObject
 
      let owned_array: [i32; 3] = [1, 2, 3]; // type is [i32; 3]
      let cloned_owned_array = owned_array.clone(); // type is [i32; 3]
+
+     let tuples = (1, 2, 3);  // type is (i32, i32, i32)
+     let cloned_tuples = tuples.clone();  // type is (i32, i32, i32)
      ```
 
   2. Generating a duplicate from borrowed type (&T -> T)
 
-     - [valid for primary scalar, String, tuples, Struct]
+     - [valid for primary scalar, String, tuples]
 
      ```rs
      let borrowed_integer: &u8 = &1; // type is &u8
@@ -131,24 +134,28 @@ To:
      let borrowed_string: &String = &String::from("Hello, world!"); // type is &String
      let cloned_borrowed_string = borrowed_string.clone(); // type is String
 
-     // here struct type is of fixed size i.e. name, age. can't add more variables.
-     let my_object = &MyObject::default();  // type is &MyObject
-     let cloned_object = my_object.clone(); // type is MyObject
      ```
 
-  3. Generating a duplicate from borrowed type (&[T] -> [T])
+  3. Generating a duplicate from borrowed array type (&[T] -> [T])
 
-     - [valid for fixed length array]
+     - [valid for fixed-length-array, tuple (always fixed size)]
 
      ```rs
-     let borrowed_array: &[&str; 3] = &["a", "b", "c"]; // type is &[&str; 3]
-     let cloned_borrowed_array = borrowed_array.clone(); // type is [&str; 3]
+     let borrowed_tuples = &(1, 2, 3);  // type is &(i32, i32, i32)
+     let cloned_borrowed_tuples = borrowed_tuples.clone();  // type is (i32, i32, i32)
 
      let borrowed_array = &[1, 2, 3]; // it will implicitly define the type as &[i32; 3]
      let cloned_borrowed_array = borrowed_array.clone(); // type is [i32; 3]
      ```
 
-  4. Generating a duplicate from borrowed type (&[T] -> &[T])
+  4. Generating a duplicate from borrowed type (&T -> &T)
+
+     ```rs
+     let my_object = &MyObject::default();  // type is &MyObject
+     let cloned_object = my_object.clone(); // type is &MyObject
+     ```
+
+  5. Generating a duplicate from borrowed array type (&[T] -> &[T])
 
      - [valid for arrays without defined capacity]
 
