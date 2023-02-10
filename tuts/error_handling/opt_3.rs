@@ -1,4 +1,4 @@
-/* 
+/*
     In this eg, home directory is displayed based on the system.
 
     So, wrap the home_path value as `Option`.
@@ -14,8 +14,6 @@ pub fn run() {
 
     match home_path {
         Some(p) => println!("{:?}", p.display()),
-        None => println!("Cannot find the home directory")
+        None => println!("Cannot find the home directory"),
     }
-
-    
 }

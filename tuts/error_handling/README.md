@@ -3,7 +3,9 @@
 ## About
 
 ## Coding
-* Define custom errors like this:
+
+- Define custom errors like this:
+
 ```rs
 #[derive(Debug)]
 enum DoubleError {
@@ -13,3 +15,7 @@ enum DoubleError {
     Parse(ParseIntError),
 }
 ```
+
+## References
+
+- [Rust: Error Handling](https://www.youtube.com/watch?v=y3wUCb-uS3g)

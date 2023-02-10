@@ -199,6 +199,64 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 - `#[allow(unused)]` - to ignore the warning for unused variable
 
+### Error handling
+
+- [tuts](./tuts/error_handling)
+- 2 types: Recoverable, Unrecoverable
+
+#### Recoverable errors
+
+- Recoverable using `Result`
+
+  - e.g. `Result::Err("burn and crash")` in case of function return type.
+
+The `try-catch` can be implemented like this:
+
+```rs
+fn main() {
+    // the output is of type `Result<File, Error>`
+    let f = File::open("hello.txt");
+    match f {
+        Ok(success) => println!("{:?}", success),
+        Err(failure) => panic!("file is not found: {}", failure),
+    };
+}
+```
+
+in analogous to:
+
+```js
+try {
+  const f = File.open("hello.txt");
+  console.log(f);
+} catch (e) {
+  console.log(e);
+}
+```
+
+Understand the following examples sequentially:
+
+[recoverable_err_1a.rs](./tuts/error_handling/recoverable_err_1a.rs)
+
+[recoverable_err_1b.rs](./tuts/error_handling/recoverable_err_1b.rs)
+
+[recoverable_err_1c.rs](./tuts/error_handling/recoverable_err_1c.rs)
+
+#### Unrecoverable errors
+
+- Unrecoverable using `panic`
+  - e.g. `panic!("burn and crash")` in case of array out of bound error.
+
+```rs
+fn run() {
+  panic!("burn and crash");
+}
+
+fn main() {
+run();
+}
+```
+
 ### Pointer
 
 - `Box<T>` - A pointer type for heap allocation
@@ -218,7 +276,11 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
   let array: [i32; 4] = [42, 10, 5, 2];
   ```
 
-  ![](img/array.png)
+```
+
+```
+
+![](img/array.png)
 
 ### Vector
 
