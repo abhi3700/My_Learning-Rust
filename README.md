@@ -218,7 +218,7 @@ fn main() {
     let f = File::open("hello.txt");
     match f {
         Ok(success) => println!("{:?}", success),
-        Err(failure) => panic!("file is not found: {}", failure),
+        Err(failure) => panic!("file is not found: {:?}", failure),
     };
 }
 ```
