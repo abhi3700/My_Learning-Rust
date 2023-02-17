@@ -61,7 +61,12 @@ these changes will be reverted.
 - set `stable` as default toolchain via `$ rustup default stable`
 - set `nightly` as default toolchain via `$ rustup default nightly`
 - set `nightly` as default toolchain for a specific project via `$ rustup override set nightly`
+- All the rust binaries are installed in this folder `$HOME/.cargo/bin`
 - **Update** using `$ rustup update` [RECOMMENDED]
+  - And then need to install the latest `rustc` & `cargo` for individual channels: `stable`, `beta`, `nightly`
+    - `$ rustup default stable-aarch64-apple-darwin`
+    - `$ rustup default beta-aarch64-apple-darwin`
+    - `$ rustup default nightly-aarch64-apple-darwin`
 - Update to stable version: `$ rustup update stable`
 - View installed version via `$ rustup show`
 - Check latest version via `$ rustup check`
@@ -77,11 +82,16 @@ these changes will be reverted.
   - show all installed target using `$ rustup target list --installed`
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
     > Here, `unknown` means that it is for any OS.
+
+---
+
 - After `cargo` installation,
   - add package locally into the repo via `$ cargo add <package-name>`. E.g. `$ cargo add dotenv`.
   - list globally installed packages via `$ cargo install --list`.
+  - install the binaries (by default `/target/release`) folder via `$ cargo install --path .`. This will install the binary in the `~/.cargo/bin` folder.
   - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
-  - install `cargo-watch` for watching for changes in the project and automatically recompile it via `$ cargo watch -x run`
+  - Watch for changes in the project and automatically run via `$ cargo watch -x run`
+  - Watch for changes in the project and automatically test via `$ cargo watch -x test`
 - build using `nightly` toolchain for a project via `$ cargo +nightly build`
 - build a releasable (optimized) version of a project via `$ cargo build --release`
 
@@ -113,9 +123,19 @@ Use VSCode.
 - [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml)
 - [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
 
+---
+
+An ideal setup for a rust code (with tests) would be:
+
+![](img/rust_code_setup_vs_code.png)
+
+So, here on left terminal, we have `$ cargo watch -x run` running, which will watch for changes in the project and automatically run. On right terminal, we have `$ cargo watch -x test` running, which will watch for changes in the project and automatically test.
+
 ## Repositories
 
 - [calamine](https://github.com/tafia/calamine)
+- [DSLCad](https://github.com/DSchroer/dslcad): DSLCad is a programming language & interpreter for building 3D models.
+- [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
@@ -520,6 +540,25 @@ Using generics, we can write code that can be used with multiple data types with
 
 Refer [this](./tuts/move_copy_clone)
 
+### Testing
+
+All tests like unit, integration tests are in `tests` folder.
+
+- add `panic` in test to fail the test
+
+  ```rs
+    #[test]
+    #[should_panic]
+    fn fail_creating_weightless_package() {
+        let sender_country = String::from("Spain");
+        let recipient_country = String::from("Austria");
+
+        Package::new(sender_country, recipient_country, -2210);
+    }
+  ```
+
+- add `#[ignore]` to skip the test.
+
 ## Miscellaneous
 
 Picked from this [book: Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html)
@@ -758,7 +797,7 @@ res.push(i as i32);
 
 ### Blogs
 
-- Series:
+- **Series**:
   - [BecomBetterProgrammer](https://www.becomebetterprogrammer.com/rust/)
 - [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
 - [Understanding the Rust borrow checker](https://blog.logrocket.com/introducing-the-rust-borrow-checker/)
