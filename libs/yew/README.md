@@ -1,0 +1,101 @@
+# Yew
+
+## Overview
+
+Yew is a modern Rust framework for creating multi-threaded front-end web apps with WebAssembly.
+
+- Yew framework codebase structure
+  - trunk (used for wrapping as wasm-dist)
+  - `src/main.rs` file calls the App defined in `src/app.rs` file
+    - `src/app.rs` file has the logic of the app with html code
+  - `index.html` file has the html code for the app calls the `index.scss` file
+    - `index.scss` file has the css code for the app
+
+## Installation
+
+> Rust is pre-installed in README.
+
+1. Install [`cargo-generate`](https://github.com/cargo-generate/cargo-generate) via `$ cargo install --locked cargo-generate`
+2. Create a project with a starter template: `$ cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template`
+3. Install [`trunk`](https://trunkrs.dev/) via `$ cargo install --locked trunk`
+4. Install `wasm-bindgen` via `$ cargo install --locked wasm-bindgen-cli`
+
+## Getting Started
+
+1. Create a new project: `$ cargo new yew-app`
+2. Add `yew` to `Cargo.toml`:
+
+   ```toml
+   [package]
+   name = "yew-app"
+   version = "0.1.0"
+   edition = "2021"
+
+   [dependencies]
+   yew = { version = "0.20.0", features = ["csr"] }
+   ```
+
+3. Add this code to `src/main.rs`:
+
+   ```rust
+   use yew::prelude::*;
+
+   #[function_component]
+   fn App() -> Html {
+      let counter = use_state(|| 0);
+      let onclick = {
+         let counter = counter.clone();
+         move |_| {
+               let value = *counter + 1;
+               counter.set(value);
+         }
+      };
+
+      html! {
+         <div>
+               <button {onclick}>{ "+1" }</button>
+               <p>{ *counter }</p>
+         </div>
+      }
+   }
+
+   fn main() {
+      yew::Renderer::<App>::new().render();
+   }
+   ```
+
+4. Put a index.html file in the root of the project:
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+     <head>
+       <meta charset="utf-8" />
+       <title>Yew App</title>
+     </head>
+   </html>
+   ```
+
+5. Run the app: `$ trunk serve` (Rebuilds the app whenever a change is detected and runs a local server to host it.)
+
+   When loaded...
+   ![](../../img/yew-app-1.png)
+
+   After increment once,
+   ![](../../img/yew-app-2.png)
+
+6. Shutdown the repo: <kbd>ctrl+c</kbd> on terminal
+7. Build the release version (has high performance) via `$ trunk build --release`
+
+## Troubleshooting
+
+### 1. error[E0463]: can't find crate for `core`
+
+- _Cause_: `wasm32-unknown-unknown` target is not installed.
+- _Solution_: Install `wasm32-unknown-unknown` target via `$ rustup target add wasm32-unknown-unknown`
+
+## References
+
+- [Yew](https://yew.rs/)
+- [ ] [WebAssembly Rust front-end with Yew: how to P1](https://tms-dev-blog.com/webassembly-rust-front-end-with-yew-how-to-p1/)
+- [ ] [CSS and JavaScript WASM Rust: Yew how to P2](https://tms-dev-blog.com/css-and-javascript-wasm-rust-yew-how-to-p2/)
