@@ -7,6 +7,6 @@
 // #[path = "../tuts/ownership/dereference_6.rs"]
 // mod dereference_6;
 
-// fn main() {
-//     dereference_6::main();
-// }
+fn main() {
+    // dereference_6::main();
+}

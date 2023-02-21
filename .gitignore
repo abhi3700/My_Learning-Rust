@@ -6,3 +6,5 @@ Cargo.lock
 pr.rs
 .env
 .vscode/
+# React Component Preview
+previewConfig.json

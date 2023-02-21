@@ -2,12 +2,12 @@
 
 ## Overview
 
-Yew is a modern Rust framework for creating multi-threaded front-end web apps with WebAssembly.
+Yew is a modern Rust framework for creating multi-threaded front-end web apps with WebAssembly. It is component based framework.
 
 - Yew framework codebase structure
   - trunk (used for wrapping as wasm-dist)
-  - `src/main.rs` file calls the App defined in `src/app.rs` file
-    - `src/app.rs` file has the logic of the app with html code
+  - `src/main.rs`: file calls the App defined in `src/app.rs` file
+    - `src/app.rs`: file has the logic of the app with html code. <br/>Our App’s HTML and code will be in our Rust source files.
   - `index.html` file has the html code for the app calls the `index.scss` file
     - `index.scss` file has the css code for the app
 
@@ -87,12 +87,48 @@ Yew is a modern Rust framework for creating multi-threaded front-end web apps wi
 6. Shutdown the repo: <kbd>ctrl+c</kbd> on terminal
 7. Build the release version (has high performance) via `$ trunk build --release`
 
+## Concepts
+
+### Crates/Packages
+
+- `yew`: A framework for making client-side single-page apps.
+- `yew-router`: A router implementation for the Yew framework.
+- `web-sys`: Bindings for all Web APIs, a procedurally generated crate from WebIDL.
+- `log`: A lightweight logging facade for Rust.
+- `wasm-logger`: A logger that sends a message with its Rust source’s line and filename to the browser console.
+
+### Attributes
+
+- `#[function_component(App)]`: A macro that converts a function into a component like this:
+
+  ```rust
+  html! {
+     <>
+     <div class="container">
+        <h1>{"Basic Yew Web App"}</h1>
+     </div>
+     </>
+  }
+  ```
+
+  - Every component is named accordingly like `App` here.
+
 ## Troubleshooting
 
 ### 1. error[E0463]: can't find crate for `core`
 
 - _Cause_: `wasm32-unknown-unknown` target is not installed.
 - _Solution_: Install `wasm32-unknown-unknown` target via `$ rustup target add wasm32-unknown-unknown`
+
+### 2. could not find Renderer in yew with yew="0.20.0"
+
+- _Cause_: you need to enable the `csr` feature in your final executable application to have access to `yew::Renderer`. Refer the [migration notes](https://yew.rs/docs/migration-guides/yew/from-0_19_0-to-0_20_0#yew-renderer).
+- _Solution_:
+
+```toml
+# Cargo.toml
+yew = { version = "0.20", features = ["csr"] }
+```
 
 ## References
 
