@@ -111,7 +111,13 @@ Yew is a modern Rust framework for creating multi-threaded front-end web apps wi
   }
   ```
 
-  - Every component is named accordingly like `App` here.
+  - In this case, the attribute will create a component called `App` based on our `app` function.
+  - Our function component here is a simplified version of a normal Component. Because normally a component is defined as a `struct` and has to implement the Component trait with certain functions. However, using `function_component` allows us to write a simple component with minimal code.
+
+### html!
+
+- `html!` is a macro that allows us to write macro allows us to write HTML and SVG code in a similar fashion as JSX in Rust source file.
+- Literals must always be quoted and wrapped in braces. That’s why we wrote `<h1>{"Basic Yew Web App"}</h1>` there.
 
 ## Troubleshooting
 
