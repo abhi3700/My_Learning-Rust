@@ -5,3 +5,4 @@
   - [coding playground](https://github.com/abhi3700/sol-playground)
 - [Substrate](https://github.com/abhi3700/My_Learning_Substrate)
 - [Near](https://github.com/abhi3700/My_Learning_Near)
+- [Fuel](https://github.com/abhi3700/My_Learning_Fuel)
