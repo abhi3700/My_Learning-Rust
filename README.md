@@ -772,34 +772,39 @@ res.push(i as i32);
 
 ## References
 
+### Books
+
+- [The Rust Programming Language](https://doc.rust-lang.org/book/)
 - [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
-- [Book: The Rust Programming Language](https://doc.rust-lang.org/book/)
-- [Rust for Haskell Programmers!](https://mmhaskell.com/rust)
-  - [Part 1: Basic Syntax](https://www.mmhaskell.com/rust/syntax)
-  - [Part 2: Managing Memory](https://www.mmhaskell.com/rust/memory)
-  - [Part 3: Data Types](https://www.mmhaskell.com/rust/data)
-  - [Part 4: Cargo Package Manager](https://www.mmhaskell.com/rust/cargo)
-  - [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
+- [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
 - [Learn Rust Documentation](https://learning-rust.github.io/)
 - [Rust by Practice](https://practice.rs/why-exercise.html)
 - [Rustlings | Play like a game to learn Rust](https://github.com/rust-lang/rustlings)
   - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
   - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
-- [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
-- [Rust for C++ programmers](https://github.com/nrc/r4cppp)
-- [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
-- [Hashrust Blogs](https://hashrust.com/blog/)
-- [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
-- [This week in Rust](https://this-week-in-rust.org/)
-- **Courses**
-  - https://egghead.io/q/rust?q=rust
+
+### Courses
+
+- https://egghead.io/q/rust?q=rust
 
 ### Blogs
 
 - **Series**:
   - [BecomBetterProgrammer](https://www.becomebetterprogrammer.com/rust/)
   - [TMS Developer Blog](https://tms-dev-blog.com/) (has blogs on Rust full-stack, solana, etc.)
+  - [Learn Rust by KODERHQ](https://www.koderhq.com/tutorial/rust/)
+  - [Hashrust Blogs](https://hashrust.com/blog/)
+  - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
+  - [This week in Rust](https://this-week-in-rust.org/)
+- [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
+- [Rust for C++ programmers](https://github.com/nrc/r4cppp)
+- [Rust for Haskell Programmers!](https://mmhaskell.com/rust)
+  - [Part 1: Basic Syntax](https://www.mmhaskell.com/rust/syntax)
+  - [Part 2: Managing Memory](https://www.mmhaskell.com/rust/memory)
+  - [Part 3: Data Types](https://www.mmhaskell.com/rust/data)
+  - [Part 4: Cargo Package Manager](https://www.mmhaskell.com/rust/cargo)
+  - [Part 5: Collections and Lifetimes](https://www.mmhaskell.com/rust/lifetimes)
 - [What is Rust and why is it so popular?](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/)
 - [Understanding the Rust borrow checker](https://blog.logrocket.com/introducing-the-rust-borrow-checker/)
 - [No auto type deduction for function, but for local variable](https://stackoverflow.com/questions/24977365/differences-in-type-inference-for-closures-and-functions-in-rust)
