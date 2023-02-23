@@ -9,4 +9,15 @@
 
 fn main() {
     // dereference_6::main();
+
+    let x = 5;
+
+    let add_num = |k: i32| -> i32 {
+        let mut x = x; // added/cloned a/into a local variable to avoid mutation of global variable
+        x += k;
+        x
+    };
+
+    println!("{:?}", add_num(10));
+    println!("{}", x);
 }
