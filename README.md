@@ -191,6 +191,66 @@ Put the code inside a `.rs` file & link into [`./src/main.rs`](./src/main.rs) us
 
 ---
 
+### str vs String
+
+| str                                                                       | String                                                                     |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Primitive Type                                                            | Built-in struct                                                            |
+| Doesn’t have ownership of the string as it is typically used by reference | Has ownership of the string                                                |
+| It is a string slice                                                      | It is a growable array                                                     |
+| Size known at compile time                                                | Size is unknown at compile time                                            |
+| Data allocated in the data segment of the application binary              | Data allocated in a heap                                                   |
+| Uses & or reference to assign a str value to a variable                   | Not need need to use & or reference to assign a String value to a variable |
+
+---
+
+- `&str` to `String` is always an expensive operation, as it is owned with a `String` type.
+
+  ```rs
+  let name: &str = "Abhijit Roy"
+  let name_String: String = name.to_string(); // used `to_string()` to convert from `&str` to `String` type
+  ```
+
+- `String` to `&str` is a cheap operation, as it is borrowed with a `&str` type.
+
+  ```rs
+  let name: String = "Abhijit Roy"
+  let name_String: &str = &name; // used `&` to convert from `String` to `&str` type
+  ```
+
+- The following function is more expensive than the latter.
+
+  ```rs
+  fn main() {
+      let my_str: &str = "This is a str";
+
+      // converting the str to String is an expensive operation
+      print_data(&my_str.to_string());
+
+      print!("printing inside main {}", my_str);
+  }
+
+  fn  print_data(data: &String) {
+      println!("printing my data {} ", data);
+  }
+  ```
+
+  ```rs
+  fn main() {
+      let my_string: String = String::from("Understanding the String concept?");
+
+      print_data(&my_string);
+
+      print!("printing inside main {}", my_string);
+  }
+
+  fn  print_data(data: &str) {
+      println!("printing my data {} ", data);
+  }
+  ```
+
+  [Source](https://www.becomebetterprogrammer.com/rust-string-vs-str/)
+
 ### Print
 
 - 1. formatting variables inside `println` function
@@ -273,7 +333,7 @@ fn run() {
 }
 
 fn main() {
-run();
+  run();
 }
 ```
 

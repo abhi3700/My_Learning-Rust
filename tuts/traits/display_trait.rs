@@ -1,3 +1,7 @@
+/*
+   Blog: https://www.becomebetterprogrammer.com/rust-fix-doesnt-implement-std-fmt-display/
+*/
+
 use std::fmt::Display;
 
 pub fn main() {
