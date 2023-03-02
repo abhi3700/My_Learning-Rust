@@ -841,6 +841,7 @@ res.push(i as i32);
 - [Rust by Practice](https://practice.rs/why-exercise.html)
 - [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/01_getting_started/01_chapter.html)
 - [Async programming in Rust with async-std](https://book.async.rs/introduction.html)
+- [The Embedded Rust Book](https://doc.rust-lang.org/beta/embedded-book/intro/index.html)
 - [Rustlings | Play like a game to learn Rust](https://github.com/rust-lang/rustlings)
   - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
   - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
