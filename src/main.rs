@@ -4,9 +4,9 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/ownership/dereference_6.rs"]
-mod dereference_6;
+#[path = "../tuts/macros/macros_1.rs"]
+mod macros_1;
 
 fn main() {
-    dereference_6::main();
+    macros_1::main();
 }

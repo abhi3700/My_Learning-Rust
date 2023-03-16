@@ -1,5 +1,7 @@
 /*
    impl Trait as function return type
+
+   NOTE: This function can't be defined inside a `impl` definition for a struct.
 */
 
 use std::fmt::{Debug, Display};
