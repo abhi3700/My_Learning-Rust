@@ -92,6 +92,7 @@ these changes will be reverted.
   - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
   - Watch for changes in the project and automatically test via `$ cargo watch -x test`
+  - Install `cargo-expand` via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
 - build using `nightly` toolchain for a project via `$ cargo +nightly build`
 - build a releasable (optimized) version of a project via `$ cargo build --release`
 
