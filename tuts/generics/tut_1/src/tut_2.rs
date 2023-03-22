@@ -6,7 +6,13 @@
 */
 
 // add 2 different traits: `PartialOrd` (for making a comparo with the max value i.e. list[0]) & `Copy` (for return type `T`)
-fn find_largest_generic<T: PartialOrd + Copy>(list: &[T]) -> T {
+// M-1:
+// fn find_largest_generic<T: PartialOrd + Copy>(list: &[T]) -> T
+// M-2: more verbose representation [RECOMMENDED]
+fn find_largest_generic<T>(list: &[T]) -> T
+where
+    T: PartialOrd + Copy,
+{
     let mut max = list[0];
     for &i in list {
         if i > max {

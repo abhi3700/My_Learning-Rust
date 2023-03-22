@@ -1,5 +1,5 @@
 // mod tut_1;
-// mod tut_2;
+mod tut_2;
 // mod tut_3;
 // mod tut_4;
 // mod tut_5;
@@ -13,7 +13,7 @@ mod tut_11;
 
 fn main() {
     // tut_1::main();
-    // tut_2::main();
+    tut_2::main();
     // tut_3::main();
     // tut_4::main();
     // tut_5::main();

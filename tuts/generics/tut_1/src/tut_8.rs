@@ -31,15 +31,23 @@ impl Summary for NewsArticle {
 }
 
 impl NewsArticle {
-    // M-1: with less expression [RECOMMENDED]
-    fn notify(item: &(impl Summary + Debug)) -> String {
-        format!("Breaking news: {}", item.summarize_author())
-    }
+    // M-1: with less expression
+    // fn notify(item: &(impl Summary + Debug)) -> String {
+    //     format!("Breaking news: {}", item.summarize_author())
+    // }
 
     // M-2: more verbose expression
     // fn notify<T: Summary + Display>(item: &T) -> String {
     //     format!("Breaking news: {}", item.summarize_author())
     // }
+
+    // M-3: RECOMMENDED
+    fn notify<T>(item: &T) -> String
+    where
+        T: Summary + Debug,
+    {
+        format!("Breaking news: {}", item.summarize_author())
+    }
 
     // Another eg:
     // M-1
