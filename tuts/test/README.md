@@ -22,3 +22,15 @@ fn mytest() {
     // …
 }
 ```
+
+---
+
+Should panic with a expected message.
+
+```rs
+#[test]
+#[should_panic(expected = "Timestamp must be updated only once in the block")]
+fn mytest() {
+    // …
+}
+```

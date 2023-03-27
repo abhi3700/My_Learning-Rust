@@ -137,6 +137,7 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 - [calamine](https://github.com/tafia/calamine)
 - [DSLCad](https://github.com/DSchroer/dslcad): DSLCad is a programming language & interpreter for building 3D models.
 - [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
+- [A new markup-based typesetting system that is powerful and easy to learn] (https://github.com/typst/typst)
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
@@ -888,3 +889,4 @@ res.push(i as i32);
 - [Learn Rust by Practical Projects](https://www.youtube.com/watch?v=LPzx2Fzd7Vs&list=PLK_g1a_cAfaZDdybJzwI1m7AVl4tSo87Z)
 - [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
 - [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
+- [Crust of Rust YT playlist](https://youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)
