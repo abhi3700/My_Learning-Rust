@@ -138,6 +138,7 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 - [DSLCad](https://github.com/DSchroer/dslcad): DSLCad is a programming language & interpreter for building 3D models.
 - [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
 - [A new markup-based typesetting system that is powerful and easy to learn] (https://github.com/typst/typst)
+- [Twilio Sendgrid Unofficial library to send OTP, tokens to email](https://crates.io/crates/sendgrid)
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
@@ -513,8 +514,27 @@ use crate::something::b::*;
 ### Struct
 
 - There are different types of struct
+
   - normal struct: with parameters
   - unit struct: without parameters
+
+- Structs can be inherited from other structs via declaring the 1 struct type as type of another struct's parameter.
+
+```rs
+struct Purchase {
+  bill: f64,
+  tax: f64,
+  shop_name: String,
+  gst_no: String,
+}
+
+struct House {
+  address: String,
+  area: f64,
+  price: f64,
+  purchase: Purchase,
+}
+```
 
 ### Trait
 
@@ -832,14 +852,22 @@ _Solution_: Just typecast it as the required type
 res.push(i as i32);
 ```
 
+## Quiz
+
+There is a section called [quiz](./quiz/) in this repo. It contains some questions and their solutions. The plan is to add them into Rustlings later in an organized manner.
+
 ## References
 
 ### Books
 
 - [The Rust Programming Language](https://doc.rust-lang.org/book/)
+- [The Rust Reference](https://doc.rust-lang.org/reference/introduction.html)
 - [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 - [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
+- [Learning Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/index.html)
+  - Here, one get to learn the Rust concepts by implementing a Linked List in series of chapters.
 - [Learn Rust Documentation](https://learning-rust.github.io/)
+- [The Little Book of Rust Macros](https://veykril.github.io/tlborm/introduction.html)
 - [Rust by Practice](https://practice.rs/why-exercise.html)
 - [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/01_getting_started/01_chapter.html)
 - [Async programming in Rust with async-std](https://book.async.rs/introduction.html)
@@ -862,6 +890,7 @@ res.push(i as i32);
   - [Hashrust Blogs](https://hashrust.com/blog/)
   - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
   - [This week in Rust](https://this-week-in-rust.org/)
+- [Learn Macros In Rust like Rustlings game](https://github.com/tfpk/macrokata)
 - [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 - [Rust for C++ programmers](https://github.com/nrc/r4cppp)
 - [Rust for Haskell Programmers!](https://mmhaskell.com/rust)
