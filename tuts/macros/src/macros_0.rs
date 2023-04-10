@@ -4,6 +4,7 @@ macro_rules! five_times {
     };
 }
 
+// TODO:
 macro_rules! add {
     ($x: expr, $y: expr) => {
         $x + $y
@@ -14,4 +15,5 @@ pub fn main() {
     assert_eq!(25, five_times!(2 + 3));
     println!("{}", five_times!(4));
     println!("{}", add!(4, 5));
+    println!("{}", add!(1, 2));
 }

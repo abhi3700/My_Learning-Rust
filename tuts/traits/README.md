@@ -36,3 +36,25 @@ impl <TraitName> for <TypeName> {
 | Rust  | Java      | C++            | Solidity  |
 | ----- | --------- | -------------- | --------- |
 | trait | interface | abstract class | interface |
+
+- Polymorphism with a Trait Object. Follow this [quiz](../../rust-catchups/rust_catchup_2/)
+
+![](../../img/traits/polymorphism_using_trait.png)
+
+By default, the compiler always gives suggestion to use `dyn` keyword for trait objects. This is because the compiler is not sure about the size of the trait object at compile time. So, it uses a pointer to the trait object and the size of the pointer is known at compile time. This is called **dynamic dispatch**.
+
+But, the work can be done using **static dispatch** as well. For that, we need to use `impl Trait` syntax. This is called **existential types**.
+
+> Existential types in Rust are a way to abstract over concrete types and allow for more flexible and dynamic programming. They are used when we want a function or method to work with any type that satisfies certain traits or constraints, but we don't want to specify the exact type at compile-time. This makes it possible to write generic code that doesn't require the caller to know the specific type being used.
+
+```rs
+fn print_debug(val: &dyn Debug) {
+    println!("{:?}", val);
+}
+```
+
+The same can be done using `&impl Debug` syntax as well.
+
+Here, cost-wise: `&dyn Debug` is more expensive than `&impl Debug`. Even more costly would be Generic type `T` which is the most flexible.
+
+Hence, the order of runtime cost is `T` > `&dyn Debug` > `&impl Debug` (decreasing order).

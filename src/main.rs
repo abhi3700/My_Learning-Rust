@@ -4,9 +4,9 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/macros/macros_1.rs"]
-mod macros_1;
+#[path = "../tuts/modules/modules4.rs"]
+mod modules4;
 
 fn main() {
-    macros_1::main();
+    modules4::main();
 }

@@ -182,6 +182,7 @@ Put the code inside a `.rs` file & link into [`./src/main.rs`](./src/main.rs) us
 - In Rust, borrowing is analogous to referencing in C++ & dereferencing is same as that of C++.
 - The value of mutable variable can be changed, but not the type.
 - In Rust, every value has a single owner that determines its lifetime.
+- Rust has preferred **composition** over **inheritance**. That's why in Rust, we use traits to define shared behavior.
 
 ### Primitive types and Variables
 
@@ -919,3 +920,4 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 - [Learn Rustlings](https://www.youtube.com/watch?v=VZnfLBmc_Oo&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=12)
 - [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
 - [Crust of Rust YT playlist](https://youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)
+- [Rust Powered Polymorphism ⚡️ With Traits](https://www.youtube.com/watch?v=CHRNj5oubwc) ✅
