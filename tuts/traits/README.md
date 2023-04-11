@@ -39,7 +39,7 @@ impl <TraitName> for <TypeName> {
 
 - Polymorphism with a Trait Object. Follow this [quiz](../../rust-catchups/rust_catchup_2/)
 
-![](../../img/traits/polymorphism_using_trait.png)
+![](../../img/polymorphism_using_trait.png)
 
 By default, the compiler always gives suggestion to use `dyn` keyword for trait objects. This is because the compiler is not sure about the size of the trait object at compile time. So, it uses a pointer to the trait object and the size of the pointer is known at compile time. This is called **dynamic dispatch**.
 
@@ -58,3 +58,9 @@ The same can be done using `&impl Debug` syntax as well.
 Here, cost-wise: `&dyn Debug` is more expensive than `&impl Debug`. Even more costly would be Generic type `T` which is the most flexible.
 
 Hence, the order of runtime cost is `T` > `&dyn Debug` > `&impl Debug` (decreasing order).
+
+Now, the question is, when to use `dyn` and when to use `generic`?
+
+A. It depends on the no. of types you want to support. If you want to support only few types, then use `dyn`. If you want to support multiple types, then use `generic`. [Source](https://youtu.be/CHRNj5oubwc)
+
+![](../../img/traits_impl_dyn_generic.png)
