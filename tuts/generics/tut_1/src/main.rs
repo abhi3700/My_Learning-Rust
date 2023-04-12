@@ -2,7 +2,7 @@
 mod tut_2;
 // mod tut_3;
 // mod tut_4;
-// mod tut_5;
+mod tut_5;
 // mod tut_6;
 // mod tut_7;
 // mod tut_8;
@@ -16,7 +16,7 @@ fn main() {
     tut_2::main();
     // tut_3::main();
     // tut_4::main();
-    // tut_5::main();
+    tut_5::main();
     // tut_6::main();
     // tut_7::main();
     // tut_8::main();
