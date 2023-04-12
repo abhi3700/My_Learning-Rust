@@ -1,12 +1,15 @@
+//! Rust By Practice
+//! ================
+//! https://practice.rs/compound-types/enum.html-1
 /*
     - Just add the path of the file & import the file as module here
     - Also, the Rust-Analyzer gets activated (as `Cargo.toml` is added at project root)
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/generics/generics_8.rs"]
-mod generics_8;
+#[path = "../tuts/enum/enum_5.rs"]
+mod enum_5;
 
 fn main() {
-    generics_8::main();
+    enum_5::main();
 }
