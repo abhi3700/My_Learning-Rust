@@ -1,55 +1,40 @@
-//! polymorphism using traits which implements other traits.
+//! Add Crocodile for implementing a supertrait which implements both the traits:
+//! - Land
+//! - Water
 
-// Define a trait called Walk, which has a method called walk.
-trait Walk {
-    fn walk(&self) {
-        println!("Default walking");
+struct Crocodile;
+
+trait Land {
+    fn land(&self) {
+        println!("Default land");
     }
 }
 
-// Define another trait called Fly, which has a method called fly.
-trait Fly {
-    fn fly(&self) {
-        println!("Default flying");
+trait Water {
+    fn water(&self) {
+        println!("Default water");
     }
 }
 
-// Define a trait called WalkFly which is the combination of both Walk and Fly, inheriting their methods.
-trait WalkFly: Walk + Fly {}
-
-// Define a struct called Bird2
-struct Bird2;
-
-// Implement the WalkFly trait for the Bird2 struct.
-impl WalkFly for Bird2 {}
-
-// Implement the Walk trait for the Bird2 struct, overwriting the default method to print "Bird2 is walking".
-impl Walk for Bird2 {
-    fn walk(&self) {
-        println!("Bird2 is walking");
+trait Amphibian: Land + Water {}
+impl Land for Crocodile {
+    fn land(&self) {
+        println!("Crocodile can survive on land");
     }
 }
-
-// Implement the Fly trait for the Bird2 struct, overwriting the default method to print "Bird2 is flying".
-impl Fly for Bird2 {
-    fn fly(&self) {
-        println!("Bird2 is flying");
+impl Water for Crocodile {
+    fn water(&self) {
+        println!("Crocodile can survive in water");
     }
 }
+impl Amphibian for Crocodile {}
 
-// Define a generic function that takes an item of type T and prints the result of calling its walk and fly methods, using the where clause to ensure that T implements the WalkFly trait.
-fn activity_of<T>(item: &T)
-where
-    T: WalkFly,
-{
-    item.walk();
-    item.fly();
+fn survive(animal: &dyn Amphibian) {
+    animal.land();
+    animal.water();
 }
 
-// Define the entry point of the program
 pub fn main() {
-    // Create an instance of Bird2 struct
-    let bird2 = Bird2;
-    // Call the activity_of function passing in the bird2 instance as an argument
-    activity_of(&bird2);
+    let croc = Crocodile;
+    survive(&croc);
 }

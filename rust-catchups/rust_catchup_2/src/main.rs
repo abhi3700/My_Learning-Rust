@@ -1,7 +1,7 @@
 //! Polymorphism with traits
 //! ========================
 //! E.g. we have used the example
-//!     of a dog and a bird doing different activities.
+//!     of a cat (land), fish (water), crocodile (land + water) surviving on different ecosystem.
 
 #[path = "./v1.rs"]
 mod v1;
@@ -15,8 +15,10 @@ mod v3;
 fn main() {
     println!("===v1===");
     v1::main();
+
     println!("===v2===");
     v2::main();
+
     println!("===v3===");
     v3::main();
 }
