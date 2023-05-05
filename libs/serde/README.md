@@ -1,8 +1,19 @@
 # Serialize & Deserialize
 
+serde - **ser**ialize & **de**serialize
+
 This crate provides a set of traits and methods to serialize and deserialize Rust data structures (`struct`) to and from JSON.
 
 ## Overview
+
+Any object if needs to be stored into DB has to be transferred through the network (internet). These hardware understand only bits and bytes. This imply that fro sending we need to serialize the data. And during receiving the data we need to deserialize to get back into object (struct).
+
+**byte vs bytecode**:
+
+- former is encoded format
+- later is instructions for the virtual machine to execute.
+
+Source: https://stackoverflow.com/a/18026082/6774636
 
 Whenever you want to send data over the network or save it to a file, you need to serialize it into a format that can be transferred or stored. The most popular format for serializing data is JSON. It's human-readable, easy to parse by computers, and supported by most programming languages.
 

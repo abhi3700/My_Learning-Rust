@@ -7,9 +7,14 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 
-#[path = "../tuts/generics/generics_10.rs"]
-mod generics_10;
+// #[path = "../tuts/generics/generics_11.rs"]
+// mod generics_11;
 
+use std::time::{SystemTime, UNIX_EPOCH};
 fn main() {
-    generics_10::main();
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    println!("{}", now);
 }

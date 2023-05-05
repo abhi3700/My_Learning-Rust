@@ -1,0 +1,3 @@
+[submodule "pro/todolist_w_mutex_db"]
+	path = pro/todolist_w_mutex_db
+	url = https://github.com/abhi3700/rust_apps_todo.git

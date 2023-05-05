@@ -512,6 +512,46 @@ use crate::something::a::*;
 use crate::something::b::*;
 ```
 
+> When using `crate`, no need to use `mod` keyword in the `src/main.rs` file.
+
+---
+
+**Another example**:
+
+In this rust project `src/` folder structure:
+
+```sh
+├── src
+│   ├── app
+│   │   └── README.md
+│   ├── handlers.rs
+│   ├── main.rs
+│   ├── models.rs
+│   └── utils
+│       ├── determine_emoji.rs
+│       ├── get_current_time.rs
+│       └── mod.rs
+```
+
+When using `determine_emoji` inside `handler.rs` file:
+
+```rust
+use crate::utils::{determine_emoji, get_current_time};
+```
+
+provided the below is maintained:
+
+```rust
+// src/utils/mod.rs
+pub mod determine_emoji;
+pub mod get_current_time;
+```
+
+```rust
+// src/main.rs
+mod utils; // Add this line
+```
+
 ### Struct
 
 - There are different types of struct
@@ -613,6 +653,50 @@ Using generics, we can write code that can be used with multiple data types with
 
 - Apply `#[derive(Debug)]` for making the struct, enum printable
 - Apply `#[derive(Clone)]` for making the struct, enum copyable.
+- Use this in `src/main.rs` to ignore unused code, variables
+
+```rust
+#![allow(dead_code)]
+#![allow(unused_variables)]
+```
+
+### Comments
+
+Here are some of the key guidelines for writing comments in Rust:
+
+- Use /// for documenting items such as functions, structs, enums, and modules. The comment should describe what the item does, its parameters (if any), and its return value (if any).
+- Use //! for documenting the crate root. This comment should provide a brief overview of the crate's purpose and functionality.
+- Use // for adding comments to individual lines of code. These comments should explain what the code is doing and why it's necessary.
+- Use Markdown formatting to add emphasis, headings, lists, and links to your comments.
+- Keep your comments concise and to the point. Avoid unnecessary details or redundant information.
+- Use proper spelling, grammar, and punctuation in your comments.
+- Update your comments when you make changes to your code. Outdated comments can be misleading and confusing.
+
+### `super` vs `crate`
+
+This is important while importing modules.
+
+- `super` is used to import from parent module of the current module (file). When you use `super` for importing, you're specifying a relative path from the current module's parent.
+
+  ```rs
+  // Assuming we have a module hierarchy like this:
+  // my_module
+  // ├── sub_module1
+  // │   ├── sub_module1_1
+  // │   │   ├── some_file.rs
+  // │   ├── MyStruct.rs
+  // ├── sub_module2
+
+  // In some_file.rs
+  use super::MyStruct;
+  ```
+
+- `crate` is used to import from root module of the current module (file). When you use `crate` for importing, you're specifying an absolute path from the root of the current crate (where Cargo.toml file is there).
+
+  ```rust
+  // Assuming we have a module named `my_module` at the root of our crate
+  use crate::my_module::MyStruct;
+  ```
 
 ### lib or bin
 
