@@ -424,10 +424,67 @@ fn main() {
 }
 ```
 
-### Conditional, Loops
+### Conditional
 
-- In Rust, `match` is used more often than `if-else`.
+- In Rust, `match` is used more often than `if-else`. `match` is similar to `switch` in other languages and requires to cover all the cases.
+- <u>Pattern matching</u>: `match` vs `if-let`:
+  - The former has to cover all the cases
+  - The latter is used for only 1 case, if we don't want to cover all the cases.
+- #### `if-let` is preferred over `if` condition in cases of pattern matching with `Option`, `Result`
+
+  ```rust
+  let x = 3;
+  if (x == 3) {
+      println!("x is equal to 3");
+  }
+  ```
+
+  ```rust
+  let value = Some(3);
+  if let Some(x) = value {
+      println!("x is equal to 3");
+  }
+  ```
+
+  The two expressions you've mentioned serve different purposes in Rust, so it's not really a matter of one being 'better' than the other; rather, it depends on the context of use.
+
+  1. `if x == 3`: This is a simple comparison. If the value of x is equal to 3, then the code block following this if statement will execute. If x is not equal to 3, the code block will be skipped.
+
+  2. `if let x = 3`: This is actually a misuse of Rust's if let construct. The if let statement is used for pattern matching, and it works a bit differently. The correct usage would be if let `PAT` = `EXPR`, where PAT is a pattern and `EXPR` is an expression. For example, you might use `if let Some(x) = some_option` to check if an Option is Some and, if so, bind the value inside to x.
+
+  In your specific case, if you want to compare `x` to `3`, you should use `if x == 3`. If you need pattern matching (like checking if an `Option` is `Some` or a `Result` is `Ok`), then if let is the appropriate construct.
+
+### Loop
+
 - `..` used for range like `1..4` i.e. 1, 2, 3. But, if `1..=4` i.e. 1, 2, 3, 4
+
+### Function
+
+- `fn` keyword is used to define a function
+- `->` is used to define the return type of the function
+- `()` is used to define the arguments of the function
+- `return` keyword is not used in Rust. The last line of the function is the return value of the function
+- return type can be `Option`, `Result`.
+- #### Use wildcard pattern `_` to ignore the value of the variable.
+
+  In this code:
+
+  ```rs
+  fn add() -> (i32, i32, i32) {
+      (1, 2, 3)
+  }
+
+  fn main() {
+      let (x, _, _) = add();
+      println!("x is {}", x);
+  }
+  ```
+
+  The underscore `_` in Rust is called a wildcard pattern. It's used when you want to pattern match some parts of a data structure, but you're not interested in all parts of it. It's a way of saying "I know there's a value here, but I don't care about it".
+
+  In your code `(x, _, _) = add();`, it means you're calling a function `add()` which returns a tuple of three values. You're interested in the first value, which is being assigned to x, but you're not interested in the second and third values, hence the `_` wildcard.
+
+  The wildcard pattern is useful in many situations where you need to satisfy the compiler's requirement for exhaustive pattern matching, but there are some values you don't need to handle.
 
 ### Borrowing & Ownership
 
