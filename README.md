@@ -842,6 +842,40 @@ println!("x = {}", x);
 
 [Reference](https://stackoverflow.com/a/30451360/6774636)
 
+### Coherence (Overlap) and Orphan Rules
+
+- **Coherence/Overlap rule**: There should not be multiple implementations using `impl` for the same type.
+- **Orphan rule**: The trait or type should be defined in the same crate as the implementation.
+
+✅
+
+```rust
+// crate_a
+struct MyStruct;
+
+trait MyTrait {
+    fn my_fn(&self);
+}
+```
+
+---
+
+❌
+
+```rust
+// crate_b
+use crate_a::{MyStruct, MyTrait};
+
+// WRONG: Orphan rule violation
+impl MyTrait for MyStruct {
+    fn my_fn(&self) {
+        println!("Hello");
+    }
+}
+```
+
+This would be illegal under the orphan rules, because both `MyType` and `MyTrait` are foreign to `Crate B`. If this were allowed, and `Crate A` also provided an implementation of `MyTrait` for `MyType`, there would be a conflict, and Rust wouldn't know which implementation to use. The orphan rules prevent this situation from arising.
+
 ## Tools
 
 - Check behind-the-code for a code snippet - https://play.rust-lang.org/
