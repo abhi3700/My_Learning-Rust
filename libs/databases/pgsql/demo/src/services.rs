@@ -1,5 +1,12 @@
-use actix_web::{get, post, web, Responder};
+use crate::db_utils::{AppState, DbActor};
+use actix::Addr;
+use actix_web::{
+    get, post,
+    web::{self, Data},
+    HttpResponse, Responder,
+};
 
+use crate::messages::{FetchUser, FetchUserArticles};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -9,8 +16,29 @@ pub struct CreateArticleBody {
 }
 
 #[get("/users")]
-pub async fn fetch_users() -> impl Responder {
-    "GET /users".to_string()
+pub async fn fetch_users(state: Data<AppState>) -> impl Responder {
+    // "GET /users".to_string()
+
+    let db: Addr<DbActor> = state.as_ref().db.clone();
+    match db.send(FetchUser).await {
+        Ok(Ok(users)) => HttpResponse::Ok().json(users),
+        Ok(Err(e)) => HttpResponse::InternalServerError().json(e.to_string()),
+        Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+    }
+}
+
+#[get("/users/{id}/articles")]
+pub async fn fetch_user_articles(id: web::Path<u32>, state: Data<AppState>) -> impl Responder {
+    let id = id.into_inner();
+    // "GET /users/{id}/articles".to_string()
+
+    let db: Addr<DbActor> = state.as_ref().db.clone();
+
+    match db.send(FetchUserArticles { user_id: id }).await {
+        Ok(Ok(users)) => HttpResponse::Ok().json(users),
+        Ok(Err(e)) => HttpResponse::InternalServerError().json(e.to_string()),
+        Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+    }
 }
 
 #[post("/users/{id}/articles")]
@@ -19,11 +47,6 @@ pub async fn create_user_article(
     body: web::Json<CreateArticleBody>,
 ) -> impl Responder {
     "POST /users".to_string()
-}
-
-#[get("/users/{id}/articles")]
-pub async fn fetch_user_articles(id: web::Path<u32>) -> impl Responder {
-    "GET /users/{id}/articles".to_string()
 }
 
 pub fn config(cfg: &mut web::ServiceConfig) {
