@@ -22,22 +22,24 @@ pub async fn fetch_users(state: Data<AppState>) -> impl Responder {
     let db: Addr<DbActor> = state.as_ref().db.clone();
     match db.send(FetchUser).await {
         Ok(Ok(users)) => HttpResponse::Ok().json(users),
-        Ok(Err(e)) => HttpResponse::InternalServerError().json(e.to_string()),
-        Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+        Ok(Err(_)) => HttpResponse::InternalServerError().json("No users found"),
+        // Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+        _ => HttpResponse::InternalServerError().json("Unable to fetch users"),
     }
 }
 
 #[get("/users/{id}/articles")]
-pub async fn fetch_user_articles(id: web::Path<u32>, state: Data<AppState>) -> impl Responder {
-    let id = id.into_inner();
+pub async fn fetch_user_articles(path: web::Path<i32>, state: Data<AppState>) -> impl Responder {
+    let id = path.into_inner();
     // "GET /users/{id}/articles".to_string()
 
     let db: Addr<DbActor> = state.as_ref().db.clone();
 
     match db.send(FetchUserArticles { user_id: id }).await {
-        Ok(Ok(users)) => HttpResponse::Ok().json(users),
-        Ok(Err(e)) => HttpResponse::InternalServerError().json(e.to_string()),
-        Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+        Ok(Ok(articles)) => HttpResponse::Ok().json(articles),
+        Ok(Err(_)) => HttpResponse::NotFound().json(format!("No articles found for user {id}")),
+        // Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+        _ => HttpResponse::InternalServerError().json("Unable to fetch user articles"),
     }
 }
 

@@ -40,7 +40,7 @@ src/actors.rs
 
 4. `$ diesel migration run` or `$ diesel print-schema > src/models/schema.rs`
 
-   - in order to generate schema.rs in correct folder, run
+   - in order to generate `schema.rs` in correct folder, run
    - add the SQL query for create, drop table in up.sql, down.sql respectively
    - `$ diesel migration run` -> generates `schema.rs` file (into the folder mentioned in `diesel.toml` file) with table macro `table!`.
 
@@ -65,7 +65,7 @@ src/actors.rs
    }
    ```
 
-5. `$ diesel migration redo`
+5. `$ diesel migration redo` or `$ diesel migration redo --migration-dir migrations/2023-05-15-053919_article_db`
    - runs `down.sql` & then `up.sql` i.e. drop table & then create table.
 6. `$ diesel_ext > src/models/db_models.rs`
    - generates the models for the table in `db_models.rs` file.
@@ -83,7 +83,54 @@ $ cargo build
 $ cargo build --release
 ```
 
+## DB Setup
+
+For DB setup, run `down.sql` & then `up.sql` i.e. clean database (with 1 or more table) & then create DB (with 1 or more table).
+
+```sh
+❯ diesel migration run
+Running migration 2023-05-15-053919_article_db
+
+abhi3700=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner
+--------+----------------------------+-------+----------
+ public | __diesel_schema_migrations | table | abhi3700
+ public | articles                   | table | abhi3700
+ public | users                      | table | abhi3700
+(3 rows)
+```
+
+> `__diesel_schema_migrations` is created by diesel itself. It keeps track of the migrations that have been run.
+
+---
+
+```sh
+abhi3700=# SELECT * FROM __diesel_schema_migrations;
+    version     |           run_on
+----------------+----------------------------
+ 20230515053919 | 2023-05-17 18:05:19.054221
+(1 row)
+```
+
+For only running `down.sql`, run:
+
+```sh
+$ diesel migration revert
+Rolling back migration 2023-05-15-053919_article_db
+
+# Then you go to psql REPL & view this:
+abhi3700=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner
+--------+----------------------------+-------+----------
+ public | __diesel_schema_migrations | table | abhi3700
+(1 row)
+```
+
 ## Run
+
+Test API services
 
 ```sh
 $ cargo run

@@ -1,4 +1,7 @@
 //! Define messages for actix actors
+//! NOTE: Remember, when working with databases,
+//! it's crucial to ensure that your application's data types
+//! match the corresponding database field types to avoid such errors.
 
 use crate::db_models::{Article, User};
 use actix::Message;
@@ -11,5 +14,5 @@ pub struct FetchUser;
 #[derive(Message)]
 #[rtype(result = "QueryResult<Vec<Article>>")]
 pub struct FetchUserArticles {
-    pub user_id: u32,
+    pub user_id: i32,
 }
