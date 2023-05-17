@@ -3,6 +3,7 @@
 ## Overview
 
 - [ch-1](https://github.com/abhi3700/My_Learning-Rust/commit/fbe8bc1d5e3214b025c008a957fd6128ea4c9ed1)
+- [ch-2.1](https://github.com/abhi3700/My_Learning-Rust/commit/116926ff6d62925570f08c57b21b07632cedc948)
 
 ## Setup
 
@@ -127,6 +128,16 @@ abhi3700=# \dt
  public | __diesel_schema_migrations | table | abhi3700
 (1 row)
 ```
+
+> This command clears the `schema.rs` and then we need to `$ diesel migration run` again to generate the `schema.rs` file. This leads to unwanted changes in the `schema.rs` file:
+
+![](2023-05-18-00-01-29.png)
+
+This modification leads to error:
+
+![](2023-05-18-00-03-55.png)
+
+Hence, in `schema.rs`, the LHS is correct. So, edit accordingly as there are trait bound issues.
 
 ## Run
 
