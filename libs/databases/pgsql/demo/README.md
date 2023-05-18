@@ -5,6 +5,7 @@
 - [ch-1](https://github.com/abhi3700/My_Learning-Rust/commit/fbe8bc1d5e3214b025c008a957fd6128ea4c9ed1)
 - [ch-2.1](https://github.com/abhi3700/My_Learning-Rust/commit/116926ff6d62925570f08c57b21b07632cedc948)
 - [ch-2.2](https://github.com/abhi3700/My_Learning-Rust/commit/16227b98adfdcf0d03b9cca9fdf6c3e6437f8d58)
+- [ch-2.3](https://github.com/abhi3700/My_Learning-Rust/commit/532627e3a59388f80180ef2b1b9076cb02469ae8)
 
 ## Setup
 
