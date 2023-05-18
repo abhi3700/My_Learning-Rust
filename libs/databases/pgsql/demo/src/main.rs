@@ -9,6 +9,7 @@ use diesel::{
 mod actors;
 mod db_models;
 mod db_utils;
+// mod insertables;
 mod messages;
 mod schema;
 mod services;

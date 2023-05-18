@@ -4,6 +4,7 @@
 
 - [ch-1](https://github.com/abhi3700/My_Learning-Rust/commit/fbe8bc1d5e3214b025c008a957fd6128ea4c9ed1)
 - [ch-2.1](https://github.com/abhi3700/My_Learning-Rust/commit/116926ff6d62925570f08c57b21b07632cedc948)
+- [ch-2.2](https://github.com/abhi3700/My_Learning-Rust/commit/16227b98adfdcf0d03b9cca9fdf6c3e6437f8d58)
 
 ## Setup
 
@@ -88,6 +89,23 @@ $ cargo build --release
 
 For DB setup, run `down.sql` & then `up.sql` i.e. clean database (with 1 or more table) & then create DB (with 1 or more table).
 
+For only running `down.sql`, run:
+
+```sh
+$ diesel migration revert
+Rolling back migration 2023-05-15-053919_article_db
+
+# Then you go to psql REPL & view this:
+abhi3700=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner
+--------+----------------------------+-------+----------
+ public | __diesel_schema_migrations | table | abhi3700
+(1 row)
+```
+
+---
+
 ```sh
 ❯ diesel migration run
 Running migration 2023-05-15-053919_article_db
@@ -114,22 +132,9 @@ abhi3700=# SELECT * FROM __diesel_schema_migrations;
 (1 row)
 ```
 
-For only running `down.sql`, run:
+> There is a shortcut for both the steps: `$ diesel migration redo`.
 
-```sh
-$ diesel migration revert
-Rolling back migration 2023-05-15-053919_article_db
-
-# Then you go to psql REPL & view this:
-abhi3700=# \dt
-                   List of relations
- Schema |            Name            | Type  |  Owner
---------+----------------------------+-------+----------
- public | __diesel_schema_migrations | table | abhi3700
-(1 row)
-```
-
-> This command clears the `schema.rs` and then we need to `$ diesel migration run` again to generate the `schema.rs` file. This leads to unwanted changes in the `schema.rs` file:
+> This command (`$ diesel migration revert`) clears the `schema.rs` and then we need to `$ diesel migration run` again to generate the `schema.rs` file. This leads to unwanted changes in the `schema.rs` file:
 
 ![](2023-05-18-00-01-29.png)
 

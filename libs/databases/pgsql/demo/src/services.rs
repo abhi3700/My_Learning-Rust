@@ -1,4 +1,7 @@
-use crate::db_utils::{AppState, DbActor};
+use crate::{
+    db_utils::{AppState, DbActor},
+    messages::CreateArticle,
+};
 use actix::Addr;
 use actix_web::{
     get, post,
@@ -12,7 +15,7 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 pub struct CreateArticleBody {
     pub title: String,
-    pub body: String,
+    pub content: String,
 }
 
 #[get("/users")]
@@ -45,10 +48,29 @@ pub async fn fetch_user_articles(path: web::Path<i32>, state: Data<AppState>) ->
 
 #[post("/users/{id}/articles")]
 pub async fn create_user_article(
-    id: web::Path<u32>,
+    path: web::Path<i32>,
+    state: Data<AppState>,
     body: web::Json<CreateArticleBody>,
 ) -> impl Responder {
-    "POST /users".to_string()
+    // "POST /users".to_string()
+    let id = path.into_inner();
+
+    let db: Addr<DbActor> = state.as_ref().db.clone();
+
+    match db
+        .send(CreateArticle {
+            title: body.title.to_string(),
+            content: body.content.to_string(),
+            created_by: id,
+        })
+        .await
+    {
+        Ok(Ok(article)) => HttpResponse::Ok().json(article),
+        Ok(Err(_)) => HttpResponse::InternalServerError().json("Unable to create article"),
+        // Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
+        _ => HttpResponse::InternalServerError()
+            .json("Unable to create article due to internal server error"),
+    }
 }
 
 pub fn config(cfg: &mut web::ServiceConfig) {

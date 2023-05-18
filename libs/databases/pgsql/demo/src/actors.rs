@@ -1,6 +1,6 @@
 use crate::db_models::{Article, User};
 use crate::db_utils::DbActor;
-use crate::messages::{FetchUser, FetchUserArticles};
+use crate::messages::{CreateArticle, FetchUser, FetchUserArticles};
 use crate::schema::articles::{dsl::*, id as article_id};
 use crate::schema::users::dsl::*;
 use actix::Handler;
@@ -31,5 +31,31 @@ impl Handler<FetchUserArticles> for DbActor {
         articles
             .filter(created_by.eq(msg.user_id))
             .get_results::<Article>(&mut conn)
+    }
+}
+
+impl Handler<CreateArticle> for DbActor {
+    type Result = QueryResult<Article>;
+
+    fn handle(&mut self, msg: CreateArticle, _ctx: &mut Self::Context) -> Self::Result {
+        let mut conn = self
+            .0
+            .get()
+            .expect("Create Article: Unable to establish connection");
+
+        diesel::insert_into(articles)
+            .values((
+                title.eq(msg.title),
+                content.eq(msg.content),
+                created_by.eq(msg.created_by),
+            ))
+            .returning((
+                article_id,
+                title,
+                content,
+                created_by,
+                created_on.nullable(),
+            ))
+            .get_result::<Article>(&mut conn)
     }
 }
