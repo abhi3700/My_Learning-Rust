@@ -88,6 +88,7 @@ these changes will be reverted.
 - After `cargo` installation,
   - add package locally into the repo via `$ cargo add <package-name>`. E.g. `$ cargo add dotenv`.
   - list globally installed packages via `$ cargo install --list`.
+  - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
   - install the binaries (by default `/target/release`) folder via `$ cargo install --path .`. This will install the binary in the `~/.cargo/bin` folder.
   - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
@@ -350,6 +351,39 @@ fn main() {
 - Box is basically used for:
   - For dynamic allocation of memory for variables.
   - When there is a lot of data that we need to transfer ownership and we don’t want that they are copied.
+
+---
+
+#### Mutex
+
+Mutex stands for Mutual Exclusion, and it's a synchronization primitive used to protect shared data in concurrent programming. In the context of Rust, the `std::sync::Mutex` type provides a mechanism for multiple threads to mutually exclude each other from accessing some particular data.
+
+Let's imagine we have a book 📚 (representing the shared data), and we have two friends 👥 (representing two threads). They both want to write in the book 📚 at the same time.
+
+The book 📚 is our shared data that both friends 👥 want to modify. We can't have both friends 👥 writing in the book 📚 at the same time, because that would create a mess. We need some way to ensure that only one friend 👥 can write in the book 📚 at a time. That's where our Mutex comes in!
+
+A mutex is like a key 🔑 to the book 📚. When a friend 👥 has the key 🔑, they can write in the book 📚. When they're done, they give the key 🔑 back, and the other friend 👥 can take the key 🔑 to write in the book 📚.
+
+Here is how it works in code:
+
+```rust
+use std::sync::Mutex;
+
+let m = Mutex::new(5);  // Here we are creating our book 📚 with a number 5 inside it.
+
+{
+    let mut num = m.lock().unwrap();  // One of our friends 👥 takes the key 🔑.
+    *num = 6;  // They change the number in the book 📚 from 5 to 6.
+}  // The friend 👥 gives back the key 🔑 when they are done.
+
+println!("m = {:?}", m);  // Now the book 📚 has number 6 inside it.
+```
+
+In this example, the friend 👥 is able to take the key 🔑 (acquire the lock) by calling `m.lock()`. They can then modify the data (write in the book 📚) by dereferencing `num` to get access to the data. When they're done, they give the key 🔑 back automatically because Rust's scoping rules will drop the `MutexGuard` (represented by `num`) at the end of the scope, which releases the lock.
+
+It's important to remember that if a friend 👥 forgets to give back the key 🔑 (doesn't release the lock), the other friend 👥 will be left waiting indefinitely, unable to write in the book 📚. This is called a deadlock, and it's a common problem in concurrent programming that you should try to avoid.
+
+This is a simplified view of mutexes in Rust, but hopefully, it helps you understand the basic concept. For more complex scenarios, you'll want to learn about things like error handling with `Result`, using `Condvar` for condition variables, and understanding the different methods available on `Mutex` and `MutexGuard`.
 
 ### Array
 
@@ -717,6 +751,10 @@ Using generics, we can write code that can be used with multiple data types with
 #![allow(unused_variables)]
 ```
 
+### Concurrency
+
+Refer [this](./tuts/concurrency/)
+
 ### Comments
 
 Here are some of the key guidelines for writing comments in Rust:
@@ -792,6 +830,25 @@ Look for files with `_opt` suffix like this at the repo root:
 ```sh
 ❯ find . | grep _opt
 ```
+
+### Understanding memory layout (low level language design)
+
+[Video source](https://www.youtube.com/watch?v=rDoqT-a6UFg) 🌟🌟🌟🌟🌟
+
+![](./img/memory-layout1.png)
+
+- stack is used for:
+  - primitive types
+  - function param, return values (address), local variables
+- For 64-bit machine, total allowed stack size for the main thread is 8 MB. In below example, there are different stack frame created. Consider the entire white area as stack size for main thread as 8 MB. Also, there is only 1 thread running. Here, stack pointer is getting incremented/decremented based on the program logic running in the thread.
+  ![](img/memory-layout02.png)
+  ![](img/memory-layout2.png)
+  ![](img/memory-layout3.png)
+  ![](img/memory-layout4.png)
+
+  > Here, the blurred one is not deallocated, but just be replaced by the next function.
+
+  ![](img/memory-layout5.png)
 
 ### Idioms
 

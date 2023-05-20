@@ -1,6 +1,12 @@
 # PGSQL Demo
 
+`REST API using actix + actix_web + diesel + postgresqlDB`
+
 ## Overview
+
+Created a REST API using actix-web framework with diesel ORM and postgresql db & r2d2 connection pool, and dotenvy crate for environment variables (.env file). Also, used serde crate for serialization/deserialization of data. Also, used chrono crate for date/time. Also, used actix crate for implementing Actor model in Concurrency.
+
+**Commits**:
 
 - [ch-1](https://github.com/abhi3700/My_Learning-Rust/commit/fbe8bc1d5e3214b025c008a957fd6128ea4c9ed1)
 - [ch-2.1](https://github.com/abhi3700/My_Learning-Rust/commit/116926ff6d62925570f08c57b21b07632cedc948)
