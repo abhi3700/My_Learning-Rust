@@ -1,0 +1,70 @@
+<mxfile host="Electron" modified="2023-05-22T16:12:46.935Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="AZF9kpuoic7PUZz4aeQE" version="21.2.8" type="device">
+  <diagram name="Page-1" id="kWnMutsACy6TRgf00iFC">
+    <mxGraphModel dx="588" dy="425" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-28" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;rotation=-90;shadow=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="345" y="130" width="60" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-29" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="NjU4yITNJJ9T1GElI6_k-6" target="NjU4yITNJJ9T1GElI6_k-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="395" as="sourcePoint" />
+            <mxPoint x="450" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-27" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;rotation=-90;shadow=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="344.5" y="200.5" width="60" height="431" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-3" value="Thread 1&lt;br&gt;(main)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="339" width="60" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-4" value="Thread 2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="411" width="60" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-5" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;Task 1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFF33;align=center;" vertex="1" parent="1">
+          <mxGeometry x="220" y="315" width="70" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-6" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;Task 1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFF33;" vertex="1" parent="1">
+          <mxGeometry x="290" y="385" width="70" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-7" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=0.367;exitY=0.957;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="NjU4yITNJJ9T1GElI6_k-9" target="NjU4yITNJJ9T1GElI6_k-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="265" as="sourcePoint" />
+            <mxPoint x="360" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-9" value="spawn_blocking" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="240" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-15" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;is a term used in multi-threaded programming to describe a function that creates a new thread and waits for it to complete before continuing execution.&lt;/font&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;align=left;position2=0.5;fillColor=#fad7ac;strokeColor=#b46504;" vertex="1" parent="1">
+          <mxGeometry x="230" y="165" width="220" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-17" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;Task 1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFF33;" vertex="1" parent="1">
+          <mxGeometry x="360" y="315" width="70" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=0.433;exitY=1.043;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="NjU4yITNJJ9T1GElI6_k-9" target="NjU4yITNJJ9T1GElI6_k-17">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="348" y="285" as="sourcePoint" />
+            <mxPoint x="300" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-19" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;creates a &lt;br&gt;new thread&lt;/font&gt;" style="text;html=1;align=right;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="230" y="260" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-20" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;returns the result &lt;br&gt;back to the old thread&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="350" y="260" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-30" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="359.05" y="380" as="sourcePoint" />
+            <mxPoint x="359.05" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NjU4yITNJJ9T1GElI6_k-25" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;Task 2&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF822E;align=center;" vertex="1" parent="1">
+          <mxGeometry x="220" y="329" width="220" height="10" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
