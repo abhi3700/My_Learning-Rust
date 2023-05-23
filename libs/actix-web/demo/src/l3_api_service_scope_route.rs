@@ -1,5 +1,6 @@
 //! Create an App with `index.html` page at a particular url with `scope` method & `route` method
 //! https://actix.rs/docs/application
+
 use crate::is_port_available;
 use actix_web::{web, App, HttpServer, Responder};
 

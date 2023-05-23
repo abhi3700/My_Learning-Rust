@@ -744,12 +744,38 @@ Using generics, we can write code that can be used with multiple data types with
 
 - Apply `#[derive(Debug)]` for making the struct, enum printable
 - Apply `#[derive(Clone)]` for making the struct, enum copyable.
-- Use this in `src/main.rs` to ignore unused code, variables
+- Use this globally in `src/main.rs` to ignore unused code, variables
 
 ```rust
 #![allow(dead_code)]
 #![allow(unused_variables)]
+
+fn main() {
+    // ...
+}
 ```
+
+- A function is marked with #[allow(dead_code)], which suppresses the Rust compiler warning for unused code. This is typically used when the function is expected to be used in the future or when it is part of a public API that isn't currently being used in the local codebase.
+
+  - Suppose, there is a util function and I am not using it anywhere. So, I can mark it as `#[allow(dead_code)]` to avoid the compiler's warning.
+
+  ```rust
+  #[allow(dead_code)]
+  fn handle_task() {}
+  ```
+
+  Further explanation:
+
+  `#[allow(dead_code)]` 🚦
+
+  This line is like a "do not disturb" sign 🚫. It tells the Rust compiler not to worry if this function isn't being used right now.
+
+- Same goes for unused variables:
+
+  ```rust
+  #[allow(unused_variables)]
+  let v = vec![1, 2, 2, 3, 4, 4, 5, 6, 7, 7];
+  ```
 
 ### Concurrency
 
@@ -785,6 +811,8 @@ This is important while importing modules.
   // In some_file.rs
   use super::MyStruct;
   ```
+
+````
 
 - `crate` is used to import from root module of the current module (file). When you use `crate` for importing, you're specifying an absolute path from the root of the current crate (where Cargo.toml file is there).
 
@@ -1153,3 +1181,4 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 - [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
 - [Crust of Rust YT playlist](https://youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)
 - [Rust Powered Polymorphism ⚡️ With Traits](https://www.youtube.com/watch?v=CHRNj5oubwc) ✅
+````

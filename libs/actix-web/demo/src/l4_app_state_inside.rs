@@ -28,9 +28,9 @@ pub async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             // data is fed locally for this port.
-            .data(AppState {
-                app_name: "Actix-web Application state locally defined".to_string(),
-            })
+            .app_data(web::Data::new(AppState {
+                app_name: "Actix-web Application state defined inside".to_string(),
+            }))
             // service (GET, POST, DELETE) is registered to the app
             .service(index)
     })

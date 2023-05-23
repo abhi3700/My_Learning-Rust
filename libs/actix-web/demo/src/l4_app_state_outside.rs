@@ -3,7 +3,6 @@
 
 use crate::is_port_available;
 use actix_web::{get, web, App, HttpServer, Responder};
-use futures::future;
 
 // Application state
 #[derive(Clone)]
@@ -29,15 +28,15 @@ pub async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "debug");
     env_logger::init();
 
-    // AppState globally defined for multiple app instance.
-    let app_state = AppState {
-        app_name: "Actix-web Application state locally defined 2".to_string(),
-    };
+    // AppState defined outside for app instance.
+    let app_state = web::Data::new(AppState {
+        app_name: "Actix-web Application state defined outside".to_string(),
+    });
 
     HttpServer::new(move || {
         App::new()
             // data is fed locally for this port.
-            .app_data(web::Data::new(app_state.clone()))
+            .app_data(app_state.clone())
             // service (GET, POST, DELETE) is registered to the app
             .service(index)
     })

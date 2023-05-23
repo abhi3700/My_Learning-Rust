@@ -1,16 +1,12 @@
-//! Hello World API
+//! Hello World simple API
 //! Source: https://actix.rs/docs/getting-started
+
 use crate::is_port_available;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
-}
-
-#[get("/name")]
-async fn name() -> impl Responder {
-    HttpResponse::Ok().body("Abhijit")
 }
 
 #[post("/echo")]
@@ -22,7 +18,10 @@ async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
-use crate::is_port_available;
+#[get("/name")]
+async fn name() -> impl Responder {
+    HttpResponse::Ok().body("Abhijit")
+}
 
 #[actix_web::main]
 pub async fn main() -> std::io::Result<()> {

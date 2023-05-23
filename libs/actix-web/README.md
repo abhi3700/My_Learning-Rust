@@ -80,6 +80,12 @@ For more comprehensive example, refer to these examples:
 
 - [`REST API using actix + actix_web + diesel + postgresqlDB`](../databases/pgsql/demo/)
 
+---
+
+Actix-web RESTful API scaffoldings:
+
+![](../../img/actix_web_restful_api_scaffoldings.png)
+
 ## Coding
 
 There are 2 ways to create handler function:

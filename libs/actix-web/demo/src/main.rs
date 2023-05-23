@@ -1,7 +1,7 @@
 // TODO: We need to spin up multiple servers with individual app instance.
 
-#[path = "./l5_app_state_shared_globally.rs"]
-mod l5_app_state_shared_globally;
+#[path = "./l4_app_state_outside.rs"]
+mod l4_app_state_outside;
 
 use std::net::TcpListener;
 
@@ -13,5 +13,5 @@ pub(crate) fn is_port_available(port: u16) -> bool {
 }
 
 fn main() {
-    l5_app_state_shared_globally::main();
+    l4_app_state_outside::main();
 }
