@@ -82,17 +82,31 @@ For more comprehensive example, refer to these examples:
 
 ---
 
+## Coding
+
+There are 4 main functions which can be composed in different ways (leaving `AppState` aside) while creating API routes:
+
+- `service`: takes a `factory` argument inside
+- `scope`: takes a `prefixed_path` argument inside which can be propagated with `route`
+- `resource`: takes a `api_route_path` argument inside which can be propagated with `route`
+- `route`: can have 2 or 1 arguments based on `scope` & `resource` respectively
+
+And we can also leverage `Mutex` which essentially supports both `Send` & `Sync` that allows a data to flow between threads (concurrency) maintaining data consistency.
+
 Actix-web RESTful API scaffoldings:
 
 ![](../../img/actix_web_restful_api_scaffoldings.png)
 
-## Coding
+For better resolution, refer [this](../../img/rust_all.drawio)
+
+---
 
 There are 2 ways to create handler function:
-
 **M-1**:
 
-I prefer this, because we get to see all the API routes with the API handler functions in the `main()` function. Also, there is no need of creating a separate function called `config` in the handlers module.
+Personally, I prefer `M-1`, because we get to see all the API routes with the associated API handler functions in the `main()` function directly. Also, there is no need of creating a separate function called `config` in the handlers module.
+
+> You can also use `scope` to make the APIs more modular via prefixing just like `namespace` (used in C++), `mod` (in Rust).
 
 ```rust
 // handlers.rs
@@ -164,6 +178,54 @@ async fn main() -> std::io::Result<()> {
 
 }
 ```
+
+---
+
+`scope` vs `resource`:
+
+- The former refers to prefixing the API routes & also `route` function attached requires 2 arguments.
+
+  ```rust
+  HttpServer::new(|| {
+      App::new().route("/index", web::get().to(index)).service(
+          // prefixes all resources and routes attached to it...
+          web::scope("/app")
+              // ...so this handles requests for `GET /app/tasks` & `POST /app/tasks`
+              .route("/tasks", web::get().to(get_task))
+              .route("/tasks", web::put().to(create_task)),
+      )
+  })
+  ```
+
+- The latter refers to linking multiple routes (with 1 argument i.e. `HTTP_method.handler_func_name`) to a API route.
+
+  ```rust
+  HttpServer::new(|| {
+      App::new().route("/index", web::get().to(index)).service(
+          // prefixes all resources and routes attached to it...
+          web::resource("/app/tasks")
+              // ...so this handles requests for `GET /app/tasks` & `POST /app/tasks`
+              .route(web::get().to(get_task))
+              .route(web::put().to(create_task)),
+      )
+  })
+  ```
+
+- Now, the former & latter can be composed like this:
+
+  ```rust
+  HttpServer::new(|| {
+      App::new().route("/index", web::get().to(index)).service(
+          // prefixes all service (resources and routes) attached to it...
+          web::scope("/app").service(
+              web::resource("/tasks")
+                  // ...so this handles requests for `GET /app/tasks` & `POST /app/tasks`
+                  .route(web::get().to(get_task))
+                  .route(web::put().to(create_task)),
+          ),
+      )
+  })
+  ```
 
 ## Run
 
