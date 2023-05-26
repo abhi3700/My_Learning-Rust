@@ -2,6 +2,53 @@
 
 ## Overview
 
+### Thread-safe vs Concurrency
+
+Imagine a fridge (🧊) with a cake (🍰) inside, and two hungry people (👫) eyeing it.
+
+💥 **Non Thread-Safe Scenario**: Both people try to grab the cake simultaneously, leading to a possible mess. This is akin to a race condition in a non-thread-safe program. Without proper coordination, conflicts arise over shared resources.
+
+```
+👫 ➡️ 🧊 (Open fridge)
+👫 🤝 🍰 (Both grab the cake...Oops! Race condition!)
+```
+
+🔒 **Thread-Safe Scenario**: The two people coordinate. One waits for the other to get a piece before taking theirs - effectively adding a "lock" mechanism to the operation.
+
+```
+👱‍♂️ ➡️ 🧊 ➡️ 🍰 (Person 1 gets cake)
+👱‍♀️ (waits...)
+
+then
+
+👱‍♀️ ➡️ 🧊 ➡️ 🍰 (Person 2 gets cake after Person 1 is done)
+```
+
+⏳ **Non-Concurrent Scenario**: Each person decides to prepare a coffee (☕) after getting their piece of cake, doing this sequentially.
+
+```
+👱‍♂️ ➡️ 🧊 ➡️ 🍰 ➡️ ☕ (Person 1 gets cake and makes coffee)
+
+then
+
+👱‍♀️ ➡️ 🧊 ➡️ 🍰 ➡️ ☕ (Person 2 gets cake and makes coffee after Person 1 is done)
+```
+
+⚡ **Concurrent Scenario**: One person prepares coffee while the other is getting the cake. They're operating concurrently, doing separate tasks that don't interfere with each other, at the same time.
+
+```
+👱‍♂️ ➡️ 🧊 ➡️ 🍰  simultaneously  👱‍♀️ ➡️ ☕ (Person 2 makes coffee while Person 1 gets cake)
+
+then
+
+👱‍♀️ ➡️ 🧊 ➡️ 🍰  simultaneously  👱‍♂️ (relaxes... Person 1 rests while Person 2 gets cake)
+```
+
+In summary:
+
+- **Thread safety** is about coordinating access to shared resources to prevent conflicts.
+- **Concurrency** is about executing different tasks that overlap in time.
+
 ### Actor model
 
 - Problem: Not Everything not achievable using `Arc<Mutex>`, `Mutex<Todo>` i.e. wrap the .
@@ -55,9 +102,10 @@ Rust doesn't have a built-in actor model framework, but there are libraries avai
 
 By using an Actor Framework in Rust, you can:
 
-Write concurrent programs more easily.
-Make your programs more resilient to failures.
-Help your programs scale across multiple processors or machines.
+- Write concurrent programs more easily.
+- Make your programs more resilient to failures.
+- Help your programs scale across multiple processors or machines.
+
 In simpler terms, an Actor Framework in Rust can help you write programs that can do lots of things at once, recover from problems, and grow to handle more work over time.
 
 </details>
