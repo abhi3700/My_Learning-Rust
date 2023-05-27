@@ -14,18 +14,11 @@ impl MyTrait for Numbers {
     }
 }
 
+/// ❌ Can't implement the same trait for different types. For this follow next example - ./gat_2.rs
 impl MyTrait for Numbers {
     type Item = String;
     fn get(&self) -> Self::Item {
         10
-    }
-}
-struct Article {}
-
-impl MyTrait for Article {
-    type Item = String;
-    fn get(&self) -> Self::Item {
-        "Hello".to_string()
     }
 }
 

@@ -87,7 +87,7 @@ Here, runtime cost-wise: `dyn Debug` is more expensive than `impl Debug`.
 
 "Static dispatch vs Dynamic dispatch" [Video](https://youtu.be/CHRNj5oubwc)
 
-In order to understand, follow this [example](./trait_13.rs).
+In order to understand, follow this [example](./traits_14.rs).
 
 ## FAQs
 
