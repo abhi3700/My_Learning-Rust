@@ -6,10 +6,9 @@
     - Also, the Rust-Analyzer gets activated (as `Cargo.toml` is added at project root)
     & gives red flags at errors w/o compiling using `cargo check`
 */
-
-#[path = "../tuts/pointer/mutex_1.rs"]
-mod mutex_1;
+#[path = "../tuts/generics/g_trait_g_struct.rs"]
+mod g_trait_g_struct;
 
 fn main() {
-    mutex_1::main();
+    g_trait_g_struct::main();
 }

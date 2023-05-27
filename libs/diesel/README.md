@@ -57,6 +57,20 @@ $ cargo install diesel_cli_ext
 $ diesel setup
 ```
 
+## Coding concepts
+
+The provided Diesel ORM schema represents a model of a database that deals with games, assets, companies, and users. Here's a breakdown of what each part of the schema does:
+
+1. The schema starts by defining custom SQL types for various fields that will be used in the database. Each custom SQL type corresponds to a specific type in the PostgreSQL database system.
+
+2. The `diesel::table!` macro is used to define representations of database tables in Rust. For each table, this macro defines a Rust struct with fields corresponding to the columns of the database table. The name of the struct is the same as the name of the table. The fields' names and types correspond to the columns' names and types in the table.
+
+3. The `joinable!` macros specify how tables in the database are related to each other. This information is used by Diesel when you perform operations that involve more than one table, such as joining two tables together.
+
+4. The `allow_tables_to_appear_in_same_query!` macro allows Diesel to know that multiple tables can be used in the same SQL query. This is necessary because Diesel's type system enforces that you can't perform certain operations on tables that aren't explicitly allowed to interact.
+
+Here, `asset` is the name of the table. Inside the parentheses following the table name (`id` in this case) is the primary key of the table. Then, for each column of the table, there's a line of the form `column_name -> column_type`, which defines a field of the struct that represents a column of the table. The type may be a standard SQL type (like `Varchar` or `Int4`) or a custom type that was defined earlier (like `GameType` or `ChainType`). The `Nullable` wrapper indicates that the column can contain `NULL` values.
+
 ## Troubleshoot
 
 ### 1. note: ld: warning: ignoring file opt/anaconda3/lib/libpq.dylib, building for macOS-arm64 but attempting to link with file built for macOS-x86_64

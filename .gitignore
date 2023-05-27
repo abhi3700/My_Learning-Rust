@@ -3,6 +3,7 @@ target/
 Cargo.lock
 .DS_Store
 ~$*
+.$*
 pr.rs
 .env
 .vscode/
