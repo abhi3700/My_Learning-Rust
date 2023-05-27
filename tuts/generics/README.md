@@ -12,6 +12,8 @@ Generics are a way to abstract over types. They allow us to write code that can 
 
 ## Generic Implementations
 
+> `impl<T>` is suffixed with `<T>` to indicate that we are implementing methods on a generic type. So, wherever there is a generic struct, `impl` is followed by `<T>` and the methods are defined within the `impl` block.
+
 ### "implement methods for generic struct"
 
 ```rust
@@ -58,4 +60,4 @@ impl MyTrait<T> for MyStruct {
 
 ## Generic Traits
 
-- [generic_trait](./generic_trait.rs)
+- [generic_trait](./g_trait_struct.rs)
