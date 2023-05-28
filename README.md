@@ -91,9 +91,11 @@ these changes will be reverted.
   - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
   - install the binaries (by default `/target/release`) folder via `$ cargo install --path .`. This will install the binary in the `~/.cargo/bin` folder.
   - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
-  - Watch for changes in the project and automatically run via `$ cargo watch -x run`
-  - Watch for changes in the project and automatically test via `$ cargo watch -x test`
-  - Install `cargo-expand` via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
+  - `cargo-watch` install via `$ cargo install cargo-watch`.
+    - Watch for changes in the project and automatically run via `$ cargo watch -x run`
+    - Watch for changes in the project and automatically test via `$ cargo watch -x test`
+  - `cargo-expand`: install via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
+  - `cargo-audit`: install via `$ cargo install cargo-audit`.
 - build using `nightly` toolchain for a project via `$ cargo +nightly build`
 - build a releasable (optimized) version of a project via `$ cargo build --release`
 
@@ -120,6 +122,14 @@ Use VSCode.
 [Source](https://www.becomebetterprogrammer.com/rust-recommended-vscode-extensions/)
 
 - [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+
+  ```json
+    "[rust]": {
+      "editor.defaultFormatter": "rust-lang.rust-analyzer",
+      "editor.formatOnSave": true
+    },
+  ```
+
 - [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
 - [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) [OPTIONAL]
 - [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml)
@@ -132,6 +142,43 @@ An ideal setup for a rust code (with tests) would be:
 ![](img/rust_code_setup_vs_code.png)
 
 So, here on left terminal, we have `$ cargo watch -x run` running, which will watch for changes in the project and automatically run. On right terminal, we have `$ cargo watch -x test` running, which will watch for changes in the project and automatically test.
+
+## CI/CD (Github Actions)
+
+Create a `.github/workflows/rust-ci.yml` file.
+
+The file should contain this:
+
+```yml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Rust
+        uses: actions/checkout@v2
+      - name: Install cargo-audit
+        run: cargo install cargo-audit
+      - name: Build
+        run: cargo build --verbose
+      - name: Test
+        run: cargo test --verbose
+      - name: Clippy
+        run: cargo clippy --verbose -- -D warnings
+      - name: Audit
+        run: cargo audit
+```
+
+## Crates
+
+Important ones.
+
+- [serde](https://crates.io/crates/serde)
+- [serde_json](https://crates.io/crates/serde_json)
+- [thiserror](https://crates.io/crates/thiserror)
+- [anyhow](https://crates.io/crates/anyhow)
+- [tokio](https://crates.io/crates/tokio)
+
+For more, see [here](https://blessed.rs/crates).
 
 ## Repositories
 
@@ -1179,3 +1226,4 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 - [Learn Rust by Book via Video](https://www.youtube.com/watch?v=5QsEuoIt7JQ&list=PLSbgTZYkscaoV8me47mKqSM6BBSZ73El6&index=1)
 - [Crust of Rust YT playlist](https://youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)
 - [Rust Powered Polymorphism ⚡️ With Traits](https://www.youtube.com/watch?v=CHRNj5oubwc) ✅
+- [5 Better ways to code in Rust](https://www.youtube.com/watch?v=BU1LYFkpJuk) ✅

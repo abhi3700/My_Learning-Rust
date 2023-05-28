@@ -133,6 +133,24 @@ In simpler terms, an Actor Framework in Rust can help you write programs that ca
 
   - Actors mailbox overflow
 
+## Coding
+
+### Libs
+
+- [Rayon](https://crates.io/crates/rayon)
+
+Demo:
+
+```rust
+use rayon::prelude::*;
+
+fn main() {
+    let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let sum: i32 = v.par_iter().sum();  // NOTE: Here, instead of `iter()`, we use `par_iter()` for parallel processing.
+    println!("sum: {}", sum);
+}
+```
+
 ## Resources
 
 - [A brief introduction to the actor model & distributed actors](https://www.youtube.com/watch?v=YTQeJegJnbo) ✅ 🌟🌟🌟🌟🌟
