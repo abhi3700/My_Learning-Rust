@@ -37,7 +37,13 @@ trait MyTrait {
     // method signatures...
 }
 
+/// when `MyTrait` is implemented for `MyStruct<T>`
 impl<T> MyTrait for MyStruct<T> {
+    // method implementations...
+}
+
+/// when `MyTrait` is implemented for `MyStruct<T>` where `T` implements `SomeOtherTrait`
+impl<T> MyTrait for MyStruct<T> where T: SomeOtherTrait {
     // method implementations...
 }
 ```
