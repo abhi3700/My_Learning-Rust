@@ -1,5 +1,6 @@
 //! The App state has to be wrapped with mutex for
-//! safe mutation across workers (threads).
+//! safe mutation across workers (threads). This `mutex` usage is applicable if there is no database.
+//! If there is a database, then the database will handle the concurrency via connection pooling.
 //!
 //! - State initialized inside the closure passed to HttpServer::new is local to the worker thread and may become de-synced if modified.
 //! - To achieve globally shared state, it must be created outside of the closure passed to HttpServer::new and moved/cloned in.

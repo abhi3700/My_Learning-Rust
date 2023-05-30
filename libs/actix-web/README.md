@@ -404,6 +404,65 @@ Thought process is correct, but it throws compiler error related to trait bound 
 
 So, it is advised to use `scope` and `service` to organize your routes in your app instance in a server.
 
+### Q. Do we need to use `mutex` when using database for storage?
+
+Given these:
+
+- ✅ ORM (Diesel) library
+- ✅ PostgreSQL DB
+- ✅ Actix Web API framework
+- ✅ mixed operations on the database (read and write)
+
+When using Diesel ORM with Actix and PostgreSQL, you typically don't need to use a `Mutex` directly for managing your database connections. Diesel provides a connection pool (via the `r2d2` crate) that allows you to handle multiple database connections efficiently.
+
+In Actix, you can store the Diesel connection pool in your application state. When a request comes in, you can get a connection from the pool and use it to interact with your database. This is thread-safe and doesn't require manual synchronization with a `Mutex`.
+
+Here's a basic example of how you might set this up:
+
+```rust
+use actix_web::{web, App, HttpServer};
+use diesel::r2d2::{self, ConnectionManager};
+use diesel::PgConnection;
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    // Set up database connection pool
+    let manager = ConnectionManager::<PgConnection>::new("postgres://username:password@localhost/database");
+    let pool = r2d2::Pool::builder()
+        .build(manager)
+        .expect("Failed to create pool.");
+
+    // Start HTTP server
+    HttpServer::new(move || {
+        App::new()
+            .app_data(pool.clone())  // Store connection pool in app state
+            .route("/", web::get().to(some_handler))
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
+}
+
+async fn some_handler(db: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>) -> String {
+    // Get a database connection from the pool
+    let conn = db.get().expect("Failed to get DB connection from pool");
+
+    // Use the connection to interact with your database...
+
+    "Response".to_string()
+}
+```
+
+In this example, `some_handler` is an Actix handler function that gets a database connection from the pool and uses it to interact with the database. The `web::Data` extractor is used to get the connection pool from the application state.
+
+Remember to replace `"postgres://username:password@localhost/database"` with your actual database URL.
+
+This setup ensures that your database connections are managed efficiently and safely across multiple threads, without the need for manual synchronization with a `Mutex`.
+
+### Q. In addition to last question, do we need to use `Arc` to the data (App State) struct?
+
+No, as `app_data()` by defaults has Arc pointer. So, we don't need both the `Mutex` and `Arc` to the data struct in the app state as it is already thread-safe via connection pool when using Diesel ORM with Actix and PostgreSQL DB.
+
 </details>
 
 ## References
