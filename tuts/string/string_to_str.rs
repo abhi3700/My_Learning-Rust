@@ -1,12 +1,6 @@
-/*
-    String to str
-*/
+//! String to str using `&`
 
 pub fn main() {
-    let s = String::from("Abhijit");
-    find_if_word(&s); // String to &str
-}
-
-fn find_if_word(s: &str) {
-    println!("{}", s);
+    let s_string = String::from("Abhijit");
+    let s_str = &s_string; // String to &str
 }

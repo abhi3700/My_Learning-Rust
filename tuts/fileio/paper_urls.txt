@@ -1,0 +1,42 @@
+- Impact of the global chip shortage on the development of in-memory chips: https://www.nature.com/articles/s41467-022-31598-5
+- Electric-double-layer p–i–n junctions in WSe2: https://www.nature.com/articles/s41598-020-69523-9
+- Nitride-based semiconductors for blue and green light-emitting devices: https://www.nature.com/articles/386351a0
+- Micro light-emitting diodes: https://www.nature.com/articles/s41928-022-00828-5
+- A novel AlGaN/GaN heterostructure field-effect transistor based on open-gate technology: https://www.nature.com/articles/s41598-021-01917-9
+- Widely tunable GaAs bandgap via strain engineering in core/shell nanowires with large lattice mismatch: https://www.nature.com/articles/s41467-019-10654-7
+- Celebrating semiconductor lasers: https://www.nature.com/articles/nphoton.2012.185
+- Screw-Dislocation-Driven Growth Mode in Two Dimensional GaSe on GaAs(001) Substrates Grown by Molecular Beam Epitaxy: https://www.nature.com/articles/s41598-019-54406-5
+- Wafer-scalable, aligned carbon nanotube transistors operating at frequencies of over 100 GHz: https://www.nature.com/articles/s41928-019-0326-y
+- Inorganic semiconductor nanomaterials for flexible and stretchable bio-integrated electronics: https://www.nature.com/articles/am201227
+- Integration of boron arsenide cooling substrates into gallium nitride devices: https://www.nature.com/articles/s41928-021-00595-9
+- Progress on AlGaN-based solar-blind ultraviolet photodetectors and focal plane arrays: https://www.nature.com/articles/s41377-021-00527-4
+- Monolithic integration of AlGaInP-based red and InGaN-based green LEDs via adhesive bonding for multicolor emission: https://www.nature.com/articles/s41598-017-11239-4
+- Optical actuation of a micromechanical photodiode via the photovoltaic-piezoelectric effect:https://www.nature.com/articles/s41378-021-00249-y
+- Ultralow-voltage operation of light-emitting diodes: https://www.nature.com/articles/s41467-022-31478-y
+- Ultraviolet light-emitting diodes based on group three nitrides: https://www.nature.com/articles/nphoton.2007.293
+- Diverse Functionalities of Vertically Stacked Graphene/Single layer n-MoS2/SiO2/p-GaN Heterostructures: https://www.nature.com/articles/s41598-017-09998-1
+- Temperature effects on an InGaP (GaInP) 55Fe X-ray photovoltaic cell: https://www.nature.com/articles/s41598-017-05181-8
+- The road towards polaritonic devices: https://www.nature.com/articles/nmat4668
+- High-mobility p-channel wide-bandgap transistors based on hydrogen-terminated diamond/hexagonal boron nitride heterostructures: https://www.nature.com/articles/s41928-021-00689-4
+- Quantum engineering of non-equilibrium efficient p-doping in ultra-wide band-gap nitrides: https://www.nature.com/articles/s41377-021-00503-y
+- Graphene transistors: https://www.nature.com/articles/nnano.2010.89
+- Intersubband Transition in GaN/InGaN Multiple Quantum Wells: https://www.nature.com/articles/srep11485
+- Tunnelling-based ternary metal–oxide–semiconductor technology: https://www.nature.com/articles/s41928-019-0272-8
+- A compute-in-memory chip based on resistive random-access memory: https://www.nature.com/articles/s41586-022-04992-8
+- The future of ferroelectric field-effect transistor technology: https://www.nature.com/articles/s41928-020-00492-7
+- An on-chip photonic deep neural network for image classification: https://www.nature.com/articles/s41586-022-04714-0
+- Engineering of microfabricated ion traps and integration of advanced on-chip features: https://www.nature.com/articles/s42254-020-0182-8
+- Semiconductor qubits in practice: https://www.nature.com/articles/s42254-021-00283-9
+- Hybrid architecture based on two-dimensional memristor crossbar array and CMOS integrated circuit for edge computing: https://www.nature.com/articles/s41699-021-00284-3
+- A memristor-based Bayesian machine: https://www.nature.com/articles/s41928-022-00886-9
+- Science and research policy at the end of Moore’s law: https://www.nature.com/articles/s41928-017-0005-9
+- Flexible entanglement-distribution network with an AlGaAs chip for secure communications: https://www.nature.com/articles/s41534-021-00454-7
+- A practical guide to intelligent image-activated cell sorting: https://www.nature.com/articles/s41596-019-0183-1
+- A four-megabit compute-in-memory macro with eight-bit precision based on CMOS and resistive random-access memory for AI edge devices: https://www.nature.com/articles/s41928-021-00676-9
+- Exploiting rotational asymmetry for sub-50 nm mechanical nanocalligraphy: https://www.nature.com/articles/s41378-021-00300-y
+- Continuous-flow bioseparation using microfabricated anisotropic nanofluidic sieving structures: https://www.nature.com/articles/nprot.2009.176
+- Laser Scanning Holographic Lithography for Flexible 3D Fabrication of Multi-Scale Integrated Nano-structures and Optical Biosensors: https://www.nature.com/articles/srep22294
+- Optimal solid state neurons: https://www.nature.com/articles/s41467-019-13177-3
+- Very-large-scale integrated quantum graph photonics: https://www.nature.com/articles/s41566-023-01187-z
+- Modern microprocessor built from complementary carbon nanotube transistors: https://www.nature.com/articles/s41586-019-1493-8
+- Approaching diamond’s theoretical elasticity and strength limits: https://www.nature.com/articles/s41467-019-13378-w

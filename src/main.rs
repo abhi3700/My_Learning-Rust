@@ -6,9 +6,9 @@
     - Also, the Rust-Analyzer gets activated (as `Cargo.toml` is added at project root)
     & gives red flags at errors w/o compiling using `cargo check`
 */
-#[path = "../tuts/traits/traits_16.rs"]
-mod traits_16;
+#[path = "../tuts/fileio/paper_urls.rs"]
+mod paper_urls;
 
 fn main() {
-    traits_16::main();
+    paper_urls::main();
 }
