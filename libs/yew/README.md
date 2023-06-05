@@ -16,9 +16,18 @@ Yew is a modern Rust framework for creating multi-threaded front-end web apps wi
 > Rust is pre-installed in README.
 
 1. Install [`cargo-generate`](https://github.com/cargo-generate/cargo-generate) via `$ cargo install --locked cargo-generate`
-2. Create a project with a starter template: `$ cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template`
-3. Install [`trunk`](https://trunkrs.dev/) via `$ cargo install --locked trunk`
-4. Install `wasm-bindgen` via `$ cargo install --locked wasm-bindgen-cli`
+2. Ensure `wasm32-unknown-unknown` target is installed via `$ rustup target add wasm32-unknown-unknown`. Check if it is installed via `$ rustup target list`.
+
+   ```console
+   ❯ rustup target list | grep wasm32
+   wasm32-unknown-emscripten
+   wasm32-unknown-unknown (installed)
+   wasm32-wasi
+   ```
+
+3. Create a project with a starter template: `$ cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template`
+4. Install [`trunk`](https://trunkrs.dev/) via `$ cargo install --locked trunk`
+5. Install `wasm-bindgen` via `$ cargo install --locked wasm-bindgen-cli`
 
 ## Getting Started
 
@@ -141,3 +150,4 @@ yew = { version = "0.20", features = ["csr"] }
 - [Yew](https://yew.rs/)
 - [ ] [WebAssembly Rust front-end with Yew: how to P1](https://tms-dev-blog.com/webassembly-rust-front-end-with-yew-how-to-p1/)
 - [ ] [CSS and JavaScript WASM Rust: Yew how to P2](https://tms-dev-blog.com/css-and-javascript-wasm-rust-yew-how-to-p2/)
+- [ ] [Exploring Yew, the rust-based frontend framework as a React Developer](https://dev.to/hackmamba/exploring-yew-the-rust-based-frontend-framework-as-a-react-developer-52l)

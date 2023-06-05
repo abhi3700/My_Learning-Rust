@@ -1,7 +1,6 @@
 //! Add polymorphism without traits.
 
 struct Cat;
-
 struct Fish;
 
 fn survive_cat(animal: &Cat) {

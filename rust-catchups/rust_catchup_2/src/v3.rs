@@ -6,17 +6,18 @@ struct Crocodile;
 
 trait Land {
     fn land(&self) {
-        println!("Default land");
+        println!("Default survival on land");
     }
 }
 
 trait Water {
     fn water(&self) {
-        println!("Default water");
+        println!("Default survival in water");
     }
 }
 
 trait Amphibian: Land + Water {}
+
 impl Land for Crocodile {
     fn land(&self) {
         println!("Crocodile can survive on land");
@@ -29,7 +30,7 @@ impl Water for Crocodile {
 }
 impl Amphibian for Crocodile {}
 
-fn survive(animal: &dyn Amphibian) {
+fn survive(animal: &impl Amphibian) {
     animal.land();
     animal.water();
 }

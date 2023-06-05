@@ -432,53 +432,6 @@ It's important to remember that if a friend 👥 forgets to give back the key �
 
 This is a simplified view of mutexes in Rust, but hopefully, it helps you understand the basic concept. For more complex scenarios, you'll want to learn about things like error handling with `Result`, using `Condvar` for condition variables, and understanding the different methods available on `Mutex` and `MutexGuard`.
 
-### Array
-
-- Arrays are fixed length. They are stored in stack.
-- E.g.
-
-  ```rs
-  let array: [i32; 4] = [42, 10, 5, 2];
-  ```
-
-```
-
-```
-
-![](img/array.png)
-
-### Vector
-
-- Vectors are dynamic length. They are stored in heap.
-- They are allocated/deallocated based on the capacity of the vector filled.
-- In this code:
-
-  ```rs
-  //! step-1
-  let mut v: Vec<i32> = vec![1, 2, 3, 4];
-  //prints 4
-  println!("v's capacity is {}", v.capacity());
-  println!("v's length is {}", v.len());  // -> 4
-  println!("Address of v's first element: {:p}", &v[0]); //{:p} prints the address
-  v.push(5);
-
-  //! step-2
-  //prints 8
-  println!("v's capacity is {}", v.capacity());
-  println!("v's length is {}", v.len());  // -> 5
-  println!("Address of v's first element: {:p}", &v[0]);
-  ```
-
-  **At step-1**:
-
-  ![](img/vector_memory.png)
-
-  **At step-2**:
-
-  ![](img/vector_memory2.png)
-
-> If you do not see a different address after pushing more elements onto a vector, it might be because the allocator had enough space at the end of the original buffer such that the new and the old buffers have the same starting address. Try pushing more elements and you will see a different address. Read about C library function `realloc` to understand how this might happen.
-
 ### Memory: stack, heap
 
 > - **Stack** (fixed size like char, bool, int, array; less costly; quick to access by calling var like easy to copy the var)
@@ -505,328 +458,29 @@ fn main() {
 }
 ```
 
-### Conditional
+### [Collection](./tuts/collection/README.md)
 
-- In Rust, `match` is used more often than `if-else`. `match` is similar to `switch` in other languages and requires to cover all the cases.
-- <u>Pattern matching</u>: `match` vs `if-let`:
-  - The former has to cover all the cases
-  - The latter is used for only 1 case, if we don't want to cover all the cases.
-- #### `if-let` is preferred over `if` condition in cases of pattern matching with `Option`, `Result`
+### [Conditional](./tuts/conditional/README.md)
 
-  ```rust
-  let x = 3;
-  if (x == 3) {
-      println!("x is equal to 3");
-  }
-  ```
+### [Function](./tuts/functions/README.md)
 
-  ```rust
-  let value = Some(3);
-  if let Some(x) = value {
-      println!("x is equal to 3");
-  }
-  ```
+### [Borrowing & Ownership](./tuts/ownership/README.md)
 
-  The two expressions you've mentioned serve different purposes in Rust, so it's not really a matter of one being 'better' than the other; rather, it depends on the context of use.
+### [Lifetimes](./tuts/lifetimes/README.md)
 
-  1. `if x == 3`: This is a simple comparison. If the value of x is equal to 3, then the code block following this if statement will execute. If x is not equal to 3, the code block will be skipped.
+### [Error handling](./tuts/error_handling/README.md)
 
-  2. `if let x = 3`: This is actually a misuse of Rust's if let construct. The if let statement is used for pattern matching, and it works a bit differently. The correct usage would be if let `PAT` = `EXPR`, where PAT is a pattern and `EXPR` is an expression. For example, you might use `if let Some(x) = some_option` to check if an Option is Some and, if so, bind the value inside to x.
+### [Modules](./tuts/modules/README.md)
 
-  In your specific case, if you want to compare `x` to `3`, you should use `if x == 3`. If you need pattern matching (like checking if an `Option` is `Some` or a `Result` is `Ok`), then if let is the appropriate construct.
+### [Struct](./tuts/structs/README.md)
 
-### Loop
+### [Trait](./tuts/traits/README.md)
 
-- `..` used for range like `1..4` i.e. 1, 2, 3. But, if `1..=4` i.e. 1, 2, 3, 4
+### [Generics](./tuts/generics/README.md)
 
-### Function
+### [Macros](./tuts/macros/README.md)
 
-- `fn` keyword is used to define a function
-- `->` is used to define the return type of the function
-- `()` is used to define the arguments of the function
-- `return` keyword is not used in Rust. The last line of the function is the return value of the function
-- return type can be `Option`, `Result`.
-- #### Use wildcard pattern `_` to ignore the value of the variable.
-
-  In this code:
-
-  ```rs
-  fn add() -> (i32, i32, i32) {
-      (1, 2, 3)
-  }
-
-  fn main() {
-      let (x, _, _) = add();
-      println!("x is {}", x);
-  }
-  ```
-
-  The underscore `_` in Rust is called a wildcard pattern. It's used when you want to pattern match some parts of a data structure, but you're not interested in all parts of it. It's a way of saying "I know there's a value here, but I don't care about it".
-
-  In your code `(x, _, _) = add();`, it means you're calling a function `add()` which returns a tuple of three values. You're interested in the first value, which is being assigned to x, but you're not interested in the second and third values, hence the `_` wildcard.
-
-  The wildcard pattern is useful in many situations where you need to satisfy the compiler's requirement for exhaustive pattern matching, but there are some values you don't need to handle.
-
-### Borrowing & Ownership
-
-> <u>Borrow Checker</u>: You can move the data itself and give up ownership in the process, create a copy of the data and pass that along, or pass a reference to the data and retain ownership, letting the recipient borrow it for a while. The most appropriate approach depends entirely on the situation. Try [this](./tuts/functions/borrow_checker.rs)
-
-- Rust memory safety is based on this rule: Given an object T, it is only possible to have one of the following:
-
-  - Having several immutable references (&T) to the object (also known as aliasing).
-  - Having one mutable reference (&mut T) to the object (also known as mutability).
-
-<!-- TODO: correct this with telegram msg -->
-
-```rs
-// ✅
-let x = 5;
-let y = &x;
-let z = &x
-
-// ❌
-let mut x = 5;
-let y = &mut x;
-let z = &mut x;
-```
-
-### Lifetimes
-
-- Lifetimes are another kind of generic that we’ve already been using. Rather than ensuring that a type has the behavior we want, lifetimes ensure that references are valid as long as we need them to be. [source](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html#preventing-dangling-references-with-lifetimes)
-- Rust doesn't allow _dangling pointer_ by design. This means that any variable, struct, enum, etc can't live more than the lifetime of the referenced type
-
-```rs
-struct Config {
-
-}
-
-// INCORRECT ❌
-struct App {
-    config: &Config     // `Config` used as reference
-}
-
-// CORRECT ✅
-/// Here, it is used as lifetime ownership of the code.
-struct App<'a> {
-    config: &'a Config
-}
-```
-
-- `lifetimes` are a compile-time feature and don’t exist at runtime.
-
-### Option, Result
-
-- `Option` vs `Result`
-
-| Option                                                                                                                                                                                  | Result                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Some or None                                                                                                                                                                            | Ok or Err                                                                                                                          |
-| An optional value can have either Some value or no value/ None.                                                                                                                         | A result can represent either success/ Ok or failure/ Err                                                                          |
-| The Option type is a way to use Rust’s type system to express the possibility of absence                                                                                                | Result expresses the possibility of error                                                                                          |
-| mainly used for var, function output. For struct, the parameters can have Option type. E.g. In full name, middle_name can be missing for cases, so define `middle_name: Option<String>` | mainly used for operation, function. As normally a variable won't have Err unless there is some calculation involved with this var |
-| Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
-| E.g. "./tuts/error_handling/opt"                                                                                                                                                        | E.g. "./tuts/error_handling/res"                                                                                                   |
-
-### Modules
-
-- any folder can have a `mod.rs` which is going to be like `index.js` in JS.
-- tree structure is as follows:
-
-```bash
-src/
-├── main.rs
-└── something
-    ├── a.rs
-    ├── b.rs
-    └── mod.rs
-```
-
-When `Rust` check for `something.rs` and doesn't find it will check for the folder `something/` and then inside look for a file named `mod.rs`.
-
-We can call `a` like this in the `main.rs`:
-
-```rs
-use crate::something::a::*;
-use crate::something::b::*;
-```
-
-> When using `crate`, no need to use `mod` keyword in the `src/main.rs` file.
-
----
-
-**Another example**:
-
-In this rust project `src/` folder structure:
-
-```sh
-├── src
-│   ├── app
-│   │   └── README.md
-│   ├── handlers.rs
-│   ├── main.rs
-│   ├── models.rs
-│   └── utils
-│       ├── determine_emoji.rs
-│       ├── get_current_time.rs
-│       └── mod.rs
-```
-
-When using `determine_emoji` inside `handler.rs` file:
-
-```rust
-use crate::utils::{determine_emoji, get_current_time};
-```
-
-provided the below is maintained:
-
-```rust
-// src/utils/mod.rs
-pub mod determine_emoji;
-pub mod get_current_time;
-```
-
-```rust
-// src/main.rs
-mod utils; // Add this line
-```
-
-### Struct
-
-- There are different types of struct
-
-  - normal struct: with parameters
-  - unit struct: without parameters
-
-- Structs can be inherited from other structs via declaring the 1 struct type as type of another struct's parameter.
-
-```rs
-struct Purchase {
-  bill: f64,
-  tax: f64,
-  shop_name: String,
-  gst_no: String,
-}
-
-struct House {
-  address: String,
-  area: f64,
-  price: f64,
-  purchase: Purchase,
-}
-```
-
-### Trait
-
-- A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
-- A trait is a common interface that a group of types can implement. The Rust standard library has many useful traits, such as:
-
-  - `io::Read` for values that can read bytes from a source.
-  - `io::Write` for values that can write out bytes.
-  - `Debug` for values that can be printed in the console using the "{:?}" format specifier.
-  - `Clone` for values that can be explicitly duplicated in memory.
-  - `ToString` for values that can be converted to a String.
-  - `Default` for types that have a sensible default value, like zero for numbers, empty for vectors, and “” for String.
-  - `Iterator` for types that can produce a sequence of values.
-
-- "Indeed, traits are more like interfaces than classes. You don't store "fields" or "data" in a trait, you describe functionality in it. You would put your data in another type declaration, like a struct or an enum. Then you would externally implement your trait for that struct or enum, etc. In order to achieve a true object-oriented style, you'll need to use traits and you want to compose them in a way that allows them to be used as "trait objects". This means that each fn in the trait needs to have &self of &mut self, basically "getters" and "setters" for your "object"."
-
-- `&self` - used as getter
-- `&mut self` - used as setter
-- return self like this - `fn build(&self) -> Self`
-- implement multiple traits for a struct using `derive macro` like `#[derive(Debug, Clone, ....)]`:
-
-  ```rs
-  #[derive(Debug, Clone, Copy, Eq, PartialEq)]
-  struct Person {
-      name: String,
-      age: u8,
-  }
-  ```
-
-- trait can be defined implemented for `enum`, `struct`, etc. Anything which contains data (const, variable). `enum` contains `const` data and `struct` contains `variable` data.
-
-  ```rs
-  enum TrafficLight {
-      Red,
-      Yellow,
-      Green,
-  }
-  impl TrafficLight {
-      fn duration(&self) -> u8 {
-          match self {
-              TrafficLight::Red => 30,
-              TrafficLight::Yellow => 10,
-              TrafficLight::Green => 60,
-              _ => 0,
-          }
-      }
-  }
-  ```
-
-  ```rs
-  struct TrafficLight {
-      color: String,
-  }
-  impl TrafficLight {
-      fn duration(&self) -> u8 {
-          match self.color.as_str() {
-              "Red" => 30,
-              "Yellow" => 10,
-              "Green" => 60,
-              _ => 0,
-          }
-      }
-  }
-  ```
-
-  The eg above shows how the single trait is used for both `struct` & `enum` data type in Rust.
-
-### Generics
-
-Generics are a way to reduce the need to write repetitive code and instead delegate this task to the compiler while also making the code more flexible. Many languages support some way to do this, even though they might call it something different.
-
-Using generics, we can write code that can be used with multiple data types without having to rewrite the same code for each data type, making life easier and coding less error-prone.
-
-### Macros
-
-- Apply `#[derive(Debug)]` for making the struct, enum printable
-- Apply `#[derive(Clone)]` for making the struct, enum copyable.
-- Use this globally in `src/main.rs` to ignore unused code, variables
-
-```rust
-#![allow(dead_code)]
-#![allow(unused_variables)]
-
-fn main() {
-    // ...
-}
-```
-
-- A function is marked with #[allow(dead_code)], which suppresses the Rust compiler warning for unused code. This is typically used when the function is expected to be used in the future or when it is part of a public API that isn't currently being used in the local codebase.
-
-  - Suppose, there is a util function and I am not using it anywhere. So, I can mark it as `#[allow(dead_code)]` to avoid the compiler's warning.
-
-  ```rust
-  #[allow(dead_code)]
-  fn handle_task() {}
-  ```
-
-  Further explanation:
-
-  `#[allow(dead_code)]` 🚦
-
-  This line is like a "do not disturb" sign 🚫. It tells the Rust compiler not to worry if this function isn't being used right now.
-
-- Same goes for unused variables:
-
-  ```rust
-  #[allow(unused_variables)]
-  let v = vec![1, 2, 2, 3, 4, 4, 5, 6, 7, 7];
-  ```
-
-### Concurrency
-
-Refer [this](./tuts/concurrency/)
+### Concurrency(./tuts/concurrency/README.md)
 
 ### Comments
 
@@ -871,9 +525,7 @@ This is important while importing modules.
 - `$ cargo init --lib <name>` creates a lib
 - `$ cargo init <name>` creates a package
 
-### Move | Copy | Clone
-
-Refer [this](./tuts/move_copy_clone)
+### [Move | Copy | Clone](./tuts/move_copy_clone)
 
 ### Testing
 

@@ -4,6 +4,10 @@
 
 Generics are a way to abstract over types. They allow us to write code that can work with any type.
 
+Generics are a way to reduce the need to write repetitive code and instead delegate this task to the compiler while also making the code more flexible. Many languages support some way to do this, even though they might call it something different.
+
+Using generics, we can write code that can be used with multiple data types without having to rewrite the same code for each data type, making life easier and coding less error-prone.
+
 ## Generic Functions
 
 ## Generic Structs

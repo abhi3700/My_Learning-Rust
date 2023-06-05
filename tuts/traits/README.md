@@ -3,6 +3,70 @@
 ## About
 
 - <u>Definition</u>: A trait in Rust is a collection of methods that can be implemented by structs or other traits. Traits are similar to interfaces in other languages, but they can also provide `default` method implementations.
+- A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
+- A trait is a common interface that a group of types can implement. The Rust standard library has many useful traits, such as:
+
+  - `io::Read` for values that can read bytes from a source.
+  - `io::Write` for values that can write out bytes.
+  - `Debug` for values that can be printed in the console using the "{:?}" format specifier.
+  - `Clone` for values that can be explicitly duplicated in memory.
+  - `ToString` for values that can be converted to a String.
+  - `Default` for types that have a sensible default value, like zero for numbers, empty for vectors, and “” for String.
+  - `Iterator` for types that can produce a sequence of values.
+
+- "Indeed, traits are more like interfaces than classes. You don't store "fields" or "data" in a trait, you describe functionality in it. You would put your data in another type declaration, like a struct or an enum. Then you would externally implement your trait for that struct or enum, etc. In order to achieve a true object-oriented style, you'll need to use traits and you want to compose them in a way that allows them to be used as "trait objects". This means that each fn in the trait needs to have &self of &mut self, basically "getters" and "setters" for your "object"."
+
+- `&self` - used as getter
+- `&mut self` - used as setter
+- return self like this - `fn build(&self) -> Self`
+- implement multiple traits for a struct using `derive macro` like `#[derive(Debug, Clone, ....)]`:
+
+  ```rs
+  #[derive(Debug, Clone, Copy, Eq, PartialEq)]
+  struct Person {
+      name: String,
+      age: u8,
+  }
+  ```
+
+- trait can be defined implemented for `enum`, `struct`, etc. Anything which contains data (const, variable). `enum` contains `const` data and `struct` contains `variable` data.
+
+  ```rs
+  enum TrafficLight {
+      Red,
+      Yellow,
+      Green,
+  }
+  impl TrafficLight {
+      fn duration(&self) -> u8 {
+          match self {
+              TrafficLight::Red => 30,
+              TrafficLight::Yellow => 10,
+              TrafficLight::Green => 60,
+              _ => 0,
+          }
+      }
+  }
+  ```
+
+  ```rs
+  struct TrafficLight {
+      color: String,
+  }
+  impl TrafficLight {
+      fn duration(&self) -> u8 {
+          match self.color.as_str() {
+              "Red" => 30,
+              "Yellow" => 10,
+              "Green" => 60,
+              _ => 0,
+          }
+      }
+  }
+  ```
+
+  The eg above shows how the single trait is used for both `struct` & `enum` data type in Rust.
+
 - In Rust, there is no concept of "inheriting" the properties of a struct. Instead, when you are designing the relationship between objects do it in a way that one's functionality is defined by an interface (a trait in Rust). This promotes **composition over inheritance**, which is considered more useful and easier to extend to larger projects.
 - For defining attributes, use `struct`, `enum`. But, for behavior, define everything in `traits` like an `interface` i.e. w/o definition (in Solidity, Java).
 - `trait` name is supposed to be written in CamelCase.
