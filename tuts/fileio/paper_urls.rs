@@ -13,16 +13,17 @@ pub fn main() {
     let mut names: Vec<String> = Vec::new();
     let mut urls: Vec<String> = Vec::new();
 
-    // Each line contains a name & url separated by a : (colon)
+    // Each line contains a name & url separated by double : (colon)
     // So, we split each line into 3 parts & store them in the respective vectors
+    // The first part is the name of the paper & the third part is the url of the paper
     for line in reader.lines() {
         let line = line.unwrap();
         let parts: Vec<&str> = line.split(":").collect();
 
-        // names.push(parts[0].to_string().drain(0..2));
+        // remove the first 2 characters from the name (which is a hyphen & a space)
         names.push(parts[0][2..].to_string());
 
-        // add https to the url
+        // prefix https to the url
         urls.push(format!("https:{}", parts[2].to_string()));
     }
 
