@@ -89,6 +89,41 @@ Here, runtime cost-wise: `dyn Debug` is more expensive than `impl Debug`.
 
 In order to understand, follow this [example](./traits_14.rs).
 
+---
+
+**Associated functions**:
+
+- Associated functions are functions that are associated with a `struct` or `enum` or `trait`.
+
+  ```rust
+  struct MyStruct;
+
+
+  impl MyStruct {
+      fn my_func() {
+          println!("MyStruct");
+      }
+  }
+
+
+  trait MyTrait {
+      fn my_func() {
+          println!("Default MyTrait");
+      }
+  }
+
+  impl Trait for MyStruct {
+      fn my_func() {
+          println!("MyStruct");
+      }
+  }
+
+  MyStruct::my_func();
+  <MyStruct as MyTrait>::my_func();
+  ```
+
+[Code Example](./traits_16.rs)
+
 ## FAQs
 
 <details>
