@@ -1,0 +1,51 @@
+Based on the content from the article, here are some multiple-choice questions:
+
+1. Q: What is the primary use of silicon nitride in semiconductor devices?
+   A: As a barrier layer for dopant diffusion
+   B: As a conductor for electric current
+   C: As a heat sink for thermal management
+   D: As a structural material for device casing
+
+   Solution: A
+
+   Explanation: Silicon nitride is widely used as a barrier layer for dopant diffusion in various semiconductor devices due to its high insulating characteristics, high thermal and mechanical stability.
+
+2. Q: What is the main challenge in etching silicon nitride/silicon oxide (SiNx/SiOy) stacks in three-dimensional NOT-AND type flash memory fabrication?
+   A: The number of SiNx/SiOy stacks is decreasing
+   B: The thickness of repeating SiNx/SiOy layer is increasing
+   C: The etching of SiNx layers uniformly and ultra-high selectively to SiOy layers is becoming more challenging
+   D: The etching process is becoming less complex
+
+   Solution: C
+
+   Explanation: As the number of SiNx/SiOy stacks is increasing and the thickness of repeating SiNx/SiOy layer is decreasing for higher memory density, the etching of SiNx layers uniformly and ultra-high selectively to SiOy layers is becoming more challenging.
+
+3. Q: What is the main issue with using fluorocarbon (CFx) etch gases in the selective etching of SiNx over SiOy?
+   A: They cause oxide regrowth problems
+   B: They have high global warming potentials (GWPs)
+   C: They are not readily available
+   D: They are not effective in etching SiNx
+
+   Solution: B
+
+   Explanation: The use of fluorocarbon (CFx) etch gases has high global warming potentials (GWPs), arousing the needs for the alternative etch gases for environmental aspects in the near future.
+
+4. Q: What is the primary advantage of using ClF3 with the GWP of ~ 0 in the etching process?
+   A: It increases the etch rate of SiNx
+   B: It reduces the etch selectivity of SiNx over SiOy
+   C: It has a lower global warming potential compared to CF4- and NF3-based etch gases
+   D: It increases the thickness of the SiNx/SiOy layer
+
+   Solution: C
+
+   Explanation: ClF3 with the GWP of ~ 0 has been used primarily as an in-situ cleaning gas for chemical vapor deposition (CVD) chambers in replacement of perfluorocarbon compounds (PFC), which have high GWP values.
+
+5. Q: What is the effect of adding H2 to the ClF3 plasma in the etching process?
+   A: It increases the etch rate of SiNx
+   B: It decreases the etch selectivity of SiNx over SiOy
+   C: It improves the etch selectivity of SiNx over SiOy
+   D: It has no significant effect on the etching process
+
+   Solution: C
+
+   Explanation: The addition of H2 (20%) to the ClF3 plasma improved the etch selectivity of SiNx over SiOy from 130 to 200 even though the etch rate of SiNx was decreased from ~ 83 to ~ 23 nm/min.
