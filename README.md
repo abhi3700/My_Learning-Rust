@@ -187,6 +187,8 @@ For more, see [here](https://blessed.rs/crates).
 - [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
 - [A new markup-based typesetting system that is powerful and easy to learn] (https://github.com/typst/typst)
 - [Twilio Sendgrid Unofficial library to send OTP, tokens to email](https://crates.io/crates/sendgrid)
+- [Plotly charts lib for Rust](https://github.com/igiagkiozis/plotly)
+- [LLM-chain](https://github.com/sobelio/llm-chain)
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
