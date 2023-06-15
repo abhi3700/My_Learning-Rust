@@ -188,6 +188,62 @@ In order to understand, follow this [example](./traits_14.rs).
 
 [Code Example](./traits_16.rs)
 
+---
+
+**Reason behind need of Associated types in traits**
+
+Associated types in Rust are a powerful feature that allow you to express more complex relationships between types in your trait definitions. They are a type of "type-level function" that can express a one-to-one mapping between types.
+
+In Rust, traits define a set of methods that a type should implement. But sometimes, the methods you want to define in a trait might need to work with or return types that are related to the implementing type in some way. This is where associated types come in.
+
+Here's an example. Let's say you have a `Graph` trait that represents a graph data structure. You might have different kinds of graphs like a `DirectedGraph` and an `UndirectedGraph`. Now, you might want to have a method `get_nodes` that returns the nodes in the graph. But the type of the nodes might be different depending on the type of the graph. In a `DirectedGraph`, the nodes might be of type `DirectedNode` and in an `UndirectedGraph`, they might be of type `UndirectedNode`.
+
+Without associated types, you might try to define your trait like this:
+
+```rust
+trait Graph {
+    fn get_nodes(&self) -> Vec<???>;
+}
+```
+
+But what type should go in place of `???`? It should be a type that's somehow related to the implementing type. With associated types, you can express this relationship like so:
+
+```rust
+trait Graph {
+    type Node;
+
+    fn get_nodes(&self) -> Vec<Self::Node>;
+}
+```
+
+Now, when you implement the `Graph` trait for `DirectedGraph` and `UndirectedGraph`, you can specify the associated `Node` type:
+
+```rust
+struct DirectedNode;
+struct UndirectedNode;
+
+struct DirectedGraph;
+struct UndirectedGraph;
+
+impl Graph for DirectedGraph {
+    type Node = DirectedNode;
+
+    fn get_nodes(&self) -> Vec<Self::Node> {
+        // ...
+    }
+}
+
+impl Graph for UndirectedGraph {
+    type Node = UndirectedNode;
+
+    fn get_nodes(&self) -> Vec<Self::Node> {
+        // ...
+    }
+}
+```
+
+As you can see, associated types allow you to express complex relationships between types and make your trait definitions more flexible and expressive. They are a key part of Rust's powerful and flexible type system.
+
 ## FAQs
 
 <details>
