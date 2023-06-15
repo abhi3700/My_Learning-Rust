@@ -196,48 +196,48 @@ Associated types in Rust are a powerful feature that allow you to express more c
 
 In Rust, traits define a set of methods that a type should implement. But sometimes, the methods you want to define in a trait might need to work with or return types that are related to the implementing type in some way. This is where associated types come in.
 
-Here's an example. Let's say you have a `Graph` trait that represents a graph data structure. You might have different kinds of graphs like a `DirectedGraph` and an `UndirectedGraph`. Now, you might want to have a method `get_nodes` that returns the nodes in the graph. But the type of the nodes might be different depending on the type of the graph. In a `DirectedGraph`, the nodes might be of type `DirectedNode` and in an `UndirectedGraph`, they might be of type `UndirectedNode`.
+Here's an example. Let's say you have a `Vehicle` trait that represents different vehicles which might have different kinds of parts. For instance, a `Car` might have a `CarEngine` and a `Bike` might have a `BikeEngine`.
 
 Without associated types, you might try to define your trait like this:
 
 ```rust
-trait Graph {
-    fn get_nodes(&self) -> Vec<???>;
+trait Vehicle {
+    fn get_engine(&self) -> ???;
 }
 ```
 
 But what type should go in place of `???`? It should be a type that's somehow related to the implementing type. With associated types, you can express this relationship like so:
 
 ```rust
-trait Graph {
-    type Node;
+trait Vehicle {
+    type Engine;
 
-    fn get_nodes(&self) -> Vec<Self::Node>;
+    fn get_engine(&self) -> Self::Engine;
 }
 ```
 
-Now, when you implement the `Graph` trait for `DirectedGraph` and `UndirectedGraph`, you can specify the associated `Node` type:
+Now, when you implement the `Vehicle` trait for `Car` and `Bike`, you can specify the associated `Engine` type:
 
 ```rust
-struct DirectedNode;
-struct UndirectedNode;
+struct CarEngine;
+struct BikeEngine;
 
-struct DirectedGraph;
-struct UndirectedGraph;
+struct Car;
+struct Bike;
 
-impl Graph for DirectedGraph {
-    type Node = DirectedNode;
+impl Vehicle for Car {
+    type Engine = CarEngine;
 
-    fn get_nodes(&self) -> Vec<Self::Node> {
-        // ...
+    fn get_engine(&self) -> Self::Engine {
+        // returns a CarEngine
     }
 }
 
-impl Graph for UndirectedGraph {
-    type Node = UndirectedNode;
+impl Vehicle for Bike {
+    type Engine = BikeEngine;
 
-    fn get_nodes(&self) -> Vec<Self::Node> {
-        // ...
+    fn get_engine(&self) -> Self::Engine {
+        // returns a BikeEngine
     }
 }
 ```
