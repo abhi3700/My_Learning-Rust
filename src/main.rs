@@ -6,9 +6,9 @@
     - Also, the Rust-Analyzer gets activated (as `Cargo.toml` is added at project root)
     & gives red flags at errors w/o compiling using `cargo check`
 */
-#[path = "../tuts/fileio/mcq_extractor.rs"]
-mod mcq_extractor;
+#[path = "../tuts/traits/associated_type_1.rs"]
+mod associated_type_1;
 
 fn main() {
-    mcq_extractor::main();
+    associated_type_1::main();
 }

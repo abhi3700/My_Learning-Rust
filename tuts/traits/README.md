@@ -192,6 +192,8 @@ In order to understand, follow this [example](./traits_14.rs).
 
 **Reason behind need of Associated types in traits**
 
+[Code Example](./associated_type_1.rs)
+
 Associated types in Rust are a powerful feature that allow you to express more complex relationships between types in your trait definitions. They are a type of "type-level function" that can express a one-to-one mapping between types.
 
 In Rust, traits define a set of methods that a type should implement. But sometimes, the methods you want to define in a trait might need to work with or return types that are related to the implementing type in some way. This is where associated types come in.
