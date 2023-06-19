@@ -94,7 +94,7 @@ impl Vehicle for Bike {
     }
 }
 
-fn main() {
+pub fn main() {
     let c = Car;
     println!("the car engine: {:?}", Car::get_engine());
     println!("M-1 of getting the car name: {:?}", Car::get_name(&c));

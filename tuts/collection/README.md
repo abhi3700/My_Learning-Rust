@@ -29,6 +29,28 @@ let arr = vec.as_slice();
 let arr = &vec[..];
 ```
 
+---
+
+**Array vs Slice**:
+
+In Rust, both slices and arrays are used to store multiple values of the same type. However, they differ in their flexibility and use cases.
+
+1. **Array**
+
+   - An array in Rust has a fixed size, which is determined at compile time. You cannot grow or shrink an array after it is declared.
+   - The size is part of the type of the array, so `[i32; 5]` and `[i32; 10]` are different types.
+   - Here is an example of an array declaration: `let a: [i32; 5] = [1, 2, 3, 4, 5];`
+
+2. **Slice**
+   - A slice is a dynamically-sized view into a sequence of elements in an array.
+   - Unlike arrays, slices don't need to have their size determined at compile time. They are flexible and can point to all or part of an array.
+   - Slices have the type signature `&[T]`, where `T` can be any type.
+   - Here is an example of a slice that points to a portion of an array: `let slice: &[i32] = &a[1..3];`
+
+In the context of your Solana program, when we say `accounts: &[AccountInfo]`, we're saying that `accounts` is a slice of `AccountInfo` references. This means that `accounts` could contain any number of `AccountInfo` references, including zero. The function does not need to know at compile time how many accounts will be passed to it.
+
+To recap, the main difference between slices and arrays in Rust is that arrays have a fixed size determined at compile time, while slices are dynamic and their size can change at runtime.
+
 ### Vector
 
 - Vectors are dynamic length. They are stored in heap.
