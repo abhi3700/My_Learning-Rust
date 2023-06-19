@@ -50,3 +50,4 @@ fn main() {
 ## References
 
 - [Learn Macros In Rust](https://github.com/tfpk/macrokata)
+- [Learn Proc macros](https://github.com/dtolnay/proc-macro-workshop#rust-latam-procedural-macros-workshop)

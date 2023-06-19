@@ -1,23 +1,22 @@
-/*
-
-   Closure in Rust is like Arrow in JS
-
-   ----------
-   Closure:
-   ```rs
-   let add_num = || -> {
-
-   };
-   ```
-
-   ----------
-   Arrow:
-   ```js
-   let add_num = () => {
-
-   };
-   ```
-*/
+//! # Closure
+//!
+//! > Closure in Rust is like Arrow in JS
+//!
+//! ----------
+//! Closure:
+//! ```rs
+//! let add_num = || -> {
+//!
+//! };
+//! ```
+//!
+//! ----------
+//! Arrow:
+//! ```js
+//! let add_num = () => {
+//!
+//! };
+//! ```
 
 pub fn main() {
     // dereference_6::main();
