@@ -9,9 +9,10 @@
 - Faster than [Rocket](../rocket/), but slower in comparison to Axum. Axum is not yet production ready, otherwise it would have been the best choice. In cases like smaller binary size, less memory usage, Axum is better than Actix-web.
 - **Cons**:
   - Checked version `4` & found that any updation made on the code level doesn't get updated on the fly on the browser api response.
+    > Solution: Use instead: `$ cargo watch -x run`
   - Doesn't show any logs on the console.
     ![](../../img/actix_hello_api.png)
-    > There is a solution to this. Just add `env_logger`.
+    > Solution: Just add `env_logger` to show on the log based on per request basis.
 
 ---
 
@@ -40,7 +41,7 @@ Here's a visual representation:
      |--- 👥 Thread 2.2 (Worker)
 ```
 
-In this analogy, the office building (server) houses multiple factories (processes), and each factory has multiple workers (threads) working in it. Each worker (thread) can work independently, but they share the resources of their factory (process). Similarly, each factory (process) works independently but shares the resources of the office building (server).
+In this analogy, the office building (server) houses multiple factories/departments (processes), and each factory has multiple workers (threads) working in it. Each worker (thread) can work independently, but they share the resources of their factory (process). Similarly, each factory (process) works independently but shares the resources of the office building (server).
 
 ---
 
@@ -50,7 +51,7 @@ Now, the no. of processes & threads can be increased or decreased based on the l
 
 ---
 
-Now, when a server is spun up, it by default uses all the CPU cores i.e. CPU time (and required memory). We get to see on CLI (using `env_logger`), how many threads are being used by the server. These threads are also called Workers. We can limit the no. of threads for each server. This is called **thread-pooling**.
+Now, when a server is spun up, it by default uses all the CPU cores i.e. CPU time (and required memory). We get to see on CLI (using `env_logger` + `actix-web`), how many threads are being used by the server. These threads are also called "Workers". We can limit the no. of threads for each server. This is called **thread-pooling**.
 
 ---
 
@@ -375,11 +376,11 @@ actix = "0.12.0"
 
 The versions might change depending on the time you're implementing this. Always refer to the official documentation for the most accurate and up-to-date information.
 
-### Can you confirm that each API server would have only single app instance?
+### Does each API server would have only 1 app instance?
 
 Reference: https://github.com/actix/actix-web
 
-Yes! Each server instance would have only single app instance. Although you can create scopes and services to organize your routes, the app instance is shared across all scopes and services. Moreover, the app instance is capable of handling multiple requests concurrently using `actix-web`.
+No! Each server instance can have many app instances. You can use scopes and services to organize your routes in order to have multiple app instances, but the app_state is shared across all scopes and services. Moreover, the `app_state` (with/without DB) is capable of handling multiple requests concurrently using `actix-web` (using Arc & Mutex / Connection pool respectively).
 
 I tried doing like this, but it is wrong code:
 
@@ -402,7 +403,7 @@ async fn main() -> std::io::Result<()> {
 
 Thought process is correct, but it throws compiler error related to trait bound failure.
 
-So, it is advised to use `scope` and `service` to organize your routes in your app instance in a server.
+So, it is advised to use `scope` and `service` to organize your routes in order to create multiple app instances in an API server.
 
 ### Q. Do we need to use `mutex` when using database for storage?
 
