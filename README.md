@@ -460,6 +460,8 @@ fn main() {
 }
 ```
 
+### [Casting](./tuts/casting/README.md)
+
 ### [Collection](./tuts/collection/README.md)
 
 ### [Conditional](./tuts/conditional/README.md)
@@ -815,7 +817,7 @@ res.push(i as i32);
 ### 5. error: the 'cargo' binary, normally provided by the 'cargo' component, is not applicable to the '1.70.0-aarch64-apple-darwin' toolchain
 
 - _Cause_: It happens on a particular rust codebase. In my case, it happened with `aptos-core` repo.
-- _Solution_: Just remove & then add `cargo` via this:
+- _Solution_: Just remove & then add `cargo` via this: [Source](https://github.com/rust-lang/rustup/issues/2704)
 
 ```sh
 1. rustup component remove cargo
