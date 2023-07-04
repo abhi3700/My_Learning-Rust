@@ -68,7 +68,24 @@ mod tests {
     use crate::order_book::OrderBook;
 
     #[test]
-    fn orderbook_matches() {
+    fn orderbook_matches_w_asks_below_bid_price() {
+        let mut order_book = OrderBook::new();
+
+        // add orders to sell btc
+        order_book.create_ask(20000, 1);
+        order_book.create_ask(20000, 5);
+
+        // create order to buy btc
+        order_book.create_bid(20001, 10);
+
+        // compare end state of order book to desired state
+        let order_book_test = OrderBook::new();
+        // order_book_test.create_ask(20001, 6);
+        assert_eq!(order_book, order_book_test);
+    }
+
+    #[test]
+    fn orderbook_matches_w_asks_till_bid_price() {
         let mut order_book = OrderBook::new();
 
         // add orders to sell btc
@@ -82,6 +99,26 @@ mod tests {
         // compare end state of order book to desired state
         let mut order_book_test = OrderBook::new();
         order_book_test.create_ask(20001, 6);
+        assert_eq!(order_book, order_book_test);
+    }
+
+    #[test]
+    fn orderbook_matches_w_asks_above_bid_price() {
+        let mut order_book = OrderBook::new();
+
+        // add orders to sell btc
+        order_book.create_ask(20000, 1);
+        order_book.create_ask(20000, 5);
+        order_book.create_ask(20001, 10);
+        order_book.create_ask(20001, 11);
+
+        // create order to buy btc
+        order_book.create_bid(20001, 10);
+
+        // compare end state of order book to desired state
+        let mut order_book_test = OrderBook::new();
+        order_book_test.create_ask(20001, 6);
+        order_book_test.create_ask(20001, 11);
         assert_eq!(order_book, order_book_test);
     }
 }
