@@ -58,6 +58,8 @@ You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
 ```
 
+### `rustup`
+
 - set `stable` as default toolchain via `$ rustup default stable`
 - set `nightly` as default toolchain via `$ rustup default nightly`
 - set `nightly` as default toolchain for a specific project via `$ rustup override set nightly`
@@ -83,7 +85,7 @@ these changes will be reverted.
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
     > Here, `unknown` means that it is for any OS.
 
----
+### `cargo`
 
 - After `cargo` installation,
   - add package locally into the repo via `$ cargo add <package-name>`. E.g. `$ cargo add dotenv`.
@@ -97,9 +99,26 @@ these changes will be reverted.
   - `cargo-expand`: install via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
   - `cargo-audit`: install via `$ cargo install cargo-audit`.
 - build using `nightly` toolchain for a project via `$ cargo +nightly build`
-- build a releasable (optimized) version of a project via `$ cargo build --release`
+- build a release (optimized) version of a project via `$ cargo build --release`
 
-> Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
+  > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
+
+- **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
+
+  - Each crate has a limit of 10 MB in size for each version.
+  - `$ cargo publish --dry-run` won't upload, just check if everything is fine.
+  - `$ cargo publish` will upload the crate to crates.io
+  - crates **can't be deleted**, but can be yanked i.e. a particular version can be removed from crates.io
+    - `$ cargo yank --version 1.0.1` will yank the version `1.0.1` from crates.io
+    - `$ cargo yank --version 1.0.1 --undo` will undo the yank
+  - `cargo owner` can add/remove owner (individual or team)
+
+  ```sh
+  $ cargo owner --add github-handle
+  $ cargo owner --remove github-handle
+  $ cargo owner --add github:rust-lang:owners
+  $ cargo owner --remove github:rust-lang:owners
+  ```
 
 ---
 
