@@ -3,6 +3,8 @@
 ## About
 
 - <u>Definition</u>: A trait in Rust is a collection of methods that can be implemented by structs or other traits. Traits are similar to interfaces in other languages, but they can also provide `default` method implementations.
+- My architectural diagrams- [1](../../img/traits_architecture.png), [2](../../img/traits_why.png)
+- [PPT](../../docs/rust_traits.pdf)
 - A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
 - A trait is a common interface that a group of types can implement. The Rust standard library has many useful traits, such as:
 
