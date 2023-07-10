@@ -155,6 +155,44 @@ In order to understand, follow this [example](./traits_14.rs).
 
 ---
 
+A code example of interoperability feature of Rust trait:
+
+Let's consider a simple example where we have two struct types, `Miles` and `Kilometers`, and we want to be able to convert between them. We can define a trait `IntoKilometers` that allows a type to be converted into `Kilometers`.
+
+Here's how you might do it:
+
+```rust
+struct Miles(f64);
+struct Kilometers(f64);
+
+// Define a trait for converting into Kilometers
+trait IntoKilometers {
+    fn into_kilometers(self) -> Kilometers;
+}
+
+// Implement the trait for Miles
+impl IntoKilometers for Miles {
+    fn into_kilometers(self) -> Kilometers {
+        let conversion_factor = 1.60934;
+        Kilometers(self.0 * conversion_factor)
+    }
+}
+
+fn main() {
+    let distance_in_miles = Miles(5.0);
+    let distance_in_kilometers = distance_in_miles.into_kilometers();
+
+    // Assuming we have a way to display Kilometers, we could print the result here
+    // println!("The distance is {} kilometers.", distance_in_kilometers);
+}
+```
+
+In this example, we've defined a trait `IntoKilometers` that requires an implementation of a method `into_kilometers(self) -> Kilometers`. We then implement this trait for the `Miles` struct. Now, any instance of `Miles` can be converted into `Kilometers` using the `into_kilometers` method.
+
+This is a simple example of how traits can be used to define interoperability between different types in Rust.
+
+---
+
 **Associated functions**:
 
 - Associated functions are functions that are associated with a `struct` or `enum` or `trait`.
