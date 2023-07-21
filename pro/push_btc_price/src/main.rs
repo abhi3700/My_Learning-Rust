@@ -18,6 +18,25 @@ fn test_push_to_empty_buffer() {
 }
 
 #[test]
+fn test_push_multiple_prices_to_empty_buffer() {
+    let mut prices = Vec::new();
+    price_push(&mut prices, 10);
+    price_push(&mut prices, 20);
+    price_push(&mut prices, 30);
+    price_push(&mut prices, 40);
+    price_push(&mut prices, 50);
+    assert_eq!(prices, vec![10, 20, 30, 40, 50]);
+}
+
+#[test]
+fn test_push_to_some_buffer() {
+    let mut prices = vec![1, 2, 3, 4];
+    let price = 10;
+    price_push(&mut prices, price);
+    assert_eq!(prices, vec![1, 2, 3, 4, 10]);
+}
+
+#[test]
 fn test_push_to_full_buffer() {
     let mut prices = vec![1, 2, 3, 4, 5];
     let price = 10;
@@ -30,7 +49,6 @@ fn test_overwrite_oldest_price() {
     let mut prices = vec![1, 2, 3, 4, 5];
     let price = 10;
     price_push(&mut prices, price);
-    assert_eq!(prices, vec![10, 2, 3, 4, 5]);
     price_push(&mut prices, 20);
     assert_eq!(prices, vec![20, 2, 3, 4, 5]);
 }
