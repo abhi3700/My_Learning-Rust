@@ -1,5 +1,17 @@
 # Cfg
 
+## Overview
+
+In Rust, `#[cfg]` and `#![cfg_attr]` are both conditional compilation attributes, but they are used in slightly different ways.
+
+`#[cfg]` is used to conditionally compile code based on certain conditions. It is typically used to include or exclude code based on the target platform, operating system, or other build configuration options.
+
+`#![cfg_attr]`, on the other hand, is used to set an attribute on the crate based on certain conditions. It is similar to `#[cfg]`, but instead of conditionally compiling code, it conditionally sets an attribute on the crate.
+
+For example, `#[cfg(not(feature="std"))]` can be used to conditionally include code when the std feature is not enabled, while `#![cfg_attr(not(feature="std"), no_std)]` can be used to set the no_std attribute on the crate when the std feature is not enabled.
+
+In summary, `#[cfg]` is used to conditionally compile code, while `#![cfg_attr]` is used to conditionally set attributes on the crate.
+
 ## Concepts
 
 In Rust, `#[cfg] `is a conditional compilation attribute that allows you to conditionally compile code based on certain conditions. The cfg stands for "configuration" and it is used to specify a configuration option that the Rust compiler can use to determine whether or not to include a particular block of code in the final binary.
