@@ -208,6 +208,7 @@ For more, see [here](https://blessed.rs/crates).
 - [Twilio Sendgrid Unofficial library to send OTP, tokens to email](https://crates.io/crates/sendgrid)
 - [Plotly charts lib for Rust](https://github.com/igiagkiozis/plotly)
 - [LLM-chain](https://github.com/sobelio/llm-chain)
+- [GeoRust: A collection of geospatial tools and libraries written in Rust](https://github.com/georust)
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
