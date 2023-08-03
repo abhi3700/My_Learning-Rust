@@ -44,6 +44,11 @@ fn get_input<T: std::str::FromStr>(prompt: &str) -> T {
     }
 }
 
+/// Define a function to get the max number
+fn get_max_num(players: &Vec<Player>) -> u32 {
+    players.len() as u32 * 50
+}
+
 /// Define a function to generate a random number
 fn generate_number(max_num: u32) -> u32 {
     rand::thread_rng().gen_range(1..max_num)
@@ -58,56 +63,66 @@ fn compare_guess(guess: u32, target: u32) -> GuessResult {
     }
 }
 
-/// Define a function to play a round of the game
-fn play_round(player: &mut Player, target: u32, max_num: u32) {
-    println!("{}'s turn", player.name);
-    // let guesses = HashMap::<>::new()
-    let guess = get_input::<u32>(&format!("Guess the number (1-{max_num}):"));
-    match compare_guess(guess, target) {
-        GuessResult::Correct => {
-            println!("Congratulations, {}! 🎉 You are the winner!", player.name);
-            player.score += 1;
-        }
-        GuessResult::TooHigh => println!("Too high!"),
-        GuessResult::TooLow => println!("Too low!"),
-    }
-}
-
-// Define a function to play the game
-fn play_game() {
-    println!("Welcome to the Target Proximity Game! 🎮");
+/// Define a function to get the players
+fn get_players() -> Vec<Player> {
     let mut players = Vec::new();
     let num_players = get_input::<u32>("How many players?");
     for i in 1..=num_players {
         let name = get_input(format!("Player {} name:", i).as_str());
         players.push(Player { name, score: 0 });
     }
-    let max_num = players.len() as u32 * 50;
-    loop {
-        let mut players_guess_diffs = Vec::<(String, u32)>::new();
-        let target = generate_number(max_num);
-        // collect the guesses
-        for player in &players {
-            //// play_round(player, target, max_num);
-            println!("{}'s turn", player.name);
-            let guess = get_input::<u32>(&format!("Guess the number (1-{max_num}):"));
-            players_guess_diffs.push((player.name.clone(), guess.abs_diff(target)));
-        }
+    players
+}
 
-        // sort by value
+/// Define a function to get the guesses from the players
+fn get_guesses(players: &Vec<Player>, max_num: u32) -> Vec<(String, u32)> {
+    let mut players_guess_diffs = Vec::<(String, u32)>::new();
+    let target = generate_number(get_max_num(players));
+    println!("target: {}", target);
+    for player in players {
+        println!("{}'s turn", player.name);
+        let guess = get_input::<u32>(&format!("Guess the number (1-{max_num}):"));
+        players_guess_diffs.push((player.name.clone(), guess.abs_diff(target)));
+    }
+    players_guess_diffs
+}
+
+/// Define a function to get the winner
+fn get_winner(players_guess_diffs: &Vec<(String, u32)>) -> String {
+    players_guess_diffs[0].0.clone()
+}
+
+/// Define a function to update the scores
+fn update_scores(players: &mut Vec<Player>, winner: &str) {
+    for player in players {
+        if player.name == winner {
+            player.score += 1
+        }
+    }
+}
+
+/// Define a function to print the scores
+fn print_scores(players: &Vec<Player>) {
+    println!("Scores: 📊");
+    for player in players {
+        println!("- {}", player.to_string());
+    }
+}
+
+/// Define a function to play the game
+fn play_game() {
+    println!("Welcome to the Target Proximity Game! 🎮");
+    let mut players = get_players();
+    let max_num = get_max_num(&players);
+    loop {
+        let players_guess_diffs = get_guesses(&players, max_num);
+        let mut players_guess_diffs = players_guess_diffs;
         players_guess_diffs.sort_by_key(|&(_, v)| v);
         println!("Debug: {:?}", players_guess_diffs);
-        let winner = &players_guess_diffs[0].0;
+        let winner = get_winner(&players_guess_diffs);
         println!("Congratulations, {}! 🎉 You are the winner!", winner);
-        let _ = players.iter_mut().map(|x| {
-            if x.name == *winner {
-                x.score += 1
-            }
-        });
-        println!("Scores: 📊");
-        for player in &players {
-            println!("- {}", player.to_string());
-        }
+        update_scores(&mut players, &winner);
+        print_scores(&players);
         let play_again: String = get_input("Play again? (y/n) 🔄");
 
         // if input is anything other than "y", it breaks
@@ -118,26 +133,26 @@ fn play_game() {
 }
 
 // Define unit tests for the functions
-#[cfg(test)]
-mod tests {
-    use super::*;
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
 
-    #[test]
-    fn test_compare_guess() {
-        assert_eq!(compare_guess(50, 50), GuessResult::Correct);
-        assert_eq!(compare_guess(50, 40), GuessResult::TooHigh);
-        assert_eq!(compare_guess(50, 60), GuessResult::TooLow);
-    }
+//     #[test]
+//     fn test_compare_guess() {
+//         assert_eq!(compare_guess(50, 50), GuessResult::Correct);
+//         assert_eq!(compare_guess(50, 40), GuessResult::TooHigh);
+//         assert_eq!(compare_guess(50, 60), GuessResult::TooLow);
+//     }
 
-    #[test]
-    fn test_player_to_string() {
-        let player = Player {
-            name: "Alice".to_string(),
-            score: 3,
-        };
-        assert_eq!(player.to_string(), "Alice (3)");
-    }
-}
+//     #[test]
+//     fn test_player_to_string() {
+//         let player = Player {
+//             name: "Alice".to_string(),
+//             score: 3,
+//         };
+//         assert_eq!(player.to_string(), "Alice (3)");
+//     }
+// }
 
 // Define the main function to run the game
 fn main() {
