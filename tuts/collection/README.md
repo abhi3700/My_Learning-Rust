@@ -82,3 +82,13 @@ To recap, the main difference between slices and arrays in Rust is that arrays h
   ![](../../img/vector_memory2.png)
 
   > If you do not see a different address after pushing more elements onto a vector, it might be because the allocator had enough space at the end of the original buffer such that the new and the old buffers have the same starting address. Try pushing more elements and you will see a different address. Read about C library function `realloc` to understand how this might happen.
+
+- One should use idiomatic patterns to get the job done:
+  - `find()`: find the element & return the index
+  - `map()`: loop over the elements & return a new vector with parsed `Fn`.
+    - we can use chained map like this: `v.iter().map(|x| x * 2).map(|x| x + 1).collect::<Vec<i32>>();` as `map` returns an iterator.
+  - `filter()`: loop over the elements & return a new vector with filtered elements based on `Fn`.
+  - `fold()`: loop over the elements & return a new vector with folded elements based on `Fn`.
+  - `enumerate()`: loop over the elements & return a new vector with zipped elements as (index, value).
+  - `zip()`: with 2 vectors, loop over the elements & return a new vector with zipped elements as (element1, element2).
+  - `unzip()`: with 1 vector of tuples, loop over the elements & return a new vector with unzipped elements as (vector1, vector2).

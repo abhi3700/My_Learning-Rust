@@ -13,6 +13,10 @@ Reqwest provides a convenient, higher-level HTTP Client for Rust.
 - Uses system-native TLS
 - Cookies
 
+## Coding example:
+
+- https://github.com/abhi3700/coursera_01_rust_l1/blob/main/ch-2
+
 ## References
 
 - [crate](https://crates.io/crates/reqwest)
