@@ -30,14 +30,57 @@
 
   In your specific case, if you want to compare `x` to `3`, you should use `if x == 3`. If you need pattern matching (like checking if an `Option` is `Some` or a `Result` is `Ok`), then if let is the appropriate construct.
 
+## loop
+
+```rust
+loop {
+  if condition {
+    break;
+  }
+}
+```
+
 ## while
 
-## loop
+```rust
+let mut x = 1;
+while x < 10 {
+  x += 1;
+}
+```
 
 ## for
 
 - `..` used for range like `1..4` i.e. 1, 2, 3. But, if `1..=4` i.e. 1, 2, 3, 4
 
+```rust
+for i in 1..4 {
+  println!("{}", i);
+}
+```
+
+if we don't require the i, then we can use like this:
+
+```rust
+for _ in 1..4 {
+  println!("Hello");
+}
+```
+
 ## break
 
+getting out of loop based on some/none condition
+
 ## continue
+
+skipping the current iteration of the loop
+
+```rust
+// code using continue
+for i in 1..4 {
+  if i == 2 {
+    continue;
+  }
+  println!("{}", i);
+}
+```
