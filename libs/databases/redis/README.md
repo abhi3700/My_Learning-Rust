@@ -23,6 +23,8 @@ $ redis-cli
 
 ## References
 
-- crate: [redis](https://crates.io/crates/redis)
+- redis driver:
+  - [crates.io](https://crates.io/crates/redis)
+  - [Github](https://github.com/redis-rs/redis-rs)
 - [Redis website](https://redis.io/)
 - [Redis commands](https://redis.io/commands/)
