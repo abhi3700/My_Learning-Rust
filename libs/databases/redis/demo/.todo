@@ -1,0 +1,5 @@
++ simple data types
++ TLS support
+- Add redis-macros for custom types
+- Add async feature w tokio
+- Add support for redis cluster
