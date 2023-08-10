@@ -1,10 +1,28 @@
 # Redis
 
-## Installation
+A rust folder to learn about MongoDB.
+
+Main folder is [here](https://github.com/abhi3700/My_Learning_Databases/blob/main/Redis).
+
+## Overview
+
+- key-value in-memory database
+- supports multiple data types like string, list, set, sorted set, hash, etc.
+- sample redis URL:
+  - `redis://<username>:<password>@<host>:<port>` without TLS support
+  - `rediss://<username>:<password>@<host>:<port>` with TLS support
+
+## [Installation](https://github.com/abhi3700/My_Learning_Databases/blob/main/Redis/README.md#installation)
+
+## Usage
 
 ```sh
 $ cargo add redis
 ```
+
+## Getting Started
+
+Follow this [code example](./demo/) to get started.
 
 ## Server
 
@@ -14,27 +32,17 @@ $ cargo add redis
 
 Use local server via `$ redis-server` command. If not installed, then install it via `$ brew install redis` command.
 
-### External
-
-Use redis db instance from external service providers like heroku, render, AWS, etc.
-
-Redis DB hosted on these platforms:
-
-- [Render | All-in-One cloud service](https://dashboard.render.com/) (FREE plan | multiple DB w 30 MB each) comes with TLS support `Tested Ok ✅`
-  - steps:
-    1. create redis instance with a unique name.
-    2. Now, under "Access Control" of the DB, press <kbd>Use my IP</kbd> button to allow my IP to access the DB.
-    3. Copy the "External Redis URL" and use it in the code as environment variable.
-- [Redis Enterprise Cloud](https://app.redislabs.com/) (FREE plan | 1 DB with 30MB ) doesn't have TLS support. `Tested Ok ✅`
-- [Heroku](https://dashboard.heroku.com/) (No DBs available in FREE plan) ❌ (not preferred for testing)
-
-## Redis CLI
-
 After spinning up redis server, run the following command to open redis cli:
 
 ```sh
 $ redis-cli
 ```
+
+### [Cloud Service Providers](https://github.com/abhi3700/My_Learning_Databases/blob/main/Redis/README.md#cloud-service-providers)
+
+## Architecture
+
+Refer [this](https://github.com/abhi3700/My_Learning_Databases/blob/main/all.drawio).
 
 ## Advanced
 
