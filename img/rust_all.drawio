@@ -1,6 +1,37 @@
-<mxfile host="Electron" modified="2023-08-07T12:27:54.773Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.1 Chrome/112.0.5615.204 Electron/24.6.1 Safari/537.36" etag="Ssm9oAFKP4EHiGIRrC44" version="21.6.1" type="device" pages="4">
+<mxfile host="Electron" modified="2023-08-10T09:08:58.624Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.1 Chrome/112.0.5615.204 Electron/24.6.1 Safari/537.36" etag="dxo3APvCLE7Z9lY05Q33" version="21.6.1" type="device" pages="5">
+  <diagram id="-AN7nf0jEJU4S9RvtCsm" name="Fields">
+    <mxGraphModel dx="757" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-1" value="Rust&lt;br&gt;(Fields of Interest)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="240" y="530" width="330" height="400" as="geometry">
+            <mxRectangle x="240" y="530" width="70" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-4" value="System Design" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#76608a;fontColor=#ffffff;strokeColor=#432D57;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="165" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-5" value="Blockchain" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#647687;fontColor=#ffffff;strokeColor=#314354;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="85" y="140" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-6" value="Frontend, Design" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FF66B3;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="165" y="140" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-7" value="Embedded Systems" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="85" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-8" value="Artificial&lt;br&gt;Intelligence" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#00CC00;fontColor=#ffffff;strokeColor=#6D1F00;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="165" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iB3G6uS4u2oXl6t9M-VS-3" value="Data &lt;br&gt;Science" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;" vertex="1" parent="iB3G6uS4u2oXl6t9M-VS-1">
+          <mxGeometry x="85" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
   <diagram id="ZTzpOd_8VpY4GooCVOoi" name="Language">
-    <mxGraphModel dx="3547" dy="2604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2916" dy="2126" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
