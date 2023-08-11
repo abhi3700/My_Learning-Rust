@@ -87,21 +87,20 @@ these changes will be reverted.
 
 ### `cargo`
 
-- After `cargo` installation,
-  - add package locally into the repo via `$ cargo add <package-name>`. E.g. `$ cargo add dotenv`.
-  - list globally installed packages via `$ cargo install --list`.
-  - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
-  - install the binaries (by default `/target/release`) folder via `$ cargo install --path .`. This will install the binary in the `~/.cargo/bin` folder.
-  - install `cargo-edit` for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
-  - `cargo-watch` install via `$ cargo install cargo-watch`.
-    - Watch for changes in the project and automatically run via `$ cargo watch -x run`
-    - Watch for changes in the project and automatically test via `$ cargo watch -x test`
-  - `cargo-expand`: install via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
-  - `cargo-audit`: install via `$ cargo install cargo-audit`.
-- build using `nightly` toolchain for a project via `$ cargo +nightly build`
-- build a release (optimized) version of a project via `$ cargo build --release`
+- `$ cargo add <package-name>`: add package locally into the rust project. E.g. `$ cargo add dotenv`.
+- `$ cargo install --list`: list globally installed packages via .
+- `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
+- `$ cargo install --path .`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder.
+- Install `cargo-edit`: for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
+- Install `cargo-watch`: via `$ cargo install cargo-watch`.
+  - Watch for changes in the project and automatically run via `$ cargo watch -x run`
+  - Watch for changes in the project and automatically test via `$ cargo watch -x test`
+- `cargo-expand`: install via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
+- `cargo-audit`: install via `$ cargo install cargo-audit`.
+- `$ cargo +nightly build`: build using `nightly` toolchain for a project
+- `$ cargo build --release`: build a release (optimized) version of a project
 
-  > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles. Then they run `cargo build` when they’re ready to use the executable.
+  > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles or they depend on `rust-analyzer` (sometimes not accurate as exprienced in big blockchain codebase like substrate where `target/` folder is 25 GB+) Then they run `cargo build` when they’re ready to use the executable.
 
 - **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
 
