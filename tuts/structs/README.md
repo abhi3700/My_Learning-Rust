@@ -1,9 +1,28 @@
 # Struct
 
-- There are different types of struct
+- There are mainly 3 types of struct:
 
-  - normal struct: with parameters
-  - unit struct: without parameters
+  - regular struct: with parameters & types
+
+  ```rust
+  struct Color {
+    red: u8,
+    green: u8,
+    blue: u8,
+  }
+  ```
+
+  - tuple struct: without parameters, but with types
+
+  ```rust
+  struct Color(i32, i32, i32);
+  ```
+
+  - unit struct: without parameters & types
+
+  ```rust
+  struct Color;
+  ```
 
 - The purpose of unit struct is to implement traits on it and use that struct as value for the other traits' associated type during implementation. [Code example](./struct_11.rs).
 - Structs can be inherited from other structs via declaring the 1 struct type as type of another struct's parameter.

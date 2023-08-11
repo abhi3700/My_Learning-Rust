@@ -24,9 +24,22 @@
   }
   ```
 
+## Getting Started
+
+- Add the following to your `Cargo.toml` file:
+
+  ```toml
+  [dependencies]
+  plotly = "0.1.0"
+  ```
+
+  Also, can add more features with `features` param here.
+
+- For code, refer [this](./demo/src/main.rs) file.
+
 ## References
 
-- plotly crate:
+- plotly lib:
   - [crates.io](https://crates.io/crates/plotly/)
   - [API documentation](https://docs.rs/plotly/latest/plotly/)
   - [Github](https://github.com/igiagkiozis/plotly)
