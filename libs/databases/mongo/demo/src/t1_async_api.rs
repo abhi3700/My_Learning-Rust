@@ -11,7 +11,7 @@
 //! serde_json = "1.0.104"
 //! ```
 
-use mongodb::{options::ClientOptions, Client};
+use mongodb::Client;
 use std::error::Error;
 
 #[async_std::main]
