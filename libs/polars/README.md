@@ -8,5 +8,9 @@ Polars is a DataFrame library that is fast and memory efficient. It is written i
 
 ## References
 
-- [Github](https://github.com/pola-rs/polars)
-- [Documentation](https://www.pola.rs/)
+- polars package:
+  - [crates.io](https://crates.io/crates/polars)
+  - [Github](https://github.com/pola-rs/polars)
+  - [API documentation](https://pola-rs.github.io/polars/polars/)
+  - [Documentation](https://www.pola.rs/)
+  - [Book](https://pola-rs.github.io/polars-book/)
