@@ -7,7 +7,16 @@ In order to fetch any JSON data, one needs to deserialize the JSON data of custo
 Initially, I am trying to fetch the response body from the API that looks like this:
 ![](../../img/api_response.png)
 
+```toml
+[dependencies]
+dotenv = "0.15.0"
+reqwest = { version = "0.11.18", features = ["json"] }
+tokio = { version = "1.31.0", features = ["full"] }
+```
+
 ```rust
+use reqwest::Result;
+
 // get location input of valet via Location API
 #[tokio::main]
 async fn get_valet() -> Result<User> {
@@ -16,14 +25,18 @@ async fn get_valet() -> Result<User> {
     dotenv::from_path("./.env").expect("Failed to load .env file");
     let url = std::env::var("VALET_LOCATION_URL").expect("URL var not found");
 
-    let body = reqwest::get(url).await?.json::<_>().await?;
+    let response_body = reqwest::get(url).await?;
+    let valet_location = response_body.json::<ValetLocation>().await?;
 
-    println!("{:?}", body);
-    Ok(User {
+    // println!("{:?}", response_body);
+    // println!("{:?}", valet_location);
+    let valet = User {
         name,
-        lat: 0.0,
-        lng: 0.0,
-    })
+        lat: valet_location.latitude,
+        lng: valet_location.longitude,
+    };
+
+    Ok(valet)
 }
 ```
 
@@ -35,6 +48,7 @@ And then I have to add the `serde` crate in order to use `Deserialize` trait for
 
 ```toml
 [dependencies]
+# ...
 # cargo add serde --features=derive
 serde = { version = "1.0", features = ["derive"] }
 ```
@@ -77,14 +91,18 @@ async fn get_valet() -> Result<User> {
     dotenv::from_path("./.env").expect("Failed to load .env file");
     let url = std::env::var("VALET_LOCATION_URL").expect("URL var not found");
 
-    let body = reqwest::get(url).await?.json::<ValetLocation>().await?;
+    let response_body = reqwest::get(url).await?;
+    let valet_location = response_body.json::<ValetLocation>().await?;
 
-    println!("{:?}", body);
-    Ok(User {
+    // println!("{:?}", response_body);
+    // println!("{:?}", valet_location);
+    let valet = User {
         name,
-        lat: 0.0,
-        lng: 0.0,
-    })
+        lat: valet_location.latitude,
+        lng: valet_location.longitude,
+    };
+
+    Ok(valet)
 }
 ```
 
@@ -100,7 +118,8 @@ ValetLocation { id: 4928, uid: "7fef49a8-809e-48d8-b155-c072a34e29ba", city: "Yu
 
 ---
 
-In order to further filter the data (`latitude`, `longitude`), I would be modifying the struct like this as I don't need all the data from the API response.
+But I figured out that I can just minimize the struct by shortening the fields that I need from the API response.
+To do this, consider these fields (`latitude`, `longitude`), then modify the struct like this as I don't need other data from the API response.
 
 ```rust
 #[derive(Deserialize, Debug)]
@@ -118,14 +137,28 @@ async fn get_valet() -> Result<User> {
     dotenv::from_path("./.env").expect("Failed to load .env file");
     let url = std::env::var("VALET_LOCATION_URL").expect("URL var not found");
 
-    let body = reqwest::get(url).await?.json::<ValetLocation>().await?;
+    let response_body = reqwest::get(url).await?;
+    let valet_location = response_body.json::<ValetLocation>().await?;
 
-    println!("{:?}", body);
-    Ok(User {
+    // println!("{:?}", response_body);
+    // println!("{:?}", valet_location);
+    let valet = User {
         name,
-        lat: 0.0,
-        lng: 0.0,
-    })
+        lat: valet_location.latitude,
+        lng: valet_location.longitude,
+    };
+    let response_body = reqwest::get(url).await?;
+    let valet_location = response_body.json::<ValetLocation>().await?;
+
+    // println!("{:?}", response_body);
+    // println!("{:?}", valet_location);
+    let valet = User {
+        name,
+        lat: valet_location.latitude,
+        lng: valet_location.longitude,
+    };
+
+    Ok(valet)
 }
 ```
 
