@@ -79,7 +79,7 @@ use chrono::Utc;
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 
-fn main() {
+pub(crate) fn main() {
     // Create an Arc containing a tuple of a Mutex and a Condvar
     let data = Arc::new((Mutex::new(false), Condvar::new()));
 
