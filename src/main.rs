@@ -6,9 +6,9 @@
     - Also, the Rust-Analyzer gets activated (as `Cargo.toml` is added at project root)
     & gives red flags at errors w/o compiling using `cargo check`
 */
-#[path = "../tuts/structs/struct_11.rs"]
-mod struct_11;
+#[path = "../tuts/async/sync_4.rs"]
+mod sync_4;
 
 fn main() {
-    // struct_11::main();
+    sync_4::main();
 }
