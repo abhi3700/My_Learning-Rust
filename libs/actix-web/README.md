@@ -85,7 +85,7 @@ For more comprehensive example, refer to these examples:
 
 ## Coding
 
-There are 4 main functions which can be composed in different ways (leaving `AppState` aside) while creating API routes:
+There are 4 main functions which can be composed in different ways (keeping `AppState` aside for a moment) while creating API routes:
 
 - `service`: takes a `factory` argument inside
 - `scope`: takes a `prefixed_path` argument inside which can be propagated with `route`
@@ -99,6 +99,56 @@ Actix-web RESTful API scaffoldings:
 ![](../../img/actix_web_restful_api_scaffoldings.png)
 
 For better resolution, refer [this](../../img/rust_all.drawio)
+
+---
+
+For organization of `service`(s), we can have multiple patterns:
+
+1. Put all scope based handlers in a single service
+
+   ```rust
+   HttpServer::new(move || {
+           App::new().route("/home", web::get().to(home)).service(
+               web::scope("/contracts")
+                   .route("/sptoken/name", web::get().to(get_sptoken_name))
+                   .route("/spnft/name", web::get().to(get_spnft_name))
+                   .route("/rspnft/name", web::get().to(get_rspnft_name))
+                   .app_data(sptoken_contract.clone())
+                   .app_data(spnft_contract.clone())
+                   .app_data(rspnft_contract.clone()),
+           )
+       })
+       .bind(("127.0.0.1", port))?
+       .run()
+       .await
+   ```
+
+2. Put different services (NOT better than previous one)
+
+   ```rust
+   HttpServer::new(move || {
+           App::new()
+               .route("/home", web::get().to(home))
+               .service(
+                   web::scope("/contracts")
+                       .route("/sptoken/name", web::get().to(get_sptoken_name))
+                       .app_data(sptoken_contract.clone()),
+               )
+               .service(
+                   web::scope("/contracts")
+                       .route("/spnft/name", web::get().to(get_spnft_name))
+                       .app_data(spnft_contract.clone()),
+               )
+               .service(
+                   web::scope("/contracts")
+                       .route("/rspnft/name", web::get().to(get_rspnft_name))
+                       .app_data(rspnft_contract.clone()),
+               )
+       })
+       .bind(("127.0.0.1", port))?
+       .run()
+       .await
+   ```
 
 ---
 
@@ -463,6 +513,59 @@ This setup ensures that your database connections are managed efficiently and sa
 ### Q. In addition to last question, do we need to use `Arc` to the data (App State) struct?
 
 No, as `app_data()` by defaults has Arc pointer. So, we don't need both the `Mutex` and `Arc` to the data struct in the app state as it is already thread-safe via connection pool when using Diesel ORM with Actix and PostgreSQL DB.
+
+### Q. In the following code (correct), how does the routes know their individual `app_state` to refer to?
+
+Code snippet:
+
+```rust
+HttpServer::new(move || {
+        App::new().route("/home", web::get().to(home)).service(
+            web::scope("/contracts")
+                .route("/sptoken/name", web::get().to(get_sptoken_name))
+                .route("/sptoken/symbol", web::get().to(get_sptoken_symbol))
+                .route("/spnft/name", web::get().to(get_spnft_name))
+                .route("/rspnft/name", web::get().to(get_rspnft_name))
+                .app_data(Data::new(sptoken_contract.clone()))
+                .app_data(Data::new(spnft_contract.clone()))
+                .app_data(Data::new(rspnft_contract.clone())),
+        )
+    })
+    .bind(("127.0.0.1", port))?
+    .run()
+    .await
+```
+
+In the provided `HttpServer` code, the routes within the `/contracts` scope can access the respective `app_data` using the `Data` extractor. When you use the `Data` extractor in your handler functions, actix-web will automatically search for the appropriate data based on the type of the data you are trying to extract.
+
+For example, if you have the following routes and their respective handler functions:
+
+```rust
+.route("/sptoken/name", web::get().to(get_sptoken_name))
+.route("/sptoken/symbol", web::get().to(get_sptoken_symbol))
+```
+
+And you have registered the `app_data` like this:
+
+```rust
+.app_data(Data::new(sptoken_contract.clone()))
+```
+
+In your handler functions, you can use the `Data` extractor to access the appropriate data based on the type:
+
+```rust
+async fn get_sptoken_name(sptoken_contract: Data<SPToken<EthersProviderHttp>>) -> impl Responder {
+    // ...
+}
+
+async fn get_sptoken_symbol(sptoken_contract: Data<SPToken<EthersProviderHttp>>) -> impl Responder {
+    // ...
+}
+```
+
+In both handler functions, the `Data` extractor will search for the `app_data` that matches the type `SPToken<EthersProviderHttp>`. Since you have registered the `sptoken_contract` with this type, the correct data will be extracted and passed to the handler functions.
+
+So, the routes will know which `app_data` to use based on the type specified in the `Data` extractor in the handler functions.
 
 </details>
 
