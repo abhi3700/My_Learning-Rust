@@ -13,7 +13,7 @@ Rust programming language
 - Install
 
 ```console
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+$ curl https://sh.rustup.rs -sSf | sh
 ```
 
 Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
@@ -200,7 +200,7 @@ For more, see [here](https://blessed.rs/crates).
 
 ## Repositories
 
-- [calamine](https://github.com/tafia/calamine)
+- [calamine | Rust Excel/OpenDocument SpreadSheets file reader: rust on metal sheets](https://github.com/tafia/calamine)
 - [DSLCad](https://github.com/DSchroer/dslcad): DSLCad is a programming language & interpreter for building 3D models.
 - [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
 - [A new markup-based typesetting system that is powerful and easy to learn] (https://github.com/typst/typst)
@@ -208,6 +208,13 @@ For more, see [here](https://blessed.rs/crates).
 - [Plotly charts lib for Rust](https://github.com/igiagkiozis/plotly)
 - [LLM-chain](https://github.com/sobelio/llm-chain)
 - [GeoRust: A collection of geospatial tools and libraries written in Rust](https://github.com/georust)
+- [Blake3 crypto lib (Official)](https://github.com/BLAKE3-team/BLAKE3)
+- [SHA3 crypto lib](https://crates.io/crates/sha3)
+  - [documentation](https://docs.rs/sha3/latest/sha3/)
+- [Collection of cryptographic hash functions written in pure Rust](https://github.com/RustCrypto/hashes)
+  > Blake3 ❌
+- [Easy implementation using GeoUtils](https://github.com/srishanbhattarai/geoutils)
+  > Both formula covered: [Vincenty's Inverse Formula](https://en.wikipedia.org/wiki/Vincenty%27s_formulae), [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula).
 
 ## [C++ vs Rust](./cpp_vs_rust.md)
 
