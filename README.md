@@ -63,23 +63,35 @@ these changes will be reverted.
 - set `stable` as default toolchain via `$ rustup default stable`
 - set `nightly` as default toolchain via `$ rustup default nightly`
 - set `nightly` as default toolchain for a specific project via `$ rustup override set nightly`
+  > If any repository has `rust-toolchain.toml` file present, then the toolchain version mentioned in the file will be used for that project if you have already switched to that toolchain.
 - All the rust binaries are installed in this folder `$HOME/.cargo/bin`
-- **Update** using `$ rustup update` [RECOMMENDED]
-  - And then need to install the latest `rustc` & `cargo` for individual channels: `stable`, `beta`, `nightly`
+- **Update** all channels using `$ rustup update` [RECOMMENDED]
+  ```sh
+  stable-aarch64-apple-darwin updated - rustc 1.72.1 (d5c2e9c34 2023-09-13) (from rustc 1.72.0 (5680fa18f 2023-08-23))
+  beta-aarch64-apple-darwin updated - rustc 1.74.0-beta.1 (b5c050feb 2023-10-03) (from rustc 1.73.0-beta.3 (bc28abf92 2023-08-27))
+  nightly-aarch64-apple-darwin updated - rustc 1.75.0-nightly (187b8131d 2023-10-03) (from rustc 1.74.0-nightly (84a9f4c6e 2023-08-29))
+  ```
+  - And then need to set the latest `rustc` & `cargo` for individual channels: `stable`, `beta`, `nightly`
     - `$ rustup default stable-aarch64-apple-darwin`
     - `$ rustup default beta-aarch64-apple-darwin`
     - `$ rustup default nightly-aarch64-apple-darwin`
-- Update to stable version: `$ rustup update stable`
+- Update the toolchain (of stable channel): `$ rustup update stable`
+- Update all toolchains (irrespective of channel): `$ rustup update`
 - View installed version via `$ rustup show`
-- Check latest version via `$ rustup check`
+- Check if there is any latest version using `$ rustup check`
 - install a **specific version** via `$ rustup install 1.64.0` or `$ rustup install 1.64.0-aarch64-apple-darwin`
-- set a specific version via `$ rustup default 1.64.0` or `$ rustup override set 1.64.0`
-- **Uninstall** using `$ rustup self uninstall`
+- set a specific version in the already set channel via `$ rustup default 1.64.0` or `$ rustup override set 1.64.0`
+- **Uninstall** rustup using `$ rustup self uninstall`
+- **toolchains**:
+  - List all installed toolchains using `$ rustup toolchain list`
+  - Install a toolchain using `$ rustup toolchain install <toolchain-name-w-version-arch-developer>`. E.g. `$ rustup toolchain install 1.70.0-aarch64-apple-darwin`
+  - Uninstall a toolchain using `$ rustup toolchain uninstall <toolchain-name-w-version-arch-developer>`. E.g. `$ rustup toolchain uninstall 1.70.0-aarch64-apple-darwin`
+  -
 - **lib**:
   - Show all available lib using `$ rustup component list`
   - Show all installed lib using `$ rustup component list --installed`
   - Install rust std lib using `$ rustup component add rust-src`
-- **target**:
+- **target** (for a toolchain):
   - Show all available target using `$ rustup target list`
   - show all installed target using `$ rustup target list --installed`
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
