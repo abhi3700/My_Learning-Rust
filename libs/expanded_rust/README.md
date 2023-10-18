@@ -10,7 +10,7 @@
 
 So, here we can see that the `println!` macro is expanded to the `std::io::_print` function with the `format_args!` macro.
 
-This is a very small eg, but you can definitely see how the code gets abstracted away for big codebases.
+This is a very small eg, but you can definitely see how the code gets abstracted away for large codebases.
 
 ## Installation
 
@@ -23,7 +23,7 @@ $ cargo install cargo-expand
 Inside a project directory with a `Cargo.toml` file, run:
 
 ```console
-$ cargo expand >> expanded.rs
+$ cargo expand > expanded.rs
 ```
 
 You will obtain a `expanded.rs` file in the project root directory.

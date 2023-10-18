@@ -133,6 +133,7 @@ these changes will be reverted.
   }
   ```
 
+- View the dependency graph of a project using `$ cargo tree`
 - **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
 
   - Each crate has a limit of 10 MB in size for each version.
