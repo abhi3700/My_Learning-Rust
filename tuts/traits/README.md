@@ -92,7 +92,7 @@ impl <TraitName> for <TypeName> {
 }
 ```
 
-- Ideally, `struct` in C/C++ is same as here in Rust. But, in order to define methods we need to use `impl`s for them. We can use multiple `impl` for a type in order to implement `Trait`s. We can use `#[derive(...)]` macro for this. But in some cases, if we require to customize the output, we have to implement the Trait explicitly & then inside the implementation, we add some logic to customize the output. And also we can definitely give our own type in cases of GATs (Generic Associated Types).
+- Ideally, `struct` (without methods) in C/C++ is equivalent to `struct` in Rust. But, in order to define methods we need to use `impl`s for them. We can use multiple `impl` for a type in order to implement `Trait`s. We can use `#[derive(...)]` macro for this. But in some cases, if we require to customize the output, we have to implement the Trait explicitly & then inside the implementation, we add some logic to customize the output. And also we can definitely give our own type in cases of GATs (Generic Associated Types).
 - `impl`s are used to define methods for Rust `struct`s and `enum`s.
 - Traits are kind of similar to interfaces in **OOP** languages. They are used to define the functionality a type must provide. Multiple traits can be implemented for a single type. Although we can use `traits` in much more flexible way unlike `interface` in traditional languages.
 - But traits can also include default implementations of methods. Default methods can be overridden when implementing for the types. For instance, we can explicitly apply our own logic to the `to_string` method of the `ToString` trait.
