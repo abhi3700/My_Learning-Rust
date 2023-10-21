@@ -1,4 +1,4 @@
-# Async
+# Asynchronous Rust
 
 ## Overview
 
@@ -8,8 +8,11 @@
     ![](../../img/parallelism_diagram.png)
   - **concurrency**: A single CPU core doing multiple tasks, but only one task is running at a time. It's kind of like _faking parallelism_. It's like watching a YT video and listening to another music at the same time. You are not watching both at the same time, but you are switching between them. So, here the CPU does take some <kbd>pause</kbd>s in between. Hence, the idle time. So, these idle times could be because of moving some mouse or keyboard. Here, there is a concept of context switching.
     ![](../../img/concurrency_diagram.png)
-  - **asynchronous**: Single CPU core doing multiple tasks, but only one task is running at a time, and the tasks are not blocking the main thread. Hence, _no idle time_. In the diagram below, the task-1 is paused because it is waiting for some resources/information that can be achieved after the completion of the other 3 tasks. So, after task 4 ends, the task-1 resumes. In rust, there is a crate called [`tokio`](https://crates.io/crates/tokio) which provides asynchronous programming.
+  - **asynchronous**: Single CPU core doing multiple tasks, but only one task is running at a time, and the tasks are not blocking the main thread. Hence, _no idle time_. In the diagram below, the task-1 is paused because it is waiting for some resources/information that can be achieved after the completion of the other 3 tasks. So, after task 4 ends, the task-1 resumes. In rust, there is a crate called [`tokio`](https://crates.io/crates/tokio) which provides asynchronous programming. In other words, asynchronous involves sometimes parallelism or concurrency.
     ![](../../img/async_diagram.png)
+    And we should know when to use what. There are mainly 2 types of work:
+    - **CPU bound**: lot of processing related work (crunching no.s). In this case, parallelism can be really helpful.
+    - **I/O bound**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server.
 - The async/await syntax is a way to write asynchronous code that looks like synchronous code.
 - There is a `Future` trait in the standard library which is similar to the concept of a `Promise` in JavaScript.
 - Futures are inert in Rust and make progress only when polled. Dropping a future stops it from making further progress.
@@ -37,6 +40,59 @@ async fn main() {
    }
 }
 ```
+
+---
+
+`tokio` crate is the default choice in the industry for asynchronous tasks. It creates a thread per CPU core by default. So, if there are 4 cores, then 4 threads are created. And, the tasks are distributed among these threads by the runtime for multi-threading.
+
+![](../../img/tokio_multi_threading.png)
+
+---
+
+There is a trait called `Future` which acts as base layer for `tokio` crate. It is similar to the concept of a `Promise` in JavaScript. This is just to represent a type/process that implements `Future` trait which includes a function called `poll` which is used to check if a future has completed or not. If it has completed, then it returns `Poll::Ready` with the result. If it has not completed, then it returns `Poll::Pending`. Then, it might ask the runtime to check later (may be every few seconds). Or there can be a callback function that can be called when the future is ready.
+
+Here is some piece of code that shows how `Future` trait is implemented:
+
+```rust
+use std::pin::Pin;
+use std::task::{Context, Poll};
+
+trait Future {
+   // the computation will produce a result of type `Output` like u32, String, MyStruct, MyEnum, etc.
+   type Output;
+
+   // Pin is used to pin the memory location of the future. This is used to prevent the future from moving in memory.
+   // Context type is used to pass information (whether the future is ready or not) to the future.
+   fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
+}
+```
+
+---
+
+Behind any asynchronous request made using rust code, this is what is happening:
+
+Here is the request/response code snippet:
+
+```rust
+use std::collections::Hashmap;
+use std::error::Error;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+   let resp = reqwest::get("https://www.rust-lang.org").await?.json::<Hashmap<String, String>>().await?;
+
+   println!("{:#?}", resp);
+
+   Ok(())
+}
+```
+
+Below is the hardware diagram of the above code working under the hood:
+![](../../img/async_rust_1.png)
+
+And here is the corresponding sequence diagram:
+
+![](../..img/async_rust_2.png)
 
 ---
 

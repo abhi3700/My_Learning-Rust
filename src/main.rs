@@ -7,8 +7,8 @@
     & gives red flags at errors w/o compiling using `cargo check`
 */
 #[path = "../tuts/pointer/rc_1.rs"]
-mod rc_1;
+mod rc_refcell_1;
 
 fn main() {
-    rc_1::main();
+    rc_refcell_1::main();
 }

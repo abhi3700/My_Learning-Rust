@@ -389,7 +389,26 @@ println!("{0}, this is {1}. {1}, this is {0}", alice, bob);
 
 ### Attributes
 
-- `#[allow(unused)]` - to ignore the warning for unused variable
+Here, each aforementioned cases like unused variables, dead code, means something (shown on hover) like this:
+
+![](img/allow_unused.png)
+This means "allow unused imports". Hence, the compiler will not show any warning for unused variable.
+
+---
+
+![](img/disallow_dead_code.png)
+This means "not to allow detecting dead code". Hence, the compiler will not show warning for dead code.
+
+---
+
+As code example, see this:
+
+```rust
+//! This won't show any warning for unused import.
+
+#[allow(unused_imports)]
+use std::io::{self, Write};
+```
 
 ### Error handling
 

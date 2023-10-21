@@ -1,3 +1,7 @@
+# FAQs (DEPRECATED)
+
+Not updated since 10 months i.e. Dec 2022.
+
 ### Q. What is a crate?
 
 A crate is a package available in crates.io
