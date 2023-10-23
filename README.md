@@ -151,6 +151,28 @@ these changes will be reverted.
   $ cargo owner --remove github:rust-lang:owners
   ```
 
+- Add workspace member(s) to manage multiple projects inside one rust project (containing `Cargo.toml` file):
+
+  - `$ mkdir hello`
+  - `$ cd hello`
+  - `$ touch Cargo.toml`
+  - Add this to `Cargo.toml` file:
+
+  ```toml
+  [workspace]
+  members = ["project1", "project2", "project3"]
+  resolver = "2"
+  ```
+
+  > Here, `resolver` is added to ensure that all the members/projects follow rust 2021 or else, set to "1".
+
+  - `$ cargo new project1`
+  - `$ cargo new project2`
+  - `$ cargo new project3`
+  - `$ cargo build`: Build the workspace
+
+  > Now, you would also view the linting in all repos.
+
 ---
 
 > NOTE: If there is any error related to `linker` with C, follow this:
