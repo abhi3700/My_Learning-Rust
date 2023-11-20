@@ -8,6 +8,8 @@ CLAP: **C**ommand **L**ine **A**rgument **P**arsing
 
 Look at the [`Cargo.toml`](./Cargo.toml) file to view the dependencies used.
 
+As of now, the following dependencies are used: `clap`, `structopt`.
+
 ## Build
 
 ```sh
@@ -105,3 +107,13 @@ The sum of 1 and 4 is 5
 $ cargo run -- add -b 1 -c 4
 The sum of 1 and 4 is 5
 ```
+
+### Output
+
+In order to view the program output with different cli args/params, just run the program using `cargo` like this:
+
+```sh
+❯ cargo run -- --funding-amount 5000
+```
+
+Here, `--` is used to separate the `cargo run` args from the cli args. It can also be seen for the `hello` and `add` subcommands shown above.
