@@ -173,7 +173,7 @@ these changes will be reverted.
 
   > Now, you would also view the linting in all repos.
 
-- <u>Make Binary</u>: Any file (with `main` function) inside a cargo project can be defined as binary for easy call, just via `target/release/<bin>`
+- <u>Make Binary inside lib</u>: Any file (with `main` function) inside a cargo lib project can be defined as binary for easy call via `target/release/<bin>`
 
   For instance, inside a cargo project, the project folder looks like this:
 
