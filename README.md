@@ -173,6 +173,92 @@ these changes will be reverted.
 
   > Now, you would also view the linting in all repos.
 
+- <u>Make Binary</u>: Any file (with `main` function) inside a cargo project can be defined as binary for easy call, just via `target/release/<bin>`
+
+  For instance, inside a cargo project, the project folder looks like this:
+
+  <details><summary>folder structure:</summary>
+
+  ```sh
+  └── src
+    ├── accumulator.rs
+    ├── bn_solidity_utils.rs
+    ├── client
+    │   └── main.rs
+    ├── constants.rs
+    ├── contracts
+    │   ├── Semacaulk.json
+    │   ├── Verifier.json
+    │   ├── format
+    │   ├── foundry.toml
+    │   ├── lib
+    │   ├── mod.rs
+    │   ├── script
+    │   ├── sol
+    │   └── tests
+    ├── demo
+    │   └── main.rs
+    ├── error.rs
+    ├── gates
+    │   ├── gate_sanity_checks.rs
+    │   ├── mod.rs
+    │   ├── tests.rs
+    │   └── utils.rs
+    ├── keccak_tree
+    │   └── mod.rs
+    ├── kzg.rs
+    ├── layouter
+    │   └── mod.rs
+    ├── lib.rs
+    ├── mimc7.rs
+    ├── multiopen
+    │   ├── mod.rs
+    │   ├── prover.rs
+    │   └── verifier.rs
+    ├── prover
+    │   ├── mod.rs
+    │   ├── precomputed.rs
+    │   ├── prover.rs
+    │   └── structs.rs
+    ├── rng.rs
+    ├── setup
+    │   ├── main.rs
+    │   ├── mod.rs
+    │   └── tests.rs
+    ├── tests
+    │   ├── mod.rs
+    │   └── prover_and_verifier.rs
+    ├── transcript.rs
+    ├── utils.rs
+    └── verifier
+        └── mod.rs
+  ```
+
+  </details>
+
+  Now, inside the main `Cargo.toml` file, all the required binary could be added like this:
+
+  ```toml
+  [[bin]]
+  edition = "2021"
+  name = "setup"
+  path = "src/setup/main.rs"
+
+  [[bin]]
+  edition = "2021"
+  name = "demo"
+  path = "src/demo/main.rs"
+
+  [[bin]]
+  edition = "2021"
+  name = "client"
+  path = "src/client/main.rs"
+  ```
+
+  Now, you can call `/target/release/client` to call the client program.
+
+  [Repo as reference](https://github.com/geometryresearch/semacaulk).
+
 ---
 
 > NOTE: If there is any error related to `linker` with C, follow this:
