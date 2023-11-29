@@ -4,3 +4,6 @@
 [submodule "pro/zomato"]
 	path = pro/zomato
 	url = https://github.com/abhi3700/zomato_rust.git
+[submodule "libs/rust-react-wasm"]
+	path = libs/rust-react-wasm
+	url = https://github.com/abhi3700/rust-react-wasm-tutorial.git
