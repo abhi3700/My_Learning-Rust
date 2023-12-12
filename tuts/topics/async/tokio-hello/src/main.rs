@@ -18,6 +18,8 @@
 //! ```
 
 use mini_redis::{client, Result};
+use std::sync::Arc;
+use tokio::sync::Mutex;
 
 async fn say_world() {
     println!("world");
@@ -25,17 +27,33 @@ async fn say_world() {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let mut client = client::connect("127.0.0.1:6379").await?;
+    let client = client::connect("127.0.0.1:6379").await?;
+    let client = Arc::new(Mutex::new(client));
 
     // setting the value to "world"
-    client.set("hello", "world".into()).await?;
-    let res = client.get("hello").await?;
-    println!("{:?}", res);
+    {
+        let mut locked_client = client.lock().await;
+        locked_client.set("hello", "world".into()).await?;
+    }
+    // getting the value
+    {
+        let mut locked_client = client.lock().await;
+        let res = locked_client.get("hello").await?;
+        println!("{:?}", res);
+    }
 
     // setting the value to "world2"
-    client.set("hello", "world2".into()).await?;
-    let res = client.get("hello").await?;
-    println!("{:?}", res);
+    {
+        let mut locked_client = client.lock().await;
+        locked_client.set("hello2", "world2".into()).await?;
+    }
+
+    // getting the value
+    {
+        let mut locked_client = client.lock().await;
+        let res = locked_client.get("hello2").await?;
+        println!("{:?}", res);
+    }
 
     Ok(())
 }
