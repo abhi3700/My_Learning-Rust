@@ -3,6 +3,9 @@
 //! where you have two async functions, `task_one` and `task_two`.
 //! Each should print a message and wait for 1 second.
 //! Execute these tasks sequentially in the `main` function.
+//!
+//! Key learnings:
+//! - Running this program will demonstrate sequential execution of the two tasks with a 1-second pause for each.
 
 use tokio::time::{sleep, Duration};
 
