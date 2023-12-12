@@ -34,7 +34,7 @@
 //!     Use `RwLock` instead of Mutex. But not recommended in this as it won't add any efficiency.
 //!     If multiple threads are frequently trying to acquire the same lock, it can lead to performance issues. Consider using finer-grained
 //!     locks, or other synchronization primitives like RwLock which allows multiple readers or one writer at a time.
-//! 3. [ ] Concurrent approach of handling I/O tasks
+//! 3. [ ] Concurrent approach of handling I/O tasks: https://github.com/abhi3700/My_Learning-Rust/blob/8821bbb12f8ec4b55cceb60e8270921b2d0ef3d0/tuts/topics/async/tokio-hello/src/main.rs
 
 use mini_redis::{client, Result};
 use std::sync::Arc;
