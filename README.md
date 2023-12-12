@@ -103,7 +103,7 @@ these changes will be reverted.
 - `$ cargo add <package-name> --dev`: add package to `[dev-dependencies]` locally into the rust project. E.g. `$ cargo add hex-literal --dev`.
 - `$ cargo install --list`: list globally installed packages via .
 - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
-- `$ cargo install --path .`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder.
+- `$ cargo install --path <path/to/folder/containing/Cargo.toml>`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder. In case of workspace, parse the path of the bin folder containing `Cargo.toml` file.
 - Install `cargo-edit`: for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
 - Install `cargo-watch`: via `$ cargo install cargo-watch`.
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
@@ -851,6 +851,15 @@ This would be illegal under the orphan rules, because both `MyType` and `MyTrait
 
 - Check behind-the-code for a code snippet - https://play.rust-lang.org/
   - Tools >> Expand Macros
+- Debugger tool
+  - [FireDBG](https://github.com/SeaQL/FireDBG.for.Rust)
+    - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=SeaQL.firedbg-rust)
+    - CLI Installation:
+    ```sh
+    $ git clone https://github.com/SeaQL/FireDBG.for.Rust.git
+    $ cd FireDBG.for.Rust
+    $ cargo install --path ./command
+    ```
 
 ## Fields
 
