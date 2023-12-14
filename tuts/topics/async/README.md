@@ -6,19 +6,19 @@
 - Async is different than parallelism, concurrency.
   - **parallelism**: Multiple CPU cores doing multiple tasks at the same time. In rust, there is a crate called [`rayon`](https://crates.io/crates/rayon) which provides parallelism.
     ![](../../../img/parallelism_diagram.png)
-  - **concurrency**: A single CPU core doing multiple tasks, but only one task is ning at a time. It's kind of like _faking parallelism_. It's like watching a YT video and listening to another music at the same time. You are not watching both at the same time, but you are switching between them. So, here the CPU does take some <kbd>pause</kbd>s in between. Hence, the idle time. So, these idle times could be because of moving some mouse or keyboard. Here, there is a concept of context switching.
+  - **concurrency**: A single CPU core doing multiple tasks, but only one task is running at a time. It's kind of like _faking parallelism_. It's like watching a YT video and listening to another music at the same time. You are not watching both at the same time, but you are switching between them. So, here the CPU does take some <kbd>pause</kbd>s in between. Hence, the idle time. So, these idle times could be because of moving some mouse or keyboard. Here, there is a concept of context switching.
     ![](../../../img/concurrency_diagram.png)
-  - **asynchronous**: Single CPU core doing multiple tasks, but only one task is ning at a time, and the tasks are not blocking the main thread. Hence, _no idle time_. In the diagram below, the task-1 is paused because it is waiting for some resources/information that can be achieved after the completion of the other 3 tasks. So, after task 4 ends, the task-1 resumes. In rust, there is a crate called [`tokio`](https://crates.io/crates/tokio) which provides asynchronous programming. In other words, asynchronous involves sometimes parallelism or concurrency.
+  - **asynchronous**: Single CPU core doing multiple tasks, but only one task is running at a time, and the tasks are not blocking the main thread. Hence, _no idle time_. In the diagram below, the task-1 is paused because it is waiting for some resources/information that can be achieved after the completion of the other 3 tasks. So, after task 4 ends, the task-1 resumes. In rust, there is a crate called [`tokio`](https://crates.io/crates/tokio) which provides asynchronous programming. In other words, asynchronous involves sometimes parallelism or concurrency.
     ![](../../../img/async_diagram.png)
     And we should know when to use what. There are mainly 2 types of work:
-    - **CPU bound**: lot of processing related work (cching no.s). In this case, parallelism can be really helpful.
-    - **I/O bound**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server.
-- The async/await syntax is a way to write asynchronous code that looks like synchronous code.
+    - **CPU bound**: lot of processing related work (crunching no.s). In this case, parallelism can be really helpful.
+    - **I/O bound**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server. Here, connection pooling could be helpful. This includes opening multiple connections at different ports & sending requests to them. In this case, concurrency can be really helpful.
+- The `async`/`await` syntax is a way to write asynchronous code that looks like synchronous code.
 - There is a `Future` trait in the standard library which is similar to the concept of a `Promise` in JavaScript.
 - Futures are inert in Rust and make progress only when polled. Dropping a future stops it from making further progress.
 - Async is zero-cost in Rust, which means that you only pay for what you use. Specifically, you can use async without heap allocations and dynamic dispatch, which is great for performance! This also lets you use async in constrained environments, such as embedded systems.
-- **No built-in time** is provided by Rust. Instead, times are provided by community maintained crates like `tokio`.
-- Both single- and multithreaded times are available in Rust, which have different strengths and weaknesses.
+- **No built-in runtime** is provided by Rust. Instead, runtimes are provided by community maintained crates like `tokio`.
+- Both single- and multithreaded runtimes are available in Rust, which have different strengths and weaknesses.
 
 More on this in the [Async vs threads in Rust](https://rust-lang.github.io/async-book/01_getting_started/02_why_async.html#async-vs-threads-in-rust) section.
 
@@ -26,7 +26,7 @@ More on this in the [Async vs threads in Rust](https://rust-lang.github.io/async
 
 ## Concepts
 
-There is a crate - `tokio` which provides a time for executing asynchronous tasks like this:
+There is a crate - `tokio` which provides a runtime for executing asynchronous tasks like this:
 
 ```rust
 #[tokio::main]
@@ -43,13 +43,13 @@ async fn main() {
 
 ---
 
-`tokio` crate is the default choice in the industry for asynchronous tasks. It creates a thread per CPU core by default. So, if there are 4 cores, then 4 threads are created. And, the tasks are distributed among these threads by the time for multi-threading.
+`tokio` crate is the default choice in the industry for asynchronous tasks. It creates a thread per CPU core by default. So, if there are 4 cores, then 4 threads are created. And, the tasks are distributed among these threads by the runtime for multi-threading.
 
 ![](../../../img/tokio_multi_threading.png)
 
 ---
 
-There is a trait called `Future` which acts as base layer for `tokio` crate. It is similar to the concept of a `Promise` in JavaScript. This is just to represent a type/process that implements `Future` trait which includes a function called `poll` which is used to check if a future has completed or not. If it has completed, then it returns `Poll::Ready` with the result. If it has not completed, then it returns `Poll::Pending`. Then, it might ask the time to check later (may be every few seconds). Or there can be a callback function that can be called when the future is ready.
+There is a trait called `Future` which acts as base layer for `tokio` crate. It is similar to the concept of a `Promise` in JavaScript. This is just to represent a type/process that implements `Future` trait which includes a function called `poll` which is used to check if a future has completed or not. If it has completed, then it returns `Poll::Ready` with the result. If it has not completed, then it returns `Poll::Pending`. Then, it might ask the runtime to check later (may be every few seconds). Or there can be a callback function that can be called when the future is ready.
 
 Here is some piece of code that shows how `Future` trait is implemented:
 
@@ -140,7 +140,7 @@ pub struct Provider<P> {
 
 Here, `Arc<Mutex<Option<NodeClient>>>` is a type that represents a shared ownership smart pointer (`Arc`) to a mutable lock (`Mutex`) that guards an optional value of type `NodeClient`. The `Mutex` is used to ensure that only one thread can access the `NodeClient` at a time.
 
-This is necessary because the `tokio` library is used for asynchronous programming, which means that multiple tasks can concurrently on different threads. By using `Arc`, each task can have a reference to the same `provider` variable, and the variable will be deallocated only when the last reference is dropped.
+This is necessary because the `tokio` library is used for asynchronous programming, which means that multiple tasks can run concurrently on different threads. By using `Arc`, each task can have a reference to the same `provider` variable, and the variable will be deallocated only when the last reference is dropped.
 
 ---
 
@@ -161,10 +161,16 @@ let cloned_data = Arc::clone(&data);
 - `spawn` function takes a closure as an argument, and the closure is executed in the new thread.
 - `spawn` function returns a `JoinHandle` which can be used to wait for the thread to finish.
 - `JoinHandle` implements the `JoinHandle::join` method which waits for the thread to finish and returns a `Result` containing the return value of the closure.
+- Chosing b/w `spawn` vs `join!`:
 
-So, the threads are like this:
+  - Use `tokio::spawn` when tasks are independent, or when you need to keep the main flow unblocked. It's also useful when you want tasks to continue running even if the part of your program that spawned them moves on.
+  - Use `join!` when you need to run multiple futures concurrently and want to wait for all of them to complete before proceeding.
 
-Threads in the order they are spawned
+  [Code example](./sync9.rs)
+
+So, the threads are run like this:
+
+Threads run in the order they are spawned
 
 ```rust
 let thread1 = thread::spawn(|| {
@@ -182,7 +188,7 @@ let thread3 = thread::spawn(|| {
 
 But, this approach has limitation in cases where I want to set the order as 1-3-2. Then, I have to move the code. But, imagine those are in different files or modules. Then, it is not possible to move the code. So, this approach is not practical.
 
-So, in order to make the threads asynchronously, code like this:
+So, in order to make the threads run asynchronously, code like this:
 
 ```rust
 let thread1 = thread::spawn(|| {
@@ -204,7 +210,7 @@ let _ = thread3.join();
 
 [Code example](./sync_4.rs)
 
-But, here it is not guaranteed that the threads will in the order they are spawned. Not even the order of the `join` calls.
+But, here it is not guaranteed that the threads will run in the order they are spawned. In fact, not even the order of the `join` calls is guaranteed.
 
 Now, to set the order, we can use synchronization primitives like `Mutex`, `Condvar`, and `Barrier`. These primitives allow you to coordinate the execution of multiple threads and ensure that they execute in a specific order.
 

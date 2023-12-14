@@ -2,9 +2,9 @@
 //! ================
 //! https://practice.rs/compound-types/enum.html-1
 
-#[path = "../topics/async/sync8.rs"]
-mod sync8;
+#[path = "../topics/async/sync9.rs"]
+mod sync9;
 
 fn main() {
-    sync8::main();
+    sync9::main();
 }
