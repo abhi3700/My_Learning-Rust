@@ -31,7 +31,7 @@ pub(crate) fn main() {
     // create a data that can have shared ownership in single thread.
     let data = Rc::new(42);
 
-    // create a reference
+    // create references
     let reference_1 = Rc::clone(&data);
     let reference_2 = Rc::clone(&data);
 

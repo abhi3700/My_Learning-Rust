@@ -1,3 +1,4 @@
+//! [Intermediate level]
 //! **Concurrent Tasks with `join!`**:
 //! Q. Write a program that starts two async tasks. One task should
 //! simulate a file download, and the other should simulate data processing.
@@ -49,6 +50,11 @@ pub(crate) async fn main() {
 
     let start = Instant::now();
 
+    // USAGE: Use `tokio::spawn` when tasks are independent, or when you need to keep
+    // the main flow unblocked. It's also useful when you want tasks to continue
+    // running even if the part of your program that spawned them moves on.
+    // Here, whichever task completes first can return to the main thread.
+
     let file_download = tokio::spawn(async move {
         log::info!("Thread for task-1: {:?}", std::thread::current().id());
         task1().await;
@@ -60,19 +66,19 @@ pub(crate) async fn main() {
     });
 
     // ==== M-1 (start)
-    // Use tokio::spawn when tasks are independent, or when you need to keep
-    // the main flow unblocked. It's also useful when you want tasks to continue
-    // running even if the part of your program that spawned them moves on.
-    // let _ = task_one.await;
-    // let _ = task_two.await;
+    // This ensures that `file_download` would always begin first. So, relatively sequential than M-2.
+    // But, either of them can return to the main thread when finished.
+    let _ = file_download.await;
+    let _ = data_processing.await;
     // ==== M-1 (end)
 
     // ==== M-2 (start)
-    // Use join! when you need to run multiple futures concurrently and
-    // want to wait for all of them to complete before proceeding.
-    let _ = join!(file_download, data_processing);
-    let elapsed = start.elapsed();
+    // Here, any task can begin first. So, relatively concurrent than M-1.
+    // Use `join!` when you need to run multiple futures concurrently and
+    // want to wait for all of them to complete before returning to the main thread.
+    // let _ = join!(file_download, data_processing);
     // ==== M-2 (end)
 
+    let elapsed = start.elapsed();
     println!("Total time taken: {}us", elapsed.as_micros());
 }

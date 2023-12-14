@@ -157,6 +157,10 @@ let cloned_data = Arc::clone(&data);
 
 ## Threads
 
+- All threads are asynchronous & hence the main thread might end before the other threads. Hence, each spawned thread should be defined in such a way that the variables taken from the main thread must have more lifetime than the main thread. Otherwise, the spawned thread will panic. This is called **thread safety**. So, the spawned thread should not depend on the main thread. It should be independent.
+  This can be achieved by defining the local variable in the main thread as `static mut` or `Arc` (with Mutex so as to make it thread safe). This is because `static mut` is a global variable & hence it has more lifetime than the main thread. And, `Arc` is a shared pointer & hence it can be shared across multiple threads. So, the spawned thread(s) can take ownership of cloned `Arc` pointer.
+
+   [Code example](./sync10.rs)
 - `std::thread` module provides the `spawn` function for creating a new thread.
 - `spawn` function takes a closure as an argument, and the closure is executed in the new thread.
 - `spawn` function returns a `JoinHandle` which can be used to wait for the thread to finish.
@@ -168,44 +172,110 @@ let cloned_data = Arc::clone(&data);
 
   [Code example](./sync9.rs)
 
+- `move` inside `spawn`:
+
+  - `move` keyword is used to move the ownership of the variables inside the closure.
+  - If we don't use `move`, then the closure will borrow the variables from the parent thread.
+  - If we use `move`, then the closure will take ownership of the variables from the parent thread.
+
+  [Code example](./sync10.rs)
+
+- Here, the spawned tasks run sequentially:
+
+   ```rs
+   tokio::spawn(async {
+      println!("I'm a thread 1");
+   }).await;
+
+   tokio::spawn(async {
+      println!("I'm a thread 2");
+   }).await;
+
+   tokio::spawn(async {
+         println!("I'm a thread 3");
+   }).await;
+   ```
+
+- Here, the spawned tasks run relatively concurrently [RECOMMENDED] when you do care about the order of execution of the threads i.e. you want the tasks to run in a specific order i.e. here `1-2-3`:
+
+   ```rs
+   let task1 = tokio::spawn(async {
+      println!("I'm a thread 1");
+   });
+
+   let task2 = tokio::spawn(async {
+      println!("I'm a thread 2");
+   });
+
+   let task3 = tokio::spawn(async {
+         println!("I'm a thread 3");
+   });
+
+   task1.await;
+   task2.await;
+   task3.await;
+   ```
+
+- Here, the spawned tasks run concurrently [RECOMMENDED] when you don't care about the order of execution of the threads i.e. any task can start first:
+
+   ```rs
+   let task1 = tokio::spawn(async {
+      println!("I'm a thread 1");
+   });
+
+   let task2 = tokio::spawn(async {
+      println!("I'm a thread 2");
+   });
+
+   let task3 = tokio::spawn(async {
+         println!("I'm a thread 3");
+   });
+
+   let _ = join!(task1, task2, task3);
+   ```
+
 So, the threads are run like this:
 
 Threads run in the order they are spawned
 
 ```rust
-let thread1 = thread::spawn(|| {
+let thread1 = tokio::spawn(|| {
    println!("I'm a thread 1");
 }).join();
 
-let thread2 = thread::spawn(|| {
+let thread2 = tokio::spawn(|| {
    println!("I'm a thread 2");
 }).join();
 
-let thread3 = thread::spawn(|| {
+let thread3 = tokio::spawn(|| {
    println!("I'm a thread 3");
 }).join();
 ```
 
-But, this approach has limitation in cases where I want to set the order as 1-3-2. Then, I have to move the code. But, imagine those are in different files or modules. Then, it is not possible to move the code. So, this approach is not practical.
+But, this approach has limitation in cases where I want to set the order as 1-3-2. Then, I have to move the code. But, imagine those are in different files or modules. Then, it is not possible to move the code. So, this approach is impractical.
 
-So, in order to make the threads run asynchronously, code like this:
+So, in order to make the threads run concurrently, code like this:
 
 ```rust
-let thread1 = thread::spawn(|| {
+let thread1 = tokio::spawn(|| {
    println!("I'm a thread 1");
 });
 
-let thread2 = thread::spawn(|| {
+let thread2 = tokio::spawn(|| {
    println!("I'm a thread 2");
 });
 
-let thread3 = thread::spawn(|| {
+let thread3 = tokio::spawn(|| {
    println!("I'm a thread 3");
 });
 
 let _ = thread1.join();
 let _ = thread2.join();
 let _ = thread3.join();
+
+// or
+
+let _ = join!(thread1, thread2, thread3);
 ```
 
 [Code example](./sync_4.rs)
