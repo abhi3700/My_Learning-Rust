@@ -20,7 +20,7 @@
 //! ```
 //!
 //! Commits (in increasing order of efficient code):
-//! 1. [x] Simple connect to Redis server & set/get {hello: world}
+//! 1. [x] Simple connect to Redis server & set/get {hello: world}: https://github.com/abhi3700/My_Learning-Rust/blob/69ea21239ad33982196bf030f933e11278833568/tuts/async/tokio-hello/src/main.rs
 //! 2. [x] Sharing resource via Arc & Mutex: https://github.com/abhi3700/My_Learning-Rust/blob/751f6bd6ec88bcb75fa7bcc26771b39df4f3b840/tuts/topics/async/tokio-hello/src/main.rs
 //!     The different scopes in this code are used to ensure that the lock on the `Mutex` is released as soon as it's no longer needed.
 //!     In Rust, a `MutexGuard` (the type returned by `lock().await`) is automatically unlocked when it goes out of scope. By using
@@ -34,7 +34,7 @@
 //!     Use `RwLock` instead of Mutex. But not recommended in this as it won't add any efficiency.
 //!     If multiple threads are frequently trying to acquire the same lock, it can lead to performance issues. Consider using finer-grained
 //!     locks, or other synchronization primitives like RwLock which allows multiple readers or one writer at a time.
-//! 3. [ ] Concurrent approach of handling I/O tasks: https://github.com/abhi3700/My_Learning-Rust/blob/8821bbb12f8ec4b55cceb60e8270921b2d0ef3d0/tuts/topics/async/tokio-hello/src/main.rs
+//! 3. [x] Concurrent approach of handling I/O tasks: https://github.com/abhi3700/My_Learning-Rust/blob/8821bbb12f8ec4b55cceb60e8270921b2d0ef3d0/tuts/topics/async/tokio-hello/src/main.rs
 
 use mini_redis::{client, Result};
 use std::sync::Arc;

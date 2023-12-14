@@ -10,7 +10,9 @@ edition = "2021"
 chrono = "0.4.26"
 color-eyre = "0.6.2"
 dirs = "4.0"
+env_logger = "0.10.1"
 eyre = "0.6.8"
+log = "0.4.20"
 tokio = { version = "1.35.0", features = ["full"] }
 
 [features]
