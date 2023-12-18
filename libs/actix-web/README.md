@@ -2,6 +2,25 @@
 
 ## Overview
 
+The diagram below shows the architecture of an Axum app:
+
+```mermaid
+graph TD
+    A[Actix Web App] -->|core framework| B[Actix Web]
+    A -->|asynchronous runtime| T[Tokio]
+    B -->|manages HTTP requests| C[HttpServer]
+    C -->|uses| D[Application Factory]
+    B -->|supports| E[WebSockets]
+    E -->|through| F[actix-web-actors crate]
+    B -->|previously built on| G[Actix Actor Framework]
+    C -->|starts workers| H[HTTP Workers]
+    H -->|manages state with| I[Arc/Data]
+    B -->|utilizes| J[Middleware]
+    J -->|for actions like| K[Logging, Session Management, Request/Response Processing]
+```
+
+> Here, app is a collection of routes, and each route is a combination of a method, a path, and a handler.
+
 - Actix-web is a web framework for Rust.
 - Actix provides us 2 frameworks:
   - **Actix-web** (for web development i.e. REST API)
@@ -428,7 +447,7 @@ The versions might change depending on the time you're implementing this. Always
 
 ### Does each API server would have only 1 app instance?
 
-Reference: https://github.com/actix/actix-web
+Reference: <https://github.com/actix/actix-web>
 
 No! Each server instance can have many app instances. You can use scopes and services to organize your routes in order to have multiple app instances, but the app_state is shared across all scopes and services. Moreover, the `app_state` (with/without DB) is capable of handling multiple requests concurrently using `actix-web` (using Arc & Mutex / Connection pool respectively).
 

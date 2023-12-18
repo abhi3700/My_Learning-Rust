@@ -1,5 +1,24 @@
 # Axum playground
 
+## Description
+
+The diagram below shows the architecture of an Axum app:
+
+```mermaid
+graph TD
+    A[Axum App] -->|uses| B[Tokio]
+    A -->|uses| C[Hyper]
+    A -->|uses| D[Tower]
+    A -->|uses| E[Tower-HTTP]
+
+    B -->|provides| F[Async Runtime & Utilities]
+    C -->|serves as| G[HTTP Server]
+    D -->|offers| H[Middleware & Utilities]
+    E -->|offers| I[Middleware & Utilities]
+```
+
+> Here, app is a collection of routes, and each route is a combination of a method, a path, and a handler.
+
 ## Usage
 
 Run the examples with:
