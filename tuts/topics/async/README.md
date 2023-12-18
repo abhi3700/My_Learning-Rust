@@ -286,6 +286,14 @@ Now, to set the order, we can use synchronization primitives like `Mutex`, `Cond
 
 TODO: Add more on this.
 
+## API Server
+
+### REST API
+
+Initially there were 2 libs for REST API: Actix-web & Axum. Honestly, I was a bit confused between them. But, now, Actix-web is secondary for me. So, Axum is the primary choice.
+
+Follow this folder for [axum tutorials](../../../libs/axum-playground/).
+
 ## FAQs
 
 **Q: Which declarative macros like println! are used for automatically calling the Deref trait for Rc smart pointer?**

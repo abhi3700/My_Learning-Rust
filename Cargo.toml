@@ -1,3 +1,6 @@
 [workspace]
-members = ["tuts/", "tuts/topics/async/*",  "libs/chatgpt_demo"]
+members = ["tuts/", "tuts/topics/async/*",
+"libs/axum-playground"  
+# "libs/chatgpt_demo"
+]
 resolver = "2"
