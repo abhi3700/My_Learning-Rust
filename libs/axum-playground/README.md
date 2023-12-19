@@ -8,13 +8,15 @@ The diagram below shows the architecture of an Axum app:
 graph TD
     A[Axum App] -->|uses| B[Tokio]
     A -->|uses| C[Hyper]
-    A -->|uses| D[Tower]
-    A -->|uses| E[Tower-HTTP]
+    A -->|uses| D[Tower, Tower-HTTP]
+    A -->|uses| J[Tracing]
+    A -->|uses| L[Machit]
 
     B -->|provides| F[Async Runtime & Utilities]
     C -->|serves as| G[HTTP Server]
     D -->|offers| H[Middleware & Utilities]
-    E -->|offers| I[Middleware & Utilities]
+    J -->|provides| K[Tracing Utilities]
+    L -->|provides| M[Route matching in an efficient way]
 ```
 
 > Here, app is a collection of routes, and each route is a combination of a method, a path, and a handler.
@@ -44,6 +46,10 @@ And then to view the output, use `curl`:
 ❯ curl "localhost:3000/"
 hello world
 ```
+
+> Use `--verbose` flag to see the request and response headers.
+
+For more usage, refer my notes on [curl](https://github.com/abhi3700/my_coding_toolkit/blob/main/curl.md).
 
 OR
 
