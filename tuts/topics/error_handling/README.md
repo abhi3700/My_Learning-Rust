@@ -60,6 +60,19 @@ assert!(balances.transfer("alice".to_string(), "bob".to_string(), 101).is_err())
 
 > Here, this code would have panicked if `ok_or` was not used. I tried with `expect` and the test panicked.
 
+---
+
+**When to use `unwrap`**:
+
+[Source](https://owengage.com/writing/2021-08-30-how-to-think-of-unwrap/)
+
+- When you know better than the compiler.
+- When you don't care if some code panics like in tests.
+- When you have no expectation of recovering from the error.
+- In rust lib codebase, unwrap shouldn’t be used, rather `match` & `?` is permissible. And then, one should write code for max. test coverage.
+- Use `expect` instead of `unwrap` to give as much context as possible in rust bin codebase.
+  > Then, why should one use `unwrap` at all? Because, it is concise and doesn't need any string message.
+
 ## References
 
 - [Rust: Error Handling](https://www.youtube.com/watch?v=y3wUCb-uS3g)

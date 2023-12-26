@@ -6,6 +6,7 @@
 - <u>Pattern matching</u>: `match` vs `if-let`:
   - The former has to cover all the cases
   - The latter is used for only 1 case, if we don't want to cover all the cases.
+
 - #### `if-let` is preferred over `if` condition in cases of pattern matching with `Option`, `Result`
 
   ```rust
@@ -29,6 +30,29 @@
   2. `if let x = 3`: This is actually a misuse of Rust's if let construct. The if let statement is used for pattern matching, and it works a bit differently. The correct usage would be if let `PAT` = `EXPR`, where PAT is a pattern and `EXPR` is an expression. For example, you might use `if let Some(x) = some_option` to check if an Option is Some and, if so, bind the value inside to x.
 
   In your specific case, if you want to compare `x` to `3`, you should use `if x == 3`. If you need pattern matching (like checking if an `Option` is `Some` or a `Result` is `Ok`), then if let is the appropriate construct.
+
+- Don't use dummy values:
+
+  Replace this:
+
+  ```rust
+  let mut x = 1;
+  if condition {
+    x = 5;
+  } else {
+    x = 6;
+  }
+  ```
+
+  with:
+
+  ```rust
+  let x = if condition {
+    5
+  } else {
+    6
+  };
+  ```
 
 ## loop
 

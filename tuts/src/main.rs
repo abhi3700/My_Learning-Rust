@@ -2,9 +2,9 @@
 //! ================
 //! https://practice.rs/compound-types/enum.html-1
 
-#[path = "../topics/async/sync11.rs"]
-mod sync11;
+#[path = "../topics/collection/btreemap1.rs"]
+mod btreemap1;
 
 fn main() {
-    sync11::main();
+    btreemap1::main();
 }

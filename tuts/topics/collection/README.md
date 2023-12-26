@@ -92,3 +92,14 @@ To recap, the main difference between slices and arrays in Rust is that arrays h
   - `enumerate()`: loop over the elements & return a new vector with zipped elements as (index, value).
   - `zip()`: with 2 vectors, loop over the elements & return a new vector with zipped elements as (element1, element2).
   - `unzip()`: with 1 vector of tuples, loop over the elements & return a new vector with unzipped elements as (vector1, vector2).
+
+## BTreeMap
+
+Why **BTreeMap** than **HashMap**?
+
+- For sorted, range-based operations like getting all keys in a given range, **BTreeMap** is more efficient with `O(logN)`. Additionally, it stores the pointers for sorting the keys.
+- For faster unsorted access, HashMap is more efficient with `O(1)`.
+
+Basically, here in blockchain we would require frequent queries & might have to get the list for users. Hence, it’s better to use BtreeMap.
+
+[Comparo with HashMap](https://chat.openai.com/share/ae449805-7a2e-4c5b-be1d-12b3f9f4d9fb).
