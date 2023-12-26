@@ -49,7 +49,7 @@ hello world
 
 > Use `--verbose` flag to see the request and response headers.
 
-For more usage, refer my notes on [curl](https://github.com/abhi3700/my_coding_toolkit/blob/main/curl.md).
+For more commands, refer my notes on [curl](https://github.com/abhi3700/my_coding_toolkit/blob/main/curl.md).
 
 OR
 
