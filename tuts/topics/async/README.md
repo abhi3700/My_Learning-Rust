@@ -26,7 +26,14 @@ More on this in the [Async vs threads in Rust](https://rust-lang.github.io/async
 
 ## Concepts
 
-There is a crate - `tokio` which provides a runtime for executing asynchronous tasks like this:
+There are 2 ways of representing async operations:
+
+- Low level which includes `Future` & `Pin`.
+- High level which includes `async` & `await`.
+  
+Then finally require an executor to run all the tasks:
+
+So, there is a crate - `tokio` which provides a runtime for executing asynchronous tasks like this:
 
 ```rust
 #[tokio::main]
@@ -40,6 +47,8 @@ async fn main() {
    }
 }
 ```
+
+This is called "Executor" as `#[tokio::main]` ensures execution of all the async tasks.
 
 ---
 
@@ -66,6 +75,57 @@ trait Future {
    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
 }
 ```
+
+**Example code**:
+
+A `Future` in Rust represents a value that will be available at some point in the future. It’s not the actual value but a promise of a value. When a future is ready to provide its value, it returns `Poll::Ready(value)`. If it’s not ready, it returns `Poll::Pending`.
+
+```rust
+use std::future::Future;
+use std::task::{Context, Poll};
+use std::pin::Pin;
+
+stuct ExampleFuture;
+
+impl Future for ExampleFuture {
+   type Output = u8;
+
+   fn poll(self: Pin<&mut Self>, _cx: &mut Context<'_>) -> Poll<Self::Output> {
+      Poll::Ready(42)
+   }
+}
+```
+
+Here, `ExampleFuture` is a trivial Future that is always ready and returns the value 42.
+
+> NOTE
+>
+> - the underscore used in `_cx` as it is not used in the function.
+> - This example is a low level implementation showcasing how to define an async function.
+
+---
+
+Next comes the high level representation of async function in Rust:
+
+```rust
+async fn foo() -> u8 {
+   42
+}
+
+async fn bar() {
+    let x = foo().await;
+    println!("x = {x}");
+}
+
+
+// Run this async function `bar` inside `main()` function attributed with tokio executor
+#[tokio::main]
+async fn main() {
+   bar().await;
+}
+```
+
+We would mostly get to use high level representation.
 
 ---
 
