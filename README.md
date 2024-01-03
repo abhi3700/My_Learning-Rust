@@ -13,7 +13,7 @@ Rust programming language
 - Install
 
 ```console
-$ curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf | sh
 ```
 
 Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
@@ -66,11 +66,13 @@ these changes will be reverted.
   > If any repository has `rust-toolchain.toml` file present, then the toolchain version mentioned in the file will be used for that project if you have already switched to that toolchain.
 - All the rust binaries are installed in this folder `$HOME/.cargo/bin`
 - **Update** all channels using `$ rustup update` [RECOMMENDED]
+
   ```sh
   stable-aarch64-apple-darwin updated - rustc 1.72.1 (d5c2e9c34 2023-09-13) (from rustc 1.72.0 (5680fa18f 2023-08-23))
   beta-aarch64-apple-darwin updated - rustc 1.74.0-beta.1 (b5c050feb 2023-10-03) (from rustc 1.73.0-beta.3 (bc28abf92 2023-08-27))
   nightly-aarch64-apple-darwin updated - rustc 1.75.0-nightly (187b8131d 2023-10-03) (from rustc 1.74.0-nightly (84a9f4c6e 2023-08-29))
   ```
+
   - And then need to set the latest `rustc` & `cargo` for individual channels: `stable`, `beta`, `nightly`
     - `$ rustup default stable-aarch64-apple-darwin`
     - `$ rustup default beta-aarch64-apple-darwin`
@@ -145,10 +147,10 @@ these changes will be reverted.
   - `cargo owner` can add/remove owner (individual or team)
 
   ```sh
-  $ cargo owner --add github-handle
-  $ cargo owner --remove github-handle
-  $ cargo owner --add github:rust-lang:owners
-  $ cargo owner --remove github:rust-lang:owners
+  cargo owner --add github-handle
+  cargo owner --remove github-handle
+  cargo owner --add github:rust-lang:owners
+  cargo owner --remove github:rust-lang:owners
   ```
 
 - Add workspace member(s) to manage multiple projects inside one rust project (containing `Cargo.toml` file):
@@ -343,7 +345,7 @@ For more, see [here](https://blessed.rs/crates).
 - [calamine | Rust Excel/OpenDocument SpreadSheets file reader: rust on metal sheets](https://github.com/tafia/calamine)
 - [DSLCad](https://github.com/DSchroer/dslcad): DSLCad is a programming language & interpreter for building 3D models.
 - [Implementation of the Ethereum precompiled contracts in Rust](https://github.com/ewasm/ewasm-precompiles)
-- [A new markup-based typesetting system that is powerful and easy to learn] (https://github.com/typst/typst)
+- [A new markup-based typesetting system that is powerful and easy to learn] (<https://github.com/typst/typst>)
 - [Twilio Sendgrid Unofficial library to send OTP, tokens to email](https://crates.io/crates/sendgrid)
 - [Plotly charts lib for Rust](https://github.com/igiagkiozis/plotly)
 - [LLM-chain](https://github.com/sobelio/llm-chain)
@@ -373,17 +375,17 @@ fn main() {
 `cargo` can also be used for compiling a project like `node` in NodeJS project.
 
 ```sh
-$ rustc hello.rs
+rustc hello.rs
 ```
 
 ```sh
-$ cargo build
+cargo build
 ```
 
 ### Output
 
 ```console
-$ ./hello
+./hello
 ```
 
 ## Practice
@@ -849,16 +851,17 @@ This would be illegal under the orphan rules, because both `MyType` and `MyTrait
 
 ## Tools
 
-- Check behind-the-code for a code snippet - https://play.rust-lang.org/
+- Check behind-the-code for a code snippet - <https://play.rust-lang.org/>
   - Tools >> Expand Macros
 - Debugger tool
   - [FireDBG](https://github.com/SeaQL/FireDBG.for.Rust)
     - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=SeaQL.firedbg-rust)
     - CLI Installation:
+
     ```sh
-    $ git clone https://github.com/SeaQL/FireDBG.for.Rust.git
-    $ cd FireDBG.for.Rust
-    $ cargo install --path ./command
+    git clone https://github.com/SeaQL/FireDBG.for.Rust.git
+    cd FireDBG.for.Rust
+    cargo install --path ./command
     ```
 
 ## Fields
@@ -926,17 +929,17 @@ Before:
 
 ```rs
 enum UsState {
-	California,
-	Mexico,
-	Alaska,
+ California,
+ Mexico,
+ Alaska,
 }
 
 enum Coin {
-	Penny,
-	Nickel,
-	Dime,
-	Quarter,
-	Custom(UsState),
+ Penny,
+ Nickel,
+ Dime,
+ Quarter,
+ Custom(UsState),
 }
 ```
 
@@ -944,20 +947,20 @@ After:
 
 ```rs
 #[allow(dead_code)]
-#[derive(Debug)]		// this use is recommended, otherwise there is error.
+#[derive(Debug)]  // this use is recommended, otherwise there is error.
 enum UsState {
-	California,
-	Mexico,
-	Alaska,
+ California,
+ Mexico,
+ Alaska,
 }
 
 #[allow(dead_code)]
 enum Coin {
-	Penny,
-	Nickel,
-	Dime,
-	Quarter,
-	Custom(UsState),
+ Penny,
+ Nickel,
+ Dime,
+ Quarter,
+ Custom(UsState),
 }
 ```
 
@@ -1024,6 +1027,8 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 
 ## References
 
+- [Error codes](https://doc.rust-lang.org/error_codes/)
+
 ### Books
 
 - [The Rust Programming Language](https://doc.rust-lang.org/book/)
@@ -1045,7 +1050,7 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 
 ### Courses
 
-- https://egghead.io/q/rust?q=rust
+- <https://egghead.io/q/rust?q=rust>
 
 ### Blogs
 
