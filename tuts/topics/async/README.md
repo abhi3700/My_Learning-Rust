@@ -13,12 +13,12 @@
     And we should know when to use what. There are mainly 2 types of work:
     - **CPU bound**: lot of processing related work (crunching no.s). In this case, parallelism can be really helpful.
     - **I/O bound**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server. Here, connection pooling could be helpful. This includes opening multiple connections at different ports & sending requests to them. In this case, concurrency can be really helpful.
-- The `async`/`await` syntax is a way to write asynchronous code that looks like synchronous code.
-- There is a `Future` trait in the standard library which is similar to the concept of a `Promise` in JavaScript.
+- On a high level, the `async`/`await` syntax is a way to write asynchronous code that looks like synchronous code. On a low level, there is a trait `Future` which has a function - `poll` which constantly checks if the task is done or not. If it is done, then it returns `Poll::Ready`. If it is not done, then it returns `Poll::Pending` and then it is constantly checked by the executor like `#[tokio::main]` macro. So, the `async`/`await` syntax is just a way to write asynchronous code that looks like synchronous code. It is just a syntactic sugar. It is not a new concept. It is just a new way of writing asynchronous code. It is just a new way of writing `Future` trait.
+- There is a `Future` trait in the std library which is similar to the concept of a `Promise` in JavaScript.
 - Futures are inert in Rust and make progress only when polled. Dropping a future stops it from making further progress.
 - Async is zero-cost in Rust, which means that you only pay for what you use. Specifically, you can use async without heap allocations and dynamic dispatch, which is great for performance! This also lets you use async in constrained environments, such as embedded systems.
-- **No built-in runtime** is provided by Rust. Instead, runtimes are provided by community maintained crates like `tokio`.
-- Both single- and multithreaded runtimes are available in Rust, which have different strengths and weaknesses.
+- **No built-in runtime** is provided by std Rust. Instead, runtimes are provided by community maintained crates like `tokio`. I think `async`/`await` has been added in Rust 1.75.0.
+- Both single and multithreaded runtimes are available in Rust, which have different strengths and weaknesses.
 
 More on this in the [Async vs threads in Rust](https://rust-lang.github.io/async-book/01_getting_started/02_why_async.html#async-vs-threads-in-rust) section.
 
@@ -48,7 +48,7 @@ async fn main() {
 }
 ```
 
-This is called "Executor" as `#[tokio::main]` ensures execution of all the async tasks.
+This is called "**Executor**" as `#[tokio::main]` ensures execution of all the async tasks. They continuously poll futures to check if they are complete i.e. `Poll::Ready`. It makes the whole async machinery come together.
 
 ---
 
