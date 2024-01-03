@@ -4,7 +4,7 @@
         - Ok => print file info
         - Err => panic with the error msg
 
-    This is the without using match pattern, hence the entire code is very small.
+    This is the without using match pattern, hence the entire code is very small/idiomatic.
 */
 
 use std::{fs::File, io::ErrorKind};

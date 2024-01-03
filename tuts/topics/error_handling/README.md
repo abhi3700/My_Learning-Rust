@@ -1,31 +1,44 @@
-# Error
-
-## About
+# Error Handling in Rust
 
 ## Coding
 
 - Define custom errors like this:
 
-```rs
-#[derive(Debug)]
-enum DoubleError {
-    EmptyVec,
-    // We will defer to the parse error implementation for their error.
-    // Supplying extra info requires adding more data to the type.
-    Parse(ParseIntError),
-}
-```
+  ```rs
+  enum ParseIntError;
 
-- `Option` vs `Result`
+  #[derive(Debug)]
+  enum DoubleError {
+      EmptyVec,
+      // We will defer to the parse error implementation for their error.
+      // Supplying extra info requires adding more data to the type.
+      Parse(ParseIntError),
+  }
+  ```
 
-| Option                                                                                                                                                                                  | Result                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Some or None                                                                                                                                                                            | Ok or Err                                                                                                                          |
-| An optional value can have either Some value or no value/ None.                                                                                                                         | A result can represent either success/ Ok or failure/ Err                                                                          |
-| The Option type is a way to use Rust’s type system to express the possibility of absence                                                                                                | Result expresses the possibility of error                                                                                          |
-| mainly used for var, function output. For struct, the parameters can have Option type. E.g. In full name, middle_name can be missing for cases, so define `middle_name: Option<String>` | mainly used for operation, function. As normally a variable won't have Err unless there is some calculation involved with this var |
-| Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
-| E.g. "./tuts/error_handling/opt"                                                                                                                                                        | E.g. "./tuts/error_handling/res"                                                                                                   |
+  And then define the main function like this:
+
+  ```rust
+  fn main() -> Result<(), DoubleError> {
+    match x {
+      Ok(_) => Ok(()),
+      Err(e) if x == 3 => Err(DoubleError::Parse(e)),
+      Err(e) if x != 3 => Err(DoubleError::EmptyVec),
+    }
+  }
+  ```
+
+- If we want to attach a message to the error, we can use a crate `thiserror` as shown [here](./this_error.rs).
+- **`Option` vs `Result`**
+
+  | **Option**                                                                                                                                                                                  | **Result**                                                                                                                             |
+  | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+  | Some or None                                                                                                                                                                            | Ok or Err                                                                                                                          |
+  | An optional value can have either Some value or no value/ None.                                                                                                                         | A result can represent either success/ Ok or failure/ Err                                                                          |
+  | The Option type is a way to use Rust’s type system to express the possibility of absence                                                                                                | Result expresses the possibility of error                                                                                          |
+  | mainly used for var, function output. For struct, the parameters can have Option type. E.g. In full name, middle_name can be missing for cases, so define `middle_name: Option<String>` | mainly used for operation, function. As normally a variable won't have Err unless there is some calculation involved with this var |
+  | Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
+  | E.g. [`./tuts/error_handling/opt_1.rs`](./opt_1.rs)                                                                                                                                                        | E.g. [`./tuts/error_handling/res_1.rs`](./res_1.rs)                                                                                                   |
 
 ---
 
@@ -72,6 +85,49 @@ assert!(balances.transfer("alice".to_string(), "bob".to_string(), 101).is_err())
 - In rust lib codebase, unwrap shouldn’t be used, rather `match` & `?` is permissible. And then, one should write code for max. test coverage.
 - Use `expect` instead of `unwrap` to give as much context as possible in rust bin codebase.
   > Then, why should one use `unwrap` at all? Because, it is concise and doesn't need any string message.
+
+---
+
+**How to swallow/consume errors?**
+
+Using `map_err`:
+
+Let's say there is a function `fn foo() -> Result<T, E>`. Now, if we want to call this function and ignore the error, we can do like this:
+
+```rust
+pub fn transfer(
+  &mut self,
+  caller: String,
+  to: String,
+  amount: u128,
+ ) -> Result<(), &'static str> {
+   // some code
+  let new_caller_balance = caller_balance.checked_sub(amount).ok_or("Insufficient funds.")?;
+  // some code
+}
+
+fn main() {
+  let mut balances = Balances::new();
+  assert_eq!(runtime.balances.balance(&"alice".to_string()), 100);
+  
+  // transfer 101 from alice to bob -> should fail as alice has only 100 tokens ❌
+  let _res = balances.transfer("alice".to_string(), "bob".to_string(), 101).map_err(|e| eprintln!("Error: {}", e))?;
+  // NOTE: The next step didn't stop as the previous step didn't panic.
+  // transfer 20 from alice to bob ✅
+  let _res = balances.transfer("alice".to_string(), "bob".to_string(), 20).map_err(|e| eprintln!("Error: {}", e))?;
+  assert_eq!(runtime.balances.balance(&"alice".to_string()), 80); // alice has 80 balance
+  assert_eq!(runtime.balances.balance(&"bob".to_string()), 20);   // bob has 20 balance
+}
+```
+
+When this code is run on terminal:
+  
+```bash
+$ cargo r
+Error: Insufficient funds.
+```
+
+Basically, there is no panic. The error is swallowed.
 
 ## References
 
