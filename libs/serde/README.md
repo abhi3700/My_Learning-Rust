@@ -13,7 +13,7 @@ Any object if needs to be stored into DB has to be transferred through the netwo
 - former is encoded format
 - later is instructions for the virtual machine to execute.
 
-Source: https://stackoverflow.com/a/18026082/6774636
+Source: <https://stackoverflow.com/a/18026082/6774636>
 
 Whenever you want to send data over the network or save it to a file, you need to serialize it into a format that can be transferred or stored. The most popular format for serializing data is JSON. It's human-readable, easy to parse by computers, and supported by most programming languages.
 
@@ -36,9 +36,9 @@ That's why Rust has a built-in library for serializing and deserializing Rust da
 ## Usage
 
 ```sh
-$ cargo init
-$ cargo add serde --features derive
-$ cargo add serde_json
+cargo init
+cargo add serde --features derive
+cargo add serde_json
 ```
 
 ### Using `serde`, `serde_json`
@@ -98,6 +98,53 @@ struct Todo {
 ```
 
 > This is useful when the field names in the Rust struct and the JSON string are different.
+
+---
+
+**Use of `#[serde(flatten)]` attribute**:
+
+```rust
+#[derive(Serialize, Deserialize, Debug, Clone)]
+struct TodoItem {
+    title: Option<String>,
+    assigned_to: Option<String>,
+    completed: Option<bool>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+struct IdentifyableTodoItem {
+    id: u32,
+
+    #[serde(flatten)]
+    item: TodoItem,
+}
+```
+
+> This is useful when we want to flatten the struct.
+
+When serialized, it would appear like this:
+
+```rust
+{
+    "id": 1,
+    "title": "Do laundry",
+    "assigned_to": "Alice",
+    "completed": false
+}
+```
+
+If we don't use `#[serde(flatten)]` attribute, it would appear like this:
+
+```rust
+{
+    "id": 1,
+    "item": {
+        "title": "Do laundry",
+        "assigned_to": "Alice",
+        "completed": false
+    }
+}
+```
 
 ## Reference
 

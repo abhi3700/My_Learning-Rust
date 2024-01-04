@@ -7,3 +7,6 @@
 [submodule "libs/rust-react-wasm"]
 	path = libs/rust-react-wasm
 	url = https://github.com/abhi3700/rust-react-wasm-tutorial.git
+[submodule "pro/rust-api-heroku"]
+	path = pro/rust-api-heroku
+	url = https://github.com/abhi3700/rust-api-heroku.git
