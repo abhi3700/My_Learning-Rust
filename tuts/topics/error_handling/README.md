@@ -94,6 +94,8 @@ Using `map_err`:
 
 Let's say there is a function `fn foo() -> Result<T, E>`. Now, if we want to call this function and ignore the error, we can do like this:
 
+**M-1: swallow without `Ok()` arm.**
+
 ```rust
 pub fn transfer(
   &mut self,
@@ -120,7 +122,43 @@ fn main() {
 }
 ```
 
-When this code is run on terminal:
+OR
+
+**M-2: swallow with having both `Ok()` arm. Use `match` here.**
+
+```rust
+pub fn transfer(
+  ...
+  ...) {
+   // some code
+
+}
+
+fn main() {
+  let mut balances = Balances::new();
+  assert_eq!(runtime.balances.balance(&"alice".to_string()), 100);
+  
+  // transfer 101 from alice to bob -> should fail as alice has only 100 tokens ❌
+  match runtime.balances.transfer(&alice, &bob, 101) {
+    Ok(_) => {
+    let _ = runtime.system.inc_nonce(&alice);
+    },
+    Err(e) => eprintln!("Error: {}", e),
+  };
+  // NOTE: The next step didn't stop as the previous step didn't panic.
+  // transfer 20 from alice to bob ✅
+  match runtime.balances.transfer(&alice, &charlie, 20) {
+    Ok(_) => {
+    let _ = runtime.system.inc_nonce(&alice);
+    },
+    Err(e) => eprintln!("Error: {}", e),
+  };
+  assert_eq!(runtime.balances.balance(&"alice".to_string()), 80); // alice has 80 balance
+  assert_eq!(runtime.balances.balance(&"bob".to_string()), 20);   // bob has 20 balance
+}
+```
+
+Now, when the code is run on terminal:
   
 ```bash
 $ cargo r
