@@ -31,6 +31,12 @@ cargo r -r example <eg-file-name> -p axum-playground
 cargo r -r example hello -p axum-playground
 ```
 
+---
+
+1. [Hello](./examples/hello.rs)
+2. [Greetings with name](./examples/greet_name.rs)
+3. [API Heroku](./examples/api_heroku.rs)
+
 ## Output
 
 It runs like this (on given socket address):
