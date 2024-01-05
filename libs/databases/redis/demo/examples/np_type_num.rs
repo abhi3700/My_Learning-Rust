@@ -10,3 +10,5 @@ pub fn fetch_an_integer(con: &mut Connection) -> RedisResult<isize> {
     // convert into one.
     con.get("my_key")
 }
+
+fn main() {}

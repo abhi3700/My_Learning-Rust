@@ -1,6 +1,5 @@
-/// without database pooling
-mod np_main;
+//! without database connection pooling
 
 fn main() {
-    np_main::main();
+    println!("Redis DB examples");
 }

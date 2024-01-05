@@ -17,7 +17,7 @@ Main folder is [here](https://github.com/abhi3700/My_Learning_Databases/blob/mai
 ## Usage
 
 ```sh
-$ cargo add redis
+cargo add redis
 ```
 
 ## Getting Started
@@ -35,7 +35,7 @@ Use local server via `$ redis-server` command. If not installed, then install it
 After spinning up redis server, run the following command to open redis cli:
 
 ```sh
-$ redis-cli
+redis-cli
 ```
 
 ### [Cloud Service Providers](https://github.com/abhi3700/My_Learning_Databases/blob/main/Redis/README.md#cloud-service-providers)

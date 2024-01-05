@@ -60,3 +60,5 @@ pub(crate) fn fetch_person_struct(con: &mut Connection) -> RedisResult<Person> {
     // automatically deserialized
     con.get::<_, Person>(p1.id)
 }
+
+fn main() {}
