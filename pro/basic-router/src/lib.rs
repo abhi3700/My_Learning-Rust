@@ -1,17 +1,37 @@
 //! Basic router
 //! - new: Create a router with API url
 //! - add_route: Add API paths to the routes mapping
-//! - get: returns Response with details like status code, message, body.
+//! - handle_request: returns Response with details like status code, message, body.
+//!
+//! Use case: TODO App shown here.
 use std::collections::HashMap;
 
+const URL: &str = "https://notemaker.app/api";
+
+enum METHOD {
+    GET,
+    POST,
+    DELETE,
+    PUT,
+}
+
 struct Request<'rq> {
-    url: &'rq str,
+    method: METHOD,
     path: &'rq str,
     header: &'rq str,
     body: &'rq str,
 }
 
-#[derive(Debug, PartialEq, Clone)]
+fn get(path: &str) -> Request<'_> {
+    Request {
+        method: METHOD::GET,
+        path,
+        header: "content/type: JSON",
+        body: "",
+    }
+}
+
+#[derive(Debug, Clone)]
 struct Response {
     status_code: u16,
     message: &'static str,
@@ -19,15 +39,15 @@ struct Response {
 }
 
 #[derive(Debug)]
-struct Router {
+struct BasicApiRouter {
     url: &'static str,
     routes: HashMap<&'static str, Response>,
 }
 
-impl Router {
-    fn new(url: &'static str) -> Self {
+impl BasicApiRouter {
+    fn new(api_url: &'static str) -> Self {
         Self {
-            url,
+            url: api_url,
             routes: HashMap::new(),
         }
     }
@@ -36,8 +56,8 @@ impl Router {
         self.routes.insert(path, response);
     }
 
-    fn get(&self, path: &'static str) -> Response {
-        match self.routes.get(path) {
+    fn handle_request(&self, request: Request) -> Response {
+        match self.routes.get(request.path) {
             Some(response) => response.clone(),
             None => not_found(),
         }
@@ -78,14 +98,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
+    fn router_works() {
         let url = "https://cmc.com/api";
-        let mut router = Router::new(url);
+        let mut router = BasicApiRouter::new(url);
 
         router.add_route("/", api_status());
         router.add_route("/about", about());
 
-        assert_eq!(router.get("/patients"), not_found());
+        assert_eq!(router.handle_request(get("/")).status_code, 200);
+        assert_eq!(router.handle_request(get("/about")).status_code, 200);
+        assert_eq!(router.handle_request(get("/patients")).status_code, 404);
 
         dbg!(router);
     }
