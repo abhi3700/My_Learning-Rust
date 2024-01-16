@@ -1031,12 +1031,16 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 
 ### Books
 
+#### By Community
+
 - [The Rust Programming Language](https://doc.rust-lang.org/book/)
 - [The Rust Reference](https://doc.rust-lang.org/reference/introduction.html)
 - [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 - [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
 - [Learning Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/index.html)
-  - Here, one get to learn the Rust concepts by implementing a Linked List in series of chapters.
+  > learn by implementing a Linked List in series of chapters.
+- [Effective Rust](https://www.lurklurk.org/effective-rust/cover.html)
+  > 35 ways to better your rust code like "Effective C++" book.
 - [Learn Rust Documentation](https://learning-rust.github.io/)
 - [The Little Book of Rust Macros](https://veykril.github.io/tlborm/introduction.html)
 - [Rust by Practice](https://practice.rs/why-exercise.html)
@@ -1047,6 +1051,12 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
   - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
   - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
+
+#### By Author(s)
+
+- **Rust for Rustaceans** by Jon Gjengset
+  > <kbd>purchased</kbd> on Kindle
+- [Programming Rust: Fast, Safe Systems Development by Jim Blandy, Jason Orendorff](https://github.com/abhi3700/books/blob/main/rust/Programming%20Rust%202nd%20Edition.pdf)
 
 ### Courses
 
