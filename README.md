@@ -106,6 +106,7 @@ these changes will be reverted.
 - `$ cargo install --list`: list globally installed packages via .
 - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
 - `$ cargo install --path <path/to/folder/containing/Cargo.toml>`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder. In case of workspace, parse the path of the bin folder containing `Cargo.toml` file.
+  - After this, if you want to uninstall the binary, then you can do it via `$ cargo uninstall <bin-name>`. Suppose, you installed a binary named `hello` via `$ cargo install --path <path/to/folder/containing/Cargo.toml>`, then you can uninstall it via `$ cargo uninstall hello`.
 - Install `cargo-edit`: for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
 - Install `cargo-watch`: via `$ cargo install cargo-watch`.
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
