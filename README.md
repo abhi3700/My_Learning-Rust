@@ -2,6 +2,10 @@
 
 Rust programming language
 
+Mindmaps:
+
+![Rust](./img/rust-mindmap.png)
+
 ## Installation
 
 ### Linux or macOS
@@ -106,6 +110,7 @@ these changes will be reverted.
 - `$ cargo install --list`: list globally installed packages via .
 - `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
 - `$ cargo install --path <path/to/folder/containing/Cargo.toml>`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder. In case of workspace, parse the path of the bin folder containing `Cargo.toml` file.
+  - After this, if you want to uninstall the binary, then you can do it via `$ cargo uninstall <bin-name>`. Suppose, you installed a binary named `hello` via `$ cargo install --path <path/to/folder/containing/Cargo.toml>`, then you can uninstall it via `$ cargo uninstall hello`.
 - Install `cargo-edit`: for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
 - Install `cargo-watch`: via `$ cargo install cargo-watch`.
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
@@ -135,6 +140,7 @@ these changes will be reverted.
   }
   ```
 
+  - if there is a single or a few test function(s) then it is better to use `#[test]` attribute. But, if there are many test functions, then it is better to use `#[cfg(test)]` attribute to put into module.
 - View the dependency graph of a project using `$ cargo tree`
 - **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
 
@@ -1031,12 +1037,16 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 
 ### Books
 
+#### By Community
+
 - [The Rust Programming Language](https://doc.rust-lang.org/book/)
 - [The Rust Reference](https://doc.rust-lang.org/reference/introduction.html)
 - [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 - [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
 - [Learning Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/index.html)
-  - Here, one get to learn the Rust concepts by implementing a Linked List in series of chapters.
+  > learn by implementing a Linked List in series of chapters.
+- [Effective Rust](https://www.lurklurk.org/effective-rust/cover.html)
+  > 35 ways to better your rust code like "Effective C++" book.
 - [Learn Rust Documentation](https://learning-rust.github.io/)
 - [The Little Book of Rust Macros](https://veykril.github.io/tlborm/introduction.html)
 - [Rust by Practice](https://practice.rs/why-exercise.html)
@@ -1047,6 +1057,12 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
   - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
   - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
+
+#### By Author(s)
+
+- **Rust for Rustaceans** by Jon Gjengset
+  > <kbd>purchased</kbd> on Kindle
+- [Programming Rust: Fast, Safe Systems Development by Jim Blandy, Jason Orendorff](https://github.com/abhi3700/books/blob/main/rust/Programming%20Rust%202nd%20Edition.pdf)
 
 ### Courses
 
