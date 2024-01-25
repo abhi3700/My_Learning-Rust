@@ -167,6 +167,14 @@ Error: Insufficient funds.
 
 Basically, there is no panic. The error is swallowed.
 
+## External crates
+
+### eyre
+
+- In place of `std::Result<String, &'static str>`, we can use `eyre::Result<String>`.
+- For Ok, `Ok("Rust is beautiful")` can be used in both cases.
+- And in place of `Err("Invalid input")`, we can use `Err(eyre::eyre!("Invalid input"))`.
+
 ## References
 
 - [Rust: Error Handling](https://www.youtube.com/watch?v=y3wUCb-uS3g)

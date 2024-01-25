@@ -2,6 +2,10 @@
 
 Rust programming language
 
+Mindmaps:
+
+![Rust](./img/rust-mindmap.png)
+
 ## Installation
 
 ### Linux or macOS
@@ -136,6 +140,7 @@ these changes will be reverted.
   }
   ```
 
+  - if there is a single or a few test function(s) then it is better to use `#[test]` attribute. But, if there are many test functions, then it is better to use `#[cfg(test)]` attribute to put into module.
 - View the dependency graph of a project using `$ cargo tree`
 - **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
 

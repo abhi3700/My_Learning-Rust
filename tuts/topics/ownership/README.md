@@ -1,4 +1,10 @@
-# Borrowing & Ownership
+# Ownership
+
+In Rust, although ownership covers both borrowing & [lifetimes](../lifetimes/). But, here we'll cover borrowing ownership.
+
+Here is the mindmap:
+
+![](../../../img/ownership-mindmap.svg)
 
 ## Concepts
 
