@@ -1,24 +1,20 @@
 # My_Learning-Rust
 
-Rust programming language
+Rust 🦀 programming language learning.
 
-Mindmaps:
+<kbd>**[Cheatsheet](https://cheats.rs/)**</kbd>
+
+<kbd>**Mindmap**</kbd>:
 
 ![Rust](./img/rust-mindmap.png)
 
 ## Installation
 
-### Linux or macOS
+For Linux or macOS
 
 > Including VMs
 
-#### Compiler
-
-- Install
-
-```console
-curl https://sh.rustup.rs -sSf | sh
-```
+### Compiler
 
 Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
 
@@ -30,7 +26,9 @@ Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
 >
 > `rustup` is for managing different rust toolchain versions for different targets/architectures (arm, x86, etc.)
 
-```console
+```bash
+curl https://sh.rustup.rs -sSf | sh
+
 This will download and install the official compiler for the Rust
 programming language, and its package manager, Cargo.
 
@@ -61,6 +59,40 @@ modifying the profile files located at:
 You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
 ```
+
+### Editor
+
+Use VSCode.
+
+**Extensions**:
+
+[Source](https://www.becomebetterprogrammer.com/rust-recommended-vscode-extensions/)
+
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+
+  ```json
+    "[rust]": {
+      "editor.defaultFormatter": "rust-lang.rust-analyzer",
+      "editor.formatOnSave": true
+    },
+  ```
+
+- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
+- [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) [OPTIONAL]
+- [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml)
+- [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+
+The list might get updated over the time. Refer to your VSCode extension list.
+
+---
+
+An ideal setup for a rust code (with tests) would be:
+
+![](img/rust_code_setup_vs_code.png)
+
+So, here on left terminal, we have `$ cargo watch -x run` running, which will watch for changes in the project and automatically run. On right terminal, we have `$ cargo watch -x test` running, which will watch for changes in the project and automatically test.
+
+## Commands
 
 ### `rustup`
 
@@ -102,6 +134,11 @@ these changes will be reverted.
   - show all installed target using `$ rustup target list --installed`
   - Install rust target using `$ rustup target add <component-name>`. E.g. `$ rustup target add wasm32-unknown-unknown`
     > Here, `unknown` means that it is for any OS.
+- Some components to be installed
+  - clippy: `$ rustup component add clippy`
+  - rustfmt: `$ rustup component add rustfmt`
+  - rust-src: `$ rustup component add rust-src`
+  - docs: `$ rustup component add rust-docs`
 
 ### `cargo`
 
@@ -279,36 +316,6 @@ these changes will be reverted.
 xcode-select --install
 ```
 
-#### Editor
-
-Use VSCode.
-
-**Extensions**:
-
-[Source](https://www.becomebetterprogrammer.com/rust-recommended-vscode-extensions/)
-
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
-
-  ```json
-    "[rust]": {
-      "editor.defaultFormatter": "rust-lang.rust-analyzer",
-      "editor.formatOnSave": true
-    },
-  ```
-
-- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
-- [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) [OPTIONAL]
-- [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml)
-- [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
-
----
-
-An ideal setup for a rust code (with tests) would be:
-
-![](img/rust_code_setup_vs_code.png)
-
-So, here on left terminal, we have `$ cargo watch -x run` running, which will watch for changes in the project and automatically run. On right terminal, we have `$ cargo watch -x test` running, which will watch for changes in the project and automatically test.
-
 ## CI/CD (Github Actions)
 
 Create a `.github/workflows/rust-ci.yml` file.
@@ -341,7 +348,8 @@ Important ones.
 - [serde](https://crates.io/crates/serde)
 - [serde_json](https://crates.io/crates/serde_json)
 - [thiserror](https://crates.io/crates/thiserror)
-- [anyhow](https://crates.io/crates/anyhow)
+- [eyre](https://crates.io/crates/eyre)
+- [log & env_logger](https://crates.io/crates/env_logger)
 - [tokio](https://crates.io/crates/tokio)
 
 For more, see [here](https://blessed.rs/crates).
@@ -376,7 +384,7 @@ fn main() {
 }
 ```
 
-### Compile
+### Build
 
 `cargo` can also be used for compiling a project like `node` in NodeJS project.
 
@@ -396,7 +404,7 @@ cargo build
 
 ## Practice
 
-Put the code inside a `.rs` file & link into [`./src/main.rs`](./src/main.rs) using `#[path= "path/to/file"]` macro.
+Put the code inside a `.rs` file & link into [`./tuts/src/main.rs`](./tuts/src/main.rs) using `#[path= "path/to/file"]` macro.
 
 ## Concepts
 
@@ -526,64 +534,6 @@ As code example, see this:
 use std::io::{self, Write};
 ```
 
-### Error handling
-
-- [tuts](./tuts/error_handling)
-- 2 types: Recoverable, Unrecoverable
-
-#### Recoverable errors
-
-- Recoverable using `Result`
-
-  - e.g. `Result::Err("burn and crash")` in case of function return type.
-
-The `try-catch` can be implemented like this:
-
-```rs
-fn main() {
-    // the output is of type `Result<File, Error>`
-    let f = File::open("hello.txt");
-    match f {
-        Ok(success) => println!("{:?}", success),
-        Err(failure) => panic!("file is not found: {:?}", failure),
-    };
-}
-```
-
-in analogous to:
-
-```js
-try {
-  const f = File.open("hello.txt");
-  console.log(f);
-} catch (e) {
-  console.log(e);
-}
-```
-
-Understand the following examples sequentially:
-
-[recoverable_err_1a.rs](./tuts/error_handling/recoverable_err_1a.rs)
-
-[recoverable_err_1b.rs](./tuts/error_handling/recoverable_err_1b.rs)
-
-[recoverable_err_1c.rs](./tuts/error_handling/recoverable_err_1c.rs)
-
-#### Unrecoverable errors
-
-- Unrecoverable using `panic`
-  - e.g. `panic!("burn and crash")` in case of array out of bound error.
-
-```rs
-fn run() {
-  panic!("burn and crash");
-}
-
-fn main() {
-  run();
-}
-```
-
 ### Pointer
 
 - `Box<T>` - A pointer type for heap allocation
@@ -653,29 +603,29 @@ fn main() {
 }
 ```
 
-### [Casting](./tuts/casting/README.md)
+### [Casting](./tuts/topics/casting/README.md)
 
-### [Collection](./tuts/collection/README.md)
+### [Collection](./tuts/topics/collection/README.md)
 
-### [Conditional](./tuts/conditional/README.md)
+### [Conditional](./tuts/topics/conditional/README.md)
 
-### [Function](./tuts/functions/README.md)
+### [Function](./tuts/topics/functions/README.md)
 
-### [Borrowing & Ownership](./tuts/ownership/README.md)
+### [Borrowing & Ownership](./tuts/topics/ownership/README.md)
 
-### [Lifetimes](./tuts/lifetimes/README.md)
+### [Lifetimes](./tuts/topics/lifetimes/README.md)
 
-### [Error handling](./tuts/error_handling/README.md)
+### [Error handling](./tuts/topics/error_handling/README.md)
 
-### [Modules](./tuts/modules/README.md)
+### [Modules](./tuts/topics/modules/README.md)
 
-### [Struct](./tuts/structs/README.md)
+### [Struct](./tuts/topics/structs/README.md)
 
-### [Trait](./tuts/traits/README.md)
+### [Trait](./tuts/topics/traits/README.md)
 
-### [Generics](./tuts/generics/README.md)
+### [Generics](./tuts/topics/generics/README.md)
 
-### [Macros](./tuts/macros/README.md)
+### [Macros](./tuts/topics/macros/README.md)
 
 ### Concurrency(./tuts/concurrency/README.md)
 
@@ -751,6 +701,22 @@ Look for files with `_opt` suffix like this at the repo root:
 
 ```sh
 ❯ find . | grep _opt
+```
+
+### Clippy
+
+Use this tool to get the code related issues (if any).
+
+Simple way to install:
+
+```sh
+rustup component add clippy
+```
+
+Run this to get the issues:
+
+```sh
+cargo clippy
 ```
 
 ### Understanding memory layout (low level language design)
@@ -1056,7 +1022,10 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 - [Rustlings | Play like a game to learn Rust](https://github.com/rust-lang/rustlings)
   - Just do the manual installation following the [README](https://github.com/rust-lang/rustlings/blob/main/README.md#manually) & get started.
   - [Solution](https://egghead.io/courses/learning-rust-by-solving-the-rustlings-exercises-a722)
+- [Rustlings course | By JetBrains](https://github.com/jetbrains-academy/rustlings-course/)
+  - Much more detailed than the above one. As in, they take you through every rust topics & then give you the exercise.
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
+- [Idiomatic Rust](https://github.com/mre/idiomatic-rust)
 
 #### By Author(s)
 
@@ -1077,6 +1046,7 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
   - [Hashrust Blogs](https://hashrust.com/blog/)
   - [LogRocket Blogs](https://blog.logrocket.com/tag/rust/)
   - [This week in Rust](https://this-week-in-rust.org/)
+  - [Possible Rust](https://www.possiblerust.com/)
 - [Learn Macros In Rust like Rustlings game](https://github.com/tfpk/macrokata)
 - [Learn Rust by aml3](https://aml3.github.io/RustTutorial/html/toc.html)
 - [Rust for C++ programmers](https://github.com/nrc/r4cppp)
