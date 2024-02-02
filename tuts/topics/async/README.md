@@ -3,16 +3,33 @@
 ## Overview
 
 - Asynchronous programming in Rust.
+- Common keywords
+  - Hardware/Software: **Core**, **Thread**, **Task**, **OS** (sorted by most used).
+  - Rust code: `async`, `await`, `Future`, `poll`, `Poll::Ready`, `Poll::Pending`.
+- **OS** schedules **threads** based on the number of available CPU **cores**. In an ideal situation, 1 thread is mapped to each core given the no. of threads spawned ≤ no. of CPU cores. This is what happens during `#[tokio::main]` when used in Rust code.
+  > NOTE: For a large program, threads count can go upto tens of thousands handled by just few cores. So, mapping 1 thread to 1 core is incorrect.
+- 💡 🤯 🔥 **CPU cores used do not depend on the no. of threads, but rather aimed to run the synchronous/asynchronous code (program running on OS) using its max. limit on machine. As mentioned previously, OS schedule thread(s) to CPU core(s)**.
+- Threads are for handling async tasks. Threads are spawned by user code (programs running on top of OS) to handle tasks asynchronously.
+  - Like we have `#[tokio::main]` representing multi-threaded code. This means that we can have multiple async tasks handled by multiple threads.
+  - Like we have `#[tokio::main(flavor="current_thread")]` representing single-threaded code. This means that there is a single thread to handle async tasks.
+- In rust, there is no default async executor (runtime). So, community started building with tokio first, then many more like [smol](https://crates.io/crates/smol), etc. Moreover, the tokio runtime by default used as multi-threaded via `#[tokio::main]` which means when the `main` program is running, then you can spawn multiple threads inside & the modern machine can take care of this. Please ensure you disable multi-thread in `tokio` in low computing devices like microcontrollers, where possibly we would have 1 or 2 cores depending on the model.
 - Async is different than parallelism, concurrency.
-  - **parallelism**: Multiple CPU cores doing multiple tasks at the same time. In rust, there is a crate called [`rayon`](https://crates.io/crates/rayon) which provides parallelism.
+  - **parallelism**: Multiple CPU cores doing multiple tasks at the same time. In rust, there is a crate called [`rayon`](https://crates.io/crates/rayon) which provides parallelism. Parallelism involves performing multiple operations at the exact same time, which requires a multi-core processor. Rust's threading model enables parallel execution by allowing separate threads to run on different CPU cores simultaneously. This is particularly useful for CPU-bound tasks that can be divided into independent units of work.
     ![](../../../img/parallelism_diagram.png)
   - **concurrency**: A single CPU core doing multiple tasks, but only one task is running at a time. It's kind of like _faking parallelism_. It's like watching a YT video and listening to another music at the same time. You are not watching both at the same time, but you are switching between them. So, here the CPU does take some <kbd>pause</kbd>s in between. Hence, the idle time. So, these idle times could be because of moving some mouse or keyboard. Here, there is a concept of context switching.
     ![](../../../img/concurrency_diagram.png)
   - **asynchronous**: Single CPU core doing multiple tasks, but only one task is running at a time, and the tasks are not blocking the main thread. Hence, _no idle time_. In the diagram below, the task-1 is paused because it is waiting for some resources/information that can be achieved after the completion of the other 3 tasks. So, after task 4 ends, the task-1 resumes. In rust, there is a crate called [`tokio`](https://crates.io/crates/tokio) which provides asynchronous programming. In other words, asynchronous involves sometimes parallelism or concurrency.
     ![](../../../img/async_diagram.png)
-    And we should know when to use what. There are mainly 2 types of work:
-    - **CPU bound**: lot of processing related work (crunching no.s). In this case, parallelism can be really helpful.
-    - **I/O bound**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server. Here, connection pooling could be helpful. This includes opening multiple connections at different ports & sending requests to them. In this case, concurrency can be really helpful.
+
+   In a single-threaded mode, like `#[tokio::main(flavor = "current_thread")]` in a 4-core machine. Generally done for small tasks that mostly gets handled by a single thread.<br/>
+   Total no. of threads = 1<br/>
+   Additional thread for the synchronous `task-5`:
+  - If executed directly within the async context or main function: 0 additional threads, running everything on the main thread.
+  - If offloaded to another thread: 1 additional thread. So, total no. of threads become 2.
+
+   And we should know when to use what. There are mainly 2 types of task:
+  - **CPU bound task**: lot of processing related work (crunching no.s). In this case, parallelism can be really helpful.
+  - **I/O bound task**: lot of networking related work like connecting to a network server and waiting for its response. It could also be reading files or getting responses based on thousands of requests to a server. Here, connection pooling could be helpful. This includes opening multiple connections at different ports & sending requests to them. In this case, concurrency can be really helpful.
 - On a high level, the `async`/`await` syntax is a way to write asynchronous code that looks like synchronous code. On a low level, there is a trait `Future` which has a function - `poll` which constantly checks if the task is done or not. If it is done, then it returns `Poll::Ready`. If it is not done, then it returns `Poll::Pending` and then it is constantly checked by the executor like `#[tokio::main]` macro. So, the `async`/`await` syntax is just a way to write asynchronous code that looks like synchronous code. It is just a syntactic sugar. It is not a new concept. It is just a new way of writing asynchronous code. It is just a new way of writing `Future` trait.
 - There is a `Future` trait in the std library which is similar to the concept of a `Promise` in JavaScript.
 - Futures are inert in Rust and make progress only when polled. Dropping a future stops it from making further progress.
@@ -153,6 +170,35 @@ Below is the hardware diagram of the above code working under the hood:
 And here is the corresponding sequence diagram:
 
 ![](../../../img/async_rust_2.png)
+
+Here:
+
+`step-1`: From the code perspective, `#[tokio::main]` attribute is the executor which runs all the async functions put inside the `main` fn, in an spawned/unspawned threaded condition. In this program, I/O bound operation is shown as it handles TCP request/response.
+
+In an CPU bound operation, it would be handled by the CPU layer for handling multiple threads as shown in the code below:
+
+```mermaid
+flowchart
+   subgraph A[multi-threaded main fn]
+      subgraph A1[thread-1]
+         B[async fn-1]
+      end
+      subgraph A2[thread-2]
+         C[async fn-2]
+      end
+      subgraph A3[thread-3]
+         D[async fn-3]
+      end
+   end
+```
+
+The above code has multiple threads spawned which is going to be taken care of by all cores of machine.
+
+Multiple cases possible in an 8-core (say) machine with `#[tokio::main]` attribute:
+
+1. <u>no. of core < threads</u>: some threads have to wait
+2. <u>no. of core = threads</u>: each core takes up 1 thread
+3. <u>no. of core > threads</u>: each core takes up 1 thread & the pending threads are taken up as soon as any of the cores get free.
 
 ---
 
