@@ -1,6 +1,61 @@
 # Error Handling in Rust
 
+Mainly 2 types: Recoverable and Unrecoverable using Option and Result along with some macros `panic!`.
+
 ## Coding
+
+- Recoverable using `Result`
+
+  - e.g. `Result::Err("burn and crash")` in case of function return type.
+
+The `try-catch` can be implemented like this:
+
+```rs
+fn main() {
+    // the output is of type `Result<File, Error>`
+    let f = File::open("hello.txt");
+    match f {
+        Ok(success) => println!("{:?}", success),
+        Err(failure) => panic!("file is not found: {:?}", failure),
+    };
+}
+```
+
+in analogous to:
+
+```js
+try {
+  const f = File.open("hello.txt");
+  console.log(f);
+} catch (e) {
+  console.log(e);
+}
+```
+
+Understand the following examples sequentially:
+
+[recoverable_err_1a.rs](./recoverable_err_1a.rs)
+
+[recoverable_err_1b.rs](./recoverable_err_1b.rs)
+
+[recoverable_err_1c.rs](./recoverable_err_1c.rs)
+
+---
+
+- Unrecoverable using `panic`
+  - e.g. `panic!("burn and crash")` in case of array out of bound error.
+
+```rs
+fn run() {
+  panic!("burn and crash");
+}
+
+fn main() {
+  run();
+}
+```
+
+---
 
 - Define custom errors like this:
 

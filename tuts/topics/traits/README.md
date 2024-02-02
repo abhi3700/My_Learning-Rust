@@ -6,6 +6,48 @@
 - My architectural diagrams- [1](../../../img/traits_architecture.png), [2](../../../img/traits_why.png).
   > In short, Rust is **trait**-centric (a.k.a **trait-object** centric) unlike other languages that are **struct**/**object** centric.
 - [PPT](../../../docs/rust_traits.pdf)
+- Unlike traditional programming languages where we have data & behaviour:
+
+  ```mermaid
+  flowchart
+    subgraph A[ object: C++]
+      C[Data: 
+      `struct`/`class`]
+      D[Behaviour: `interfaces`]
+    end
+  ```
+
+  In Rust, we have this a little different i.e. data & traits doesn't coexist in a single entity. They are separated. So, we have:
+
+  ```mermaid
+  flowchart
+      subgraph C[Behaviour]
+        D[via `traits`]
+      end
+      subgraph A[Data]
+        B[via `struct`/`enum`]
+      end
+  ```
+
+  Now, they data & behaviour can be combined in multiple different ways. Hence, flexibility is achieved like using `trait object`. But still it is different from traditional languages like C++/Java.
+
+  They look like this:
+
+  [![](../../../img/trait_object_arch.png)](https://youtu.be/grU-4u0Okto?t=895)
+
+  Here, the pointer to the data is stored in the `trait object`. This means the size of the pointer in a `trait object` is fixed/static. However the size of the data might vary/dynamic in a heap. So, the size of the `trait object` is fixed/static.
+
+  > NOTE: You cannot add data to a trait object.
+  >
+  > As such, a `dyn Trait` reference contains 2 pointers.
+  >
+  > - One pointer goes to the data (e.g., an instance of a `struct`).
+  > - Another pointer goes to a map of method call names to function pointers (known as a virtual method table or `vtable`).
+  >
+  > At run-time, when a method needs to be called on the `dyn Trait`, the `vtable` is consulted to get the function pointer and then that function pointer is called.  
+
+  Refer to this example with Dungeons & Dragons: [Part-1](./dungeons_dragons.rs), [Part-2](./dungeons_dragons_to.rs).
+
 - A trait is a collection of methods that are defined for an unknown type: `Self`. They can access other methods declared in the same trait.
 - A trait is a common interface that a group of types can implement. The Rust standard library has many useful traits, such as:
 
@@ -493,3 +535,8 @@ Absolutely! Let's summarize this with visuals and emojis:
 In conclusion, static dispatch in Rust is like knowing your party guests in advance and preparing everything they like: it leads to efficient, optimized code that demonstrates zero-cost abstraction. On the other hand, dynamic dispatch is like hosting a surprise party where you have to check a list to see what each guest likes: it's more flexible, but comes with a slight overhead. However, Rust's design tries to minimize this overhead as much as possible to get close to the ideal of zero-cost abstraction.
 
 </details>
+
+## References
+
+- [Traits and You: A Deep Dive — Nell Shamrell-Harrington](https://www.youtube.com/watch?v=grU-4u0Okto) ✅
+  - Example code: [part-1](./dungeons_dragons.rs), [part-2](./dungeons_dragons_to.rs)
