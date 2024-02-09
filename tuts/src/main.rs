@@ -2,9 +2,9 @@
 //! ================
 //! https://practice.rs/compound-types/enum.html-1
 
-#[path = "../topics/traits/dungeons_dragons_to.rs"]
-mod dungeons_dragons_to;
+#[path = "../topics/async/sync10.rs"]
+mod sync10;
 
 fn main() {
-	dungeons_dragons_to::main();
+	let _ = sync10::main();
 }

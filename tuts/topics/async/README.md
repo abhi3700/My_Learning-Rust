@@ -478,3 +478,4 @@ A: **`Arc` vs `Rc`**: `Rc` and `Arc` are both smart pointers in Rust that allow 
 ## Reference
 
 - [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/01_getting_started/01_chapter.html)
+- [Intro to Rust Async Function Execution With Smol 🦀 Rust Programming Tutorial for Developers](https://www.youtube.com/watch?v=NSgyNb0egm4) ✅

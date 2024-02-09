@@ -142,6 +142,10 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 
 ### `cargo`
 
+- `$ cargo new <package-folder-name>`: Create a new project with folder & package named as given.
+  - `$ cargo new hello`: Create a project folder named 'hello' & the package name as `hello` in `Cargo.toml` file.
+- `$ cargo new <folder-name> --name <package-name>`: Create a new project with folder name different than the package name.
+  - `$ cargo new demo --name game-demo`: Here, `demo` is the folder name whereas the package name is `game-demo` in `Cargo.toml` file.
 - `$ cargo add <package-name>`: add package to `[dependencies]` locally into the rust project. E.g. `$ cargo add dotenv`.
 - `$ cargo add <package-name> --dev`: add package to `[dev-dependencies]` locally into the rust project. E.g. `$ cargo add hex-literal --dev`.
 - `$ cargo install --list`: list globally installed packages via .
