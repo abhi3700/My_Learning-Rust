@@ -65,7 +65,63 @@ async fn main() {
 }
 ```
 
-This is called "**Executor**" as `#[tokio::main]` ensures execution of all the async tasks. They continuously poll futures to check if they are complete i.e. `Poll::Ready`. It makes the whole async machinery come together.
+This is called "**Executor**" as `#[tokio::main]` ensures execution of all the async tasks. They continuously poll futures using `poll` function of `Future` trait to check if they are complete i.e. `Poll::Ready`. It makes the whole async machinery come together. There are many executors that are available in the community like `tokio`, `async-std`, `smol`, etc.
+
+However, one can create own executor referring this [doc](https://rust-lang.github.io/async-book/02_execution/04_executor.html).
+
+---
+
+- When `async` is used in a function, it means that the function is going to return a `Future` trait object (actually the return type `T` is implemented with `Future` trait). This is a way to write asynchronous code that looks like synchronous code. It is just a syntactic sugar. It is not a new concept. It is just a new way of writing asynchronous code. It is just a new way of writing `Future` trait.
+- Futures (like Promise in JS/TS) are always lazy by nature. So, they need to be awaited via `.await` at the end of an `async` fn. Otherwise, it returns just Future type, hence not executed.
+
+Like this function `get_number` below is going to return a `Future` trait object, not the actual value `42` when called.
+
+```rust
+async fn get_number() -> u32 {
+   42
+}
+```
+
+So, instead of calling `get_number` like this:
+
+```rust
+let number = get_number();
+```
+
+It should be called like this:
+
+```rust
+let number = get_number().await;
+```
+
+---
+
+As mentioned earlier, `async` is a high level implementation. Here is a comparo with low-level implementation using `Future` trait:
+
+```rust
+use std::future::Future;
+
+async fn foo() -> u8 {
+   42
+}
+
+// OR
+
+fn foo() -> impl Future<Output = u8> {
+   async {
+      42
+   }
+}
+
+// `foo` can be awaited like this:
+#[tokio::main]
+async fn main() {
+   let x = foo().await;
+   assert_eq!(x, 42);
+}
+```
+
+So, basically, `async` simplifies the writing of `Future` trait as shown for `foo` function.
 
 ---
 
@@ -95,7 +151,11 @@ trait Future {
 
 **Example code**:
 
-A `Future` in Rust represents a value that will be available at some point in the future. It’s not the actual value but a promise of a value. When a future is ready to provide its value, it returns `Poll::Ready(value)`. If it’s not ready, it returns `Poll::Pending`.
+A `Future` in Rust represents a value that will be available at some point in the future. It’s not the actual value but a promise of a value. When a future is ready to provide its value, it returns `Poll::Ready(value)`. If it’s not ready, it returns `Poll::Pending`.<br/>
+Now, **who is going to ensure the future is ready?**<br/>
+It is the executor like `tokio` which is going to ensure that the future is ready with either `Poll::Ready(T)` or `Poll::Pending`. Now, if it is `Poll::Ready(T)`, then the executor is going to take the value `T` and do something with it. If it is `Poll::Pending`, then the executor is going to check it later.<br/>
+**How to notify the executor to check it later?** <br/>
+It is done by the `Context` type which is used to pass information. This context has a method called `waker` which is used to wake up the executor to check the future again. This is done by the `poll` method of the `Future` trait. So, if it is `Poll::Pending`, then the `poll` method is going to call the `waker` method of the `Context` type to wake up the executor to check the future again.
 
 ```rust
 use std::future::Future;
@@ -271,10 +331,11 @@ let cloned_data = Arc::clone(&data);
 - `spawn` function takes a closure as an argument, and the closure is executed in the new thread.
 - `spawn` function returns a `JoinHandle` which can be used to wait for the thread to finish.
 - `JoinHandle` implements the `JoinHandle::join` method which waits for the thread to finish and returns a `Result` containing the return value of the closure.
-- Chosing b/w `spawn` vs `join!`:
+- Chosing b/w `spawn` vs `join!` vs `select!`:
 
   - Use `tokio::spawn` when tasks are independent, or when you need to keep the main flow unblocked. It's also useful when you want tasks to continue running even if the part of your program that spawned them moves on.
   - Use `join!` when you need to run multiple futures concurrently and want to wait for all of them to complete before proceeding.
+  - Use `select!` when you want to run multiple futures concurrently and want to proceed as soon as any of them completes. [code example](../../../libs/smol-demo/examples/3_3projects_select.rs) using `smol` crate.
 
   [Code example](./sync9.rs)
 
@@ -417,3 +478,4 @@ A: **`Arc` vs `Rc`**: `Rc` and `Arc` are both smart pointers in Rust that allow 
 ## Reference
 
 - [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/01_getting_started/01_chapter.html)
+- [Intro to Rust Async Function Execution With Smol 🦀 Rust Programming Tutorial for Developers](https://www.youtube.com/watch?v=NSgyNb0egm4) ✅

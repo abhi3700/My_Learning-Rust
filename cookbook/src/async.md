@@ -14,7 +14,9 @@ There are mainly 2 packages for async Rust:
 In tokio crate, always remember to add the crate with full features at least like this:
 
 ```sh
-$ cargo add tokio --features full
+cargo add tokio --features full
 ```
 
 It then is going to add macro features when annotating the function (especially `main` function) with `#[tokio::main]`.
+
+Please go through this [example](../../tuts/topics/async/sync10.rs) to understand how multiple threads are spawned & how they are awaited sequentially & concurrently. Finally their values received from the spawned threads are summed-up. Also, the latest value of the counter is printed.

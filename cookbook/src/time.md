@@ -17,7 +17,7 @@ Currently, afaik there are 2 modules in Rust:
 use std::time::Instant;
 
 fn main() {
-    let now = Instant::now();
+    let now = Instant::now().duration_since(UNIX_EPOCH).as_secs();
     println!("now: {:?}", now);
 }
 ```
