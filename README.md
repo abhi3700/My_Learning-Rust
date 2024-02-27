@@ -164,7 +164,7 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
   > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles or they depend on `rust-analyzer` (sometimes not accurate as exprienced in big blockchain codebase like substrate where `target/` folder is 25 GB+) Then they run `cargo build` when they’re ready to use the executable.
 
 - `$ cargo test`: run all the tests in a project & also captures the output by default. That means output from `println!` won't be shown when run.
-- `$ cargo test -- --nocapture`: run all the tests in a project & doesn't capture the output. That means output from `println!` would be shown when run.
+- `$ cargo test -- --nocapture`: run all the tests in a project by keeping the output (i.e. `println!` statements) hidden. That means output from `println!` would not be shown when run by default as tests are not meant for it, rather to check `assert..` statements. But, using this flag `-- --nocapture`, the output is shown.
 - `$ cargo test <module-name>::<test-function-name>` run a specific test function in a module. E.g. `$ cargo test tests::test_add_two_and_two` for rust code:
 
   ```rust
