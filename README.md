@@ -26,8 +26,12 @@ Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
 >
 > `rustup` is for managing different rust toolchain versions for different targets/architectures (arm, x86, etc.)
 
-```bash
-curl https://sh.rustup.rs -sSf | sh
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+info: downloading installer
+
+Welcome to Rust!
 
 This will download and install the official compiler for the Rust
 programming language, and its package manager, Cargo.
@@ -39,7 +43,7 @@ home directory, located at:
 
 This can be modified with the RUSTUP_HOME environment variable.
 
-The Cargo home directory located at:
+The Cargo home directory is located at:
 
   /Users/abhi3700/.cargo
 
@@ -54,10 +58,24 @@ This path will then be added to your PATH environment variable by
 modifying the profile files located at:
 
   /Users/abhi3700/.profile
+  /Users/abhi3700/.bash_profile
+  /Users/abhi3700/.bashrc
   /Users/abhi3700/.zshenv
 
 You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
+
+Current installation options:
+
+
+   default host triple: aarch64-apple-darwin
+     default toolchain: stable (default)
+               profile: default
+  modify PATH variable: yes
+
+1) Proceed with installation (default)
+2) Customize installation
+3) Cancel installation
 ```
 
 ### Editor
