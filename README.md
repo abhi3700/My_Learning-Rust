@@ -1015,6 +1015,17 @@ res.push(i as i32);
 2. rustup component add cargo
 ```
 
+### 6. Error: `Blocking waiting for file lock on the registry index`
+
+- _Cause_: The index is locked by another process. This mainly happens when `$ cargo run` is executed after opening a rust project in VS Code while `$ cargo check` is being run by `rust-analyzer` extension. Try to run any command after `rust-analyzer` is completed.
+- _Solution_: If after long wait, it doesn't go away, then just delete few files:
+
+```sh
+rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache
+```
+
+And then run the command again. It would work fine now 🎉.
+
 ## Quiz
 
 There is a section called [quiz](./quiz/) in this repo. It contains some questions and their solutions. The plan is to add them into Rustlings later in an organized manner.
