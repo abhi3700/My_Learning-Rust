@@ -2,5 +2,5 @@
 members = ["tuts/", "tuts/topics/async/*",
 "libs/axum-playground"  
 # "libs/chatgpt_demo"
-, "pro/rust-api-heroku", "libs/databases/redis/demo", "pro/basic-router", "libs/smol-demo", "libs/llm-chain/demo"]
+, "pro/rust-api-heroku", "libs/databases/redis/demo", "pro/basic-router", "libs/smol-demo", "libs/llm-chain/demo", "libs/databases/mongo/demo"]
 resolver = "2"

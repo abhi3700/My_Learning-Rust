@@ -26,8 +26,12 @@ Following tools get installed: `rustup`, `rustc`, `cargo`, `rustfmt`
 >
 > `rustup` is for managing different rust toolchain versions for different targets/architectures (arm, x86, etc.)
 
-```bash
-curl https://sh.rustup.rs -sSf | sh
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+info: downloading installer
+
+Welcome to Rust!
 
 This will download and install the official compiler for the Rust
 programming language, and its package manager, Cargo.
@@ -39,7 +43,7 @@ home directory, located at:
 
 This can be modified with the RUSTUP_HOME environment variable.
 
-The Cargo home directory located at:
+The Cargo home directory is located at:
 
   /Users/abhi3700/.cargo
 
@@ -54,10 +58,24 @@ This path will then be added to your PATH environment variable by
 modifying the profile files located at:
 
   /Users/abhi3700/.profile
+  /Users/abhi3700/.bash_profile
+  /Users/abhi3700/.bashrc
   /Users/abhi3700/.zshenv
 
 You can uninstall at any time with rustup self uninstall and
 these changes will be reverted.
+
+Current installation options:
+
+
+   default host triple: aarch64-apple-darwin
+     default toolchain: stable (default)
+               profile: default
+  modify PATH variable: yes
+
+1) Proceed with installation (default)
+2) Customize installation
+3) Cancel installation
 ```
 
 ### Editor
@@ -164,7 +182,7 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
   > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles or they depend on `rust-analyzer` (sometimes not accurate as exprienced in big blockchain codebase like substrate where `target/` folder is 25 GB+) Then they run `cargo build` when they’re ready to use the executable.
 
 - `$ cargo test`: run all the tests in a project & also captures the output by default. That means output from `println!` won't be shown when run.
-- `$ cargo test -- --nocapture`: run all the tests in a project & doesn't capture the output. That means output from `println!` would be shown when run.
+- `$ cargo test -- --nocapture`: run all the tests in a project by keeping the output (i.e. `println!` statements) hidden. That means output from `println!` would not be shown when run by default as tests are not meant for it, rather to check `assert..` statements. But, using this flag `-- --nocapture`, the output is shown.
 - `$ cargo test <module-name>::<test-function-name>` run a specific test function in a module. E.g. `$ cargo test tests::test_add_two_and_two` for rust code:
 
   ```rust
@@ -996,6 +1014,17 @@ res.push(i as i32);
 1. rustup component remove cargo
 2. rustup component add cargo
 ```
+
+### 6. Error: `Blocking waiting for file lock on the registry index`
+
+- _Cause_: The index is locked by another process. This mainly happens when `$ cargo run` is executed after opening a rust project in VS Code while `$ cargo check` is being run by `rust-analyzer` extension. Try to run any command after `rust-analyzer` is completed.
+- _Solution_: If after long wait, it doesn't go away, then just delete few files:
+
+```sh
+rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache
+```
+
+And then run the command again. It would work fine now 🎉.
 
 ## Quiz
 
