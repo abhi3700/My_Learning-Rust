@@ -11,7 +11,6 @@
 //! serde_json = "1.0.104"
 //! ```
 
-use async_std;
 use chrono::{TimeZone, Utc};
 use mongodb::{
 	bson::{self, doc, Bson},
@@ -30,7 +29,7 @@ struct User {
 	password: String,
 }
 
-#[async_std::main]
+#[tokio::main]
 pub(crate) async fn main() -> Result<(), Box<dyn Error>> {
 	dotenv::from_path("./.env").expect("Failed to load the env file");
 
