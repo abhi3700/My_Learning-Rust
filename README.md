@@ -1022,9 +1022,10 @@ res.push(i as i32);
 
 ```sh
 rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache
+cargo clean
 ```
 
-And then run the command again. It would work fine now 🎉.
+And then run the command `$ cargo build`/`$ cargo check`/`$ cargo run` again. It would work fine now 🎉.
 
 ## Quiz
 
