@@ -1027,6 +1027,15 @@ cargo clean
 
 And then run the command `$ cargo build`/`$ cargo check`/`$ cargo run` again. It would work fine now 🎉.
 
+### 7. Error: error[E0635]: unknown feature `stdsimd`
+
+- _Cause_: This is a common issue when trying to update the channel to latest nightly version. This is because the `Cargo.lock` file uses 2 versions of `ahash` which conflicts. This can be confirmed by running `$ cargo tree -i ahash`.
+- _Solution_: Just follow the steps below:
+
+  1. Remove your `Cargo.lock` file or you can just remove either of the versions (preferably older).
+  2. [OPTIONAL] Clean the `target/` folder using `$ cargo clean`.
+  3. Build again `$ cargo build`.
+
 ## Quiz
 
 There is a section called [quiz](./quiz/) in this repo. It contains some questions and their solutions. The plan is to add them into Rustlings later in an organized manner.
