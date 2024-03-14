@@ -14,11 +14,13 @@ Currently, afaik there are 2 modules in Rust:
 **Code for current timestamp**:
 
 ```rust
-use std::time::Instant;
+use std::time::SystemTIme;
 
 fn main() {
-    let now = Instant::now().duration_since(UNIX_EPOCH).as_secs();
-    println!("now: {:?}", now);
+    println!(
+        "now timestamp: {:?}",
+        SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    );
 }
 ```
 
@@ -32,6 +34,7 @@ use std::time::Instant;
 fn main() {
     let now = Instant::now();
     // run some function (long one preferably)
+    std::thread::sleep(std::time::Duration::from_secs(5));
     let elapsed = now.elapsed().as_millis();    // in milliseconds
     println!("now: {:?}", elapsed);
 }
