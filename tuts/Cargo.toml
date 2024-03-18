@@ -7,7 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.26"
+chrono = "0.4.35"
 color-eyre = "0.6.2"
 dirs = "5.0.1"
 env_logger = "0.10.1"
