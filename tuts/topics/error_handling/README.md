@@ -95,9 +95,7 @@ fn main() {
   | Don't want to print the exact issue as `None` doesn't have anything as param unlike `Some(T)`                                                                                           | Want to print the exact issue as `Err(E)` contains the message inside                                                              |
   | E.g. [`./tuts/error_handling/opt_1.rs`](./opt_1.rs)                                                                                                                                                        | E.g. [`./tuts/error_handling/res_1.rs`](./res_1.rs)                                                                                                   |
 
----
-
-**`expect` vs `ok_or`**:
+### `expect` vs `ok_or`
 
 - `expect` gives T if `Some(T)` else panics with the given message. `ok_or` gives `Ok(T)` if `Some(T)` else `Err(E)`.
 
@@ -128,9 +126,7 @@ assert!(balances.transfer("alice".to_string(), "bob".to_string(), 101).is_err())
 
 > Here, this code would have panicked if `ok_or` was not used. I tried with `expect` and the test panicked.
 
----
-
-**When to use `unwrap`**:
+### When to use `unwrap`
 
 [Source](https://owengage.com/writing/2021-08-30-how-to-think-of-unwrap/)
 
@@ -141,9 +137,7 @@ assert!(balances.transfer("alice".to_string(), "bob".to_string(), 101).is_err())
 - Use `expect` instead of `unwrap` to give as much context as possible in rust bin codebase.
   > Then, why should one use `unwrap` at all? Because, it is concise and doesn't need any string message.
 
----
-
-**How to swallow/consume errors?**
+### How to swallow/consume errors?
 
 Using `map_err`:
 
@@ -222,10 +216,33 @@ Error: Insufficient funds.
 
 Basically, there is no panic. The error is swallowed.
 
+### Error propagation `?` vs `expect()`
+
+`?` is used to propagate error to the caller function, while `expect()` is used for debugging purpose.
+
+Suppose, we have a function `get_age()` which returns age of a person. But, if the person is not found in database, it should return an error. So, we can do like this:
+
+```rust
+fn get_age() -> Result<u8, &'static str> {
+  // Here, error propagation is used to return error to the caller function.
+  let db = Database::new();
+  let age = db.get_age()?;
+  Ok(age)
+}
+
+fn main() -> Result<(), &'static str> {
+  // Here, `expect` is used to panic if error occurs, because we want that to happen.
+  let age = get_age().expect("Person not found in database");
+  println!("Age is {}", age);
+  Ok(())
+}
+```
+
 ## External crates
 
 ### eyre
 
+- It is a fork of `anyhow`.
 - In place of `std::Result<String, &'static str>`, we can use `eyre::Result<String>`.
 - For Ok, `Ok("Rust is beautiful")` can be used in both cases.
 - And in place of `Err("Invalid input")`, we can use `Err(eyre::eyre!("Invalid input"))`.
