@@ -2,6 +2,8 @@
 title: Fetch API data
 ---
 
+## Pre-requisites
+
 In order to fetch any JSON data, one needs to deserialize the JSON data of custom type into a struct. This can be done using the [`serde_json`](https://crates.io/crates/serde_json/) crate.
 
 Initially, I am trying to fetch the response body from the API that looks like this:
@@ -13,6 +15,10 @@ dotenv = "0.15.0"
 reqwest = { version = "0.11.18", features = ["json"] }
 tokio = { version = "1.31.0", features = ["full"] }
 ```
+
+## Usages
+
+### Use API
 
 ```rust
 use reqwest::Result;
@@ -40,7 +46,7 @@ async fn get_valet() -> Result<User> {
 }
 ```
 
----
+### Use API with custom struct
 
 Now, I need to create a struct - `ValetLocation` to deserialize the JSON data into it.
 
@@ -106,9 +112,7 @@ async fn get_valet() -> Result<User> {
 }
 ```
 
----
-
-With the above code, we get the following console output:
+With the above code, we get the following terminal output:
 
 **Output**:
 
@@ -116,7 +120,7 @@ With the above code, we get the following console output:
 ValetLocation { id: 4928, uid: "7fef49a8-809e-48d8-b155-c072a34e29ba", city: "Yundtside", street_name: "Stanton Fields", street_address: "55989 Effertz Brooks", secondary_address: "Suite 683", building_number: "77339", mail_box: "PO Box 81", community: "Park Acres", zip_code: "76601-7271", zip: "13600-8160", postcode: "37818", time_zone: "America/Godthab", street_suffix: "Rapid", city_suffix: "port", city_prefix: "West", state: "Colorado", state_abbr: "AL", country: "Sierra Leone", country_code: "HT", latitude: 16.96054548560228, longitude: -80.78326583644798, full_address: "9449 Towne Glen, Irishberg, CT 47471-6266" }
 ```
 
----
+### Use API with clipped ✂️ struct
 
 But I figured out that I can just minimize the struct by shortening the fields that I need from the API response.
 To do this, consider these fields (`latitude`, `longitude`), then modify the struct like this as I don't need other data from the API response.
@@ -162,8 +166,55 @@ async fn get_valet() -> Result<User> {
 }
 ```
 
-**Console output**:
+**Terminal output**:
 
 ```sh
 ValetLocation { latitude: -28.38022252300653, longitude: -30.736327485312614 }
 ```
+
+### Use API with camelCase object fields
+
+Suppose, the original JSON response object defined in API server at endpoint: `GET /sapi/v1/trades` is:
+
+```json
+[
+  {
+    "id": 28457,
+    "price": "4.00000100",
+    "qty": "12.00000000",
+    "quoteQty": "48.000012",
+    "time": 1499865549590,
+    "isBuyerMaker": true
+  }
+]
+```
+
+Now in rust code, we can defined it as struct like this:
+
+```rust
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+struct Trade {
+    id: u32,
+    price: f64,
+    qty: f64,
+    quote_qty: f64,
+    time: u64,  // in ms
+    is_buyer_maker: bool,
+}
+```
+
+And in order to use as SDK function, we can define it as follows:
+
+```rust
+impl WazirX {
+    async fn recent_trades(&self, symbol: &str, limit: u16) -> Result<Vec<Trade>, reqwest::Error> {
+        reqwest::get(self.api_url).await?.json::<Vec<Trade>>().await
+    }
+}
+```
+
+> Here, camelCase is used as snake_case in Rust (as expected by default).
+
+| NOTE | Short way to call the API |
+|--|--|
