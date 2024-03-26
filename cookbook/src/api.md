@@ -18,6 +18,31 @@ tokio = { version = "1.31.0", features = ["full"] }
 
 ## Usages
 
+### Use `reqwest` progressively
+
+In order to fetch API GET request, we use the `reqwest` crate in Rust.
+
+There are 4 versions of the code for a simple API fetching like random number generation.
+
+- v1: Using `reqwest` crate with `async`/`await` and and `tokio` runtime
+- v2: Decoupling the `async`/`await` code from the main function
+- v3: Add `std::env` module to get the URL from the environment variable set in CLI.
+- v4: Add `dotenv` crate to load the `.env` file and get the URL from the environment variable set in the `.env` file.
+
+The code is structured here in [repo](https://github.com/abhi3700/coursera_01_rust_l1) for [Coursera: Rust for Beginners: Building Target Proximity Game](coursera.org/projects/rust-for-beginners-gp)
+
+We need to add 3 crates in total till `v4`:
+
+```toml
+[dependencies]
+# cargo add dotenv
+dotenv = "0.15.0"
+# cargo add reqwest --features json
+reqwest = {version ="0.11.18", features = ["json"]}
+# cargo add tokio --features full
+tokio = {version = "1.29.1", features = ["full"]}
+```
+
 ### Use API
 
 ```rust
