@@ -160,26 +160,54 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 
 ### `cargo`
 
+#### `new`
+
 - `$ cargo new <package-folder-name>`: Create a new project with folder & package named as given.
   - `$ cargo new hello`: Create a project folder named 'hello' & the package name as `hello` in `Cargo.toml` file.
 - `$ cargo new <folder-name> --name <package-name>`: Create a new project with folder name different than the package name.
   - `$ cargo new demo --name game-demo`: Here, `demo` is the folder name whereas the package name is `game-demo` in `Cargo.toml` file.
+
+#### `add`
+
 - `$ cargo add <package-name>`: add package to `[dependencies]` locally into the rust project. E.g. `$ cargo add dotenv`.
 - `$ cargo add <package-name> --dev`: add package to `[dev-dependencies]` locally into the rust project. E.g. `$ cargo add hex-literal --dev`.
+
+#### `install`
+
 - `$ cargo install --list`: list globally installed packages via .
-- `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
 - `$ cargo install --path <path/to/folder/containing/Cargo.toml>`: install the binaries in by default `/target/release` (by default) folder . This will install the binary in the `~/.cargo/bin` folder. In case of workspace, parse the path of the bin folder containing `Cargo.toml` file.
   - After this, if you want to uninstall the binary, then you can do it via `$ cargo uninstall <bin-name>`. Suppose, you installed a binary named `hello` via `$ cargo install --path <path/to/folder/containing/Cargo.toml>`, then you can uninstall it via `$ cargo uninstall hello`.
+- Install a git repo using `cargo`: `$ cargo install --git https://github.com/dimensionhq/fleet fleet-rs`. And then use fleet like this:
+
+  ```sh
+  fleet -h
+  ```
+
 - Install `cargo-edit`: for helping with edit, add, remove, upgrade, downgrade, and list dependencies in `Cargo.toml`
 - Install `cargo-watch`: via `$ cargo install cargo-watch`.
   - Watch for changes in the project and automatically run via `$ cargo watch -x run`
   - Watch for changes in the project and automatically test via `$ cargo watch -x test`
 - `cargo-expand`: install via `$ cargo install cargo-expand`. more [here](./libs/expanded_rust/README.md)
 - `cargo-audit`: install via `$ cargo install cargo-audit`.
+
+#### `doc`
+
+- `cargo doc --open`: Open doc of project. Used when it's not a workspace.
+- `cargo doc --package <PACKAGE_NAME> --open`: Open doc of package in a workspace
+
+#### `update`
+
+- `$ cargo update`: This command will update dependencies in the Cargo.lock file to the latest version. If the Cargo.lock file does not exist, it will be created with the latest available versions.
+
+#### `build`, `check`
+
 - `$ cargo +nightly build`: build using `nightly` toolchain for a project
+- `$ cargo build`: build a debug version of a project using set toolchain (view via `$ rustup show`).
 - `$ cargo build --release`: build a release (optimized) version of a project
 
   > Often, `cargo check` is much faster than `cargo build`, because it skips the step of producing an executable. If you’re continually checking your work while writing the code, using `cargo check` will speed up the process! As such, many Rustaceans run `cargo check` periodically as they write their program to make sure it compiles or they depend on `rust-analyzer` (sometimes not accurate as exprienced in big blockchain codebase like substrate where `target/` folder is 25 GB+) Then they run `cargo build` when they’re ready to use the executable.
+
+#### `test`
 
 - `$ cargo test`: run all the tests in a project & also captures the output by default. That means output from `println!` won't be shown when run.
 - `$ cargo test -- --nocapture`: run all the tests in a project by keeping the output (i.e. `println!` statements) hidden. That means output from `println!` would not be shown when run by default as tests are not meant for it, rather to check `assert..` statements. But, using this flag `-- --nocapture`, the output is shown.
@@ -201,6 +229,9 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 
   - if there is a single or a few test function(s) then it is better to use `#[test]` attribute. But, if there are many test functions, then it is better to use `#[cfg(test)]` attribute to put into module.
 - View the dependency graph of a project using `$ cargo tree`
+
+#### `publish`
+
 - **Publish** a crate to [crates.io](https://crates.io/) via `$ cargo publish`
 
   - Each crate has a limit of 10 MB in size for each version.
@@ -217,6 +248,8 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
   cargo owner --add github:rust-lang:owners
   cargo owner --remove github:rust-lang:owners
   ```
+
+#### workspace
 
 - Add workspace member(s) to manage multiple projects inside one rust project (containing `Cargo.toml` file):
 
