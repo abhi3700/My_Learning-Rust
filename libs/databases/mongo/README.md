@@ -67,6 +67,16 @@ Similarly, for other programming languages, there are libraries like:
 
 Refer [this](https://github.com/abhi3700/My_Learning_Databases/blob/main/all.drawio).
 
+## Coding
+
+- The driver supports both asynchronous and synchronous runtimes.
+- You can connect to your MongoDB deployment by providing a **connection URI**, also called a _connection string_, which instructs the driver on how to connect to a MongoDB deployment and how to behave while connected.
+- The connection string includes:
+  - the hostname or IP address and port of your deployment, 
+  - the authentication mechanism, 
+  - user credentials when applicable, and 
+  - connection options.
+
 ## Libraries
 
 - [diesel](https://crates.io/crates/diesel) (ORM based)
@@ -90,6 +100,8 @@ For sync support (without an async support), refer this [code](https://github.co
 
 - mongodb-rust-driver [Official]
   - [crate](https://crates.io/crates/mongodb/),
-  - [documentation](https://docs.rs/mongodb/latest/mongodb/index.html)
+- [MongoDB Rust Driver](https://www.mongodb.com/docs/drivers/rust/current/)
+  - [Usage Examples](https://www.mongodb.com/docs/drivers/rust/current/usage-examples/)
 - [Get Started with Rust and MongoDB](https://www.mongodb.com/developer/languages/rust/rust-mongodb-crud-tutorial/#starting-your-project) 🧑🏻‍💻
 - [Getting Started with Aggregation Pipelines in Rust](https://www.mongodb.com/developer/languages/rust/rust-quickstart-aggregation/)
+- [Code snippets as Quick Reference](https://www.mongodb.com/docs/drivers/rust/current/quick-reference/)
