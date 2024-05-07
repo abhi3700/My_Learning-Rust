@@ -1102,12 +1102,17 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
   - Much more detailed than the above one. As in, they take you through every rust topics & then give you the exercise.
 - [24 days of Rust](https://zsiciarz.github.io/24daysofrust/index.html)
 - [Idiomatic Rust](https://github.com/mre/idiomatic-rust)
+  </details>
 
 #### By Author(s)
 
 - **Rust for Rustaceans** by Jon Gjengset
   > <kbd>purchased</kbd> on Kindle
 - [Programming Rust: Fast, Safe Systems Development by Jim Blandy, Jason Orendorff](https://github.com/abhi3700/books/blob/main/rust/Programming%20Rust%202nd%20Edition.pdf)
+- [Rust Atomics and Locks | Low-Level Concurrency in Practice](https://marabos.nl/atomics/)
+  <details><summary>Cover page</summary>
+  
+  ![](img/rust_atomics_book_bg.png)
 
 ### Courses
 
