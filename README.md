@@ -1069,6 +1069,43 @@ And then run the command `$ cargo build`/`$ cargo check`/`$ cargo run` again. It
   2. [OPTIONAL] Clean the `target/` folder using `$ cargo clean`.
   3. Build again `$ cargo build`.
 
+### 8. Don't install rust using homebrew `brew` on macOS
+
+- _Cause_: It might happen that if you install some package using `brew` like `maturin` (a project management tool in Python) uses rust. They essentially install/override `rust` with that of homebrew. You can verify if your `rustc` is being called by rust binary of `brew` like this:
+
+```sh
+$ which rustc
+/opt/homebrew/bin/rustc
+```
+
+You might find these errors when compiling rust project:
+
+```sh
+error[E0554]: `#![feature]` may not be used on the stable release channel
+...
+```
+
+- _Solution_: Just remove/uninstall `rust` from `brew` (if found in `$ brew list | grep rust`). Secondly, remove the package that are dependents like `maturin` (in my case). Next, check `$ which rustc`.
+
+```sh
+where rustc
+/opt/homebrew/bin/rustc
+/opt/homebrew/bin/rustc
+/opt/homebrew/bin/rustc
+/Users/abhi3700/.cargo/bin/rustc
+```
+
+Delete `/opt/homebrew/bin/rustc` via `$ rm -rf /opt/homebrew/bin/rustc`. Now, check it should be called by that of `.cargo` binary instead of `brew`.
+
+```sh
+$ which rustc
+/Users/abhi3700/.cargo/bin/rustc
+```
+
+Now, `cargo clean` >> `cargo build` should work fine in rust project.
+
+Fixed 🎉.
+
 ## Quiz
 
 There is a section called [quiz](./quiz/) in this repo. It contains some questions and their solutions. The plan is to add them into Rustlings later in an organized manner.
