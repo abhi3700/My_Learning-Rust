@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 gtk = { version = "0.8.2", package = "gtk4", features = ["v4_14"] }
+dark-light = "1.1.1"
