@@ -1,11 +1,5 @@
-//! Example for using a circular progress bar (increasing) with GTK4
-//!
-//! Progress bar changing from 0% to 100% by 10% every second.
-//!
-//! ## Usage
-//! It can be customized with different step (in place of 10%) and duration (in place of 1 second).
-//! Duration although would be replaced by task's progress. Suppose, a file reading.
-//! HINT: Use Codeium to refactor.
+//! Example for using a circular progress bar (anti-clockwise) with GTK4
+//! TODO: change the direction from cw to acw.
 
 use gtk::{glib, prelude::*, Application, ApplicationWindow, DrawingArea};
 use std::{cell::RefCell, f64::consts::PI, rc::Rc};
@@ -40,7 +34,7 @@ fn build_ui(application: &Application) {
 	window.set_child(Some(&drawing_area));
 
 	// Create a shared state for the progress
-	let progress = Rc::new(RefCell::new(0.0));
+	let progress = Rc::new(RefCell::new(1.0));
 
 	drawing_area.set_draw_func({
 		let progress = progress.clone();
@@ -48,7 +42,13 @@ fn build_ui(application: &Application) {
 			let percentage = *progress.borrow();
 			cr.set_line_width(10.0);
 			cr.set_source_rgb(0.5, 0.5, 1.0);
-			cr.arc(width as f64 / 2.0, height as f64 / 2.0, 100.0, 0.0, 2.0 * PI * percentage);
+			cr.arc(
+				width as f64 / 2.0,
+				height as f64 / 2.0,
+				100.0,
+				-PI / 2.0,
+				-PI / 2.0 + 2.0 * PI * percentage,
+			);
 			let _ = cr.stroke();
 
 			cr.set_font_size(24.0);
@@ -62,10 +62,10 @@ fn build_ui(application: &Application) {
 		let progress = progress.clone();
 		move || {
 			let mut percentage = progress.borrow_mut();
-			if (*percentage + 0.1) >= 1.0 {
-				*percentage = 0.0;
+			if (*percentage - 0.1) <= 0.0 {
+				*percentage = 1.0;
 			} else {
-				*percentage = (*percentage + 0.1) % 1.0;
+				*percentage = (*percentage - 0.1).max(0.0);
 			}
 			println!("curr percent: {:.1}%", *percentage * 100.0);
 			drawing_area.queue_draw();

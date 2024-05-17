@@ -1,4 +1,33 @@
-//! Example for using a circular progress bar (decreasing) with GTK4
+//! Example for using a circular progress bar (clockwise) with GTK4
+//!
+//! Progress bar changing from 0% to 100% by 10% every second.
+//!
+//! ## Usage
+//!
+//! It can be customized with different step (in place of 10%) and duration (in place of 1 second).
+//! Duration although would be replaced by task's progress. Suppose, a file reading.
+//! HINT: Use Codeium to refactor.
+
+//! Also learned about setting dark theme in cross-platform way.
+//!
+//! Circle filled with black color initially is sweeped with arc filled white color as progress
+//! reduces from 100% to 0% in clockwise direction.
+//!
+//! ## Params
+//!
+//! - diameter: diameter of the circle
+//! - progress: 1.0 = 100%, 0.0 = 0%
+//! - color: 100% color = black. sweeping color = white
+//! - content_sizes (height, width) should be at least > the set diameter
+//! - margin_top, margin_bottom, margin_start, margin_end
+//! - halign, valign
+//! - sweep interval (in seconds) i.e. how often the progress is updated?
+//!
+//! ## Images
+//!
+//! - img/gtk_progress_bar_circle_filled_cw_1.png
+//! - img/gtk_progress_bar_circle_filled_cw_2.png
+//! - img/gtk_progress_bar_circle_filled_cw_3.png
 
 use gtk::{glib, prelude::*, Application, ApplicationWindow, DrawingArea};
 use std::{cell::RefCell, f64::consts::PI, rc::Rc};
@@ -33,7 +62,7 @@ fn build_ui(application: &Application) {
 	window.set_child(Some(&drawing_area));
 
 	// Create a shared state for the progress
-	let progress = Rc::new(RefCell::new(1.0));
+	let progress = Rc::new(RefCell::new(0.0));
 
 	drawing_area.set_draw_func({
 		let progress = progress.clone();
@@ -55,10 +84,10 @@ fn build_ui(application: &Application) {
 		let progress = progress.clone();
 		move || {
 			let mut percentage = progress.borrow_mut();
-			if (*percentage - 0.1) <= 0.0 {
-				*percentage = 1.0;
+			if (*percentage + 0.1) >= 1.0 {
+				*percentage = 0.0;
 			} else {
-				*percentage = (*percentage - 0.1).max(0.0);
+				*percentage = (*percentage + 0.1) % 1.0;
 			}
 			println!("curr percent: {:.1}%", *percentage * 100.0);
 			drawing_area.queue_draw();
