@@ -20,11 +20,9 @@
 //! - img/gtk_progress_bar_circle_filled_cw_1.png
 //! - img/gtk_progress_bar_circle_filled_cw_2.png
 //! - img/gtk_progress_bar_circle_filled_cw_3.png
-#[path = "./widgets/progress_bar.rs"]
-pub mod progress_bar;
 
 use gtk::{glib, prelude::*, Application, ApplicationWindow};
-use progress_bar::create_circular_progress_bar_acw;
+use gtk4_demo::progress_bar::create_circular_progress_bar_acw;
 
 const APP_ID: &str = "org.gtk_rs.CircularProgressBar";
 

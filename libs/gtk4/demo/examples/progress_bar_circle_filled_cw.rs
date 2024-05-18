@@ -1,10 +1,7 @@
 //! Example for using a circular progress bar with GTK4
 
-#[path = "./widgets/progress_bar.rs"]
-pub mod progress_bar;
-
 use gtk::{glib, prelude::*, Application, ApplicationWindow};
-use progress_bar::create_circular_progress_bar_cw;
+use gtk4_demo::progress_bar::create_circular_progress_bar_cw;
 
 const APP_ID: &str = "org.gtk_rs.CircularProgressBar";
 
