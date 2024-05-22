@@ -92,13 +92,13 @@ impl Component for TodoApp {
 
 		vbox.append(&buttons);
 		vbox.append(&gtk::Separator::new(gtk::Orientation::Horizontal));
-		let item_hbox = gtk::Box::builder()
+		let todo_item = gtk::Box::builder()
 			.orientation(gtk::Orientation::Horizontal)
 			.spacing(10)
 			.build();
-		item_hbox.append(&item_name);
-		item_hbox.append(&item_done);
-		vbox.append(&item_hbox);
+		todo_item.append(&item_name);
+		todo_item.append(&item_done);
+		vbox.append(&todo_item);
 
 		let widgets = AppWidgets { name: item_name, done: item_done };
 
@@ -117,7 +117,6 @@ impl Component for TodoApp {
 				self.items.push(TodoItem { id, name, done: false });
 			},
 			TodoInput::Remove(id) => {
-				// remove the last one always
 				self.items.retain(|item| item.id != id);
 			},
 			TodoInput::Toggle(id) => {
@@ -148,12 +147,13 @@ impl Component for TodoApp {
 
 		// TODO: populate all the todo items where each todo item has "Remove" & toggle buttons...
 		// inside a vertical scrollbar.
-		// TODO: on remove, update the view.
-		// TODO: on toggle, toggle the last item
+		// TODO: on remove, remove the clicked item identified by the id.
+		// TODO: on toggle, toggle the clicked item identified by the id.
 	}
 }
 
 fn main() {
 	let app = RelmApp::new("abhi.todo.app");
+	// NOTE: the initial items in the todo list are empty.
 	app.run::<TodoApp>(vec![])
 }
