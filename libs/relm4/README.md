@@ -14,6 +14,14 @@ Also, there are two important functions:
 
 - `update` receives a message and updates the model accordingly.
 - `update_view` receives the updated model and updates the widgets accordingly.
+- `#[watch]` attribute is used to update the property in the `view!` function. Example: `counter` value in a Counter App may be updated based on App inputs/events. It is the replacement of this code snippet:
+
+```rust
+// update the view based on the model
+ fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
+  widgets.label.set_text(&format!("Counter: {}", self.counter.to_string()));
+ }
+```
 
 The app does all those things in a loop. It waits for messages and once a message is received, it runs `update` and then `view`.
 
