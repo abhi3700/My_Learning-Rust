@@ -48,7 +48,6 @@ pub fn create_circular_progress_bar(
 		.build();
 
 	drawing_area.set_draw_func({
-		let progress = progress.clone();
 		move |_, cr, width, height| {
 			let percentage = *progress.borrow();
 
@@ -161,7 +160,7 @@ impl Component for App {
 					set_valign: gtk::Align::Center,
 					set_orientation: gtk::Orientation::Vertical,
 
-					append: progress_drawing = &create_circular_progress_bar(20.0, 10, 10, 10, 10, true,"ETA for next reward payment", progress.clone()),
+					append: progress_drawing = &create_circular_progress_bar(20.0, 10, 10, 10, 10, true, "ETA for next reward payment", progress.clone()),
 				},
 
 				append: button = &gtk::Button {
