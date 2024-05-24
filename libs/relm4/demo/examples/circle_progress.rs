@@ -109,7 +109,7 @@ struct App {
 
 pub struct Widgets {
 	button: Button,
-	progress: DrawingArea,
+	progress_bar: DrawingArea,
 }
 
 #[derive(Debug)]
@@ -175,7 +175,7 @@ impl Component for App {
 
 		ComponentParts {
 			model: App { progress, ..App::default() },
-			widgets: Widgets { button, progress: progress_drawing },
+			widgets: Widgets { button, progress_bar: progress_drawing },
 		}
 	}
 
@@ -226,7 +226,7 @@ impl Component for App {
 
 	fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
 		widgets.button.set_sensitive(!self.computing);
-		widgets.progress.queue_draw();
+		widgets.progress_bar.queue_draw();
 	}
 }
 
