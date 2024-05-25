@@ -20,7 +20,7 @@
 
 use futures::FutureExt;
 use relm4::{
-	gtk::{self, prelude::*, Button, DrawingArea},
+	gtk::{self, prelude::*, DrawingArea},
 	Component, ComponentParts, ComponentSender, RelmApp,
 };
 use std::{cell::RefCell, f64::consts::PI, rc::Rc};
@@ -104,10 +104,8 @@ struct App {
 	task: Option<CmdOut>,
 	/// Progress value
 	progress: Rc<RefCell<f64>>,
-}
 
-pub struct Widgets {
-	button: Button,
+	// progress bar widget
 	progress_bar: DrawingArea,
 }
 
@@ -124,26 +122,18 @@ pub enum CmdOut {
 	Finished(Result<String, ()>),
 }
 
+#[relm4::component(pub)]
 impl Component for App {
 	type Init = String;
 	type Input = Input;
 	type Output = ();
 	type CommandOutput = CmdOut;
 	type Widgets = Widgets;
-	type Root = gtk::Window;
 
-	fn init_root() -> Self::Root {
-		gtk::Window::default()
-	}
-
-	fn init(
-		_args: Self::Init,
-		root: Self::Root,
-		sender: ComponentSender<Self>,
-	) -> ComponentParts<Self> {
-		let progress = Rc::new(RefCell::new(1.0));
-		relm4::view! {
-			container = gtk::Box {
+	view! {
+		#[root]
+		gtk::Window{
+			gtk::Box {
 				set_halign: gtk::Align::Center,
 				set_valign: gtk::Align::Center,
 				set_width_request: 300,
@@ -160,22 +150,42 @@ impl Component for App {
 					set_valign: gtk::Align::Center,
 					set_orientation: gtk::Orientation::Vertical,
 
-					append: progress_drawing = &create_circular_progress_bar(20.0, 10, 10, 10, 10, true, "ETA for next reward payment", progress.clone()),
+					append: &model.progress_bar
 				},
 
-				append: button = &gtk::Button {
+				#[name="button"]
+				gtk::Button {
 					set_label: "Compute",
 					connect_clicked => Input::Compute,
 				}
 			}
 		}
+	}
 
-		root.set_child(Some(&container));
+	fn init(
+		_args: Self::Init,
+		root: Self::Root,
+		sender: ComponentSender<Self>,
+	) -> ComponentParts<Self> {
+		let progress = Rc::new(RefCell::new(1.0));
 
-		ComponentParts {
-			model: App { progress, ..App::default() },
-			widgets: Widgets { button, progress_bar: progress_drawing },
-		}
+		let model = Self {
+			progress: progress.clone(),
+			progress_bar: create_circular_progress_bar(
+				20.0,
+				10,
+				10,
+				10,
+				10,
+				true,
+				"ETA for next reward payment",
+				progress,
+			),
+			..App::default()
+		};
+		let widgets = view_output!();
+
+		ComponentParts { model, widgets }
 	}
 
 	fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>, _root: &Self::Root) {
@@ -205,8 +215,9 @@ impl Component for App {
 		}
 	}
 
-	fn update_cmd(
+	fn update_cmd_with_view(
 		&mut self,
+		widgets: &mut Self::Widgets,
 		message: Self::CommandOutput,
 		_sender: ComponentSender<Self>,
 		_root: &Self::Root,
@@ -221,11 +232,10 @@ impl Component for App {
 		}
 
 		self.task = Some(message);
-	}
 
-	fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
+		// NOTE: Previously it was inside `update_view` fn.
+		self.progress_bar.queue_draw();
 		widgets.button.set_sensitive(!self.computing);
-		widgets.progress_bar.queue_draw();
 	}
 }
 

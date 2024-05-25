@@ -6,5 +6,6 @@ edition = "2021"
 [dependencies]
 futures = "0.3.30"
 relm4 = "0.8.1"
+# relm4-macros = "0.8.1"
 tokio = { version = "1.37.0", features = ["rt", "rt-multi-thread", "sync", "time"] }
 dark-light = "1.1.1"
