@@ -1,5 +1,8 @@
 [workspace]
-members = ["tuts/", "tuts/topics/async/*",
+members = [
+    "tuts/", 
+    "tuts/topics/async/*",
+    "tuts/topics/pointer/pointers-jon",
     "libs/axum-playground"  
     # "libs/chatgpt_demo"
     , "pro/rust-api-heroku", 
@@ -9,5 +12,9 @@ members = ["tuts/", "tuts/topics/async/*",
     "libs/llm-chain/demo", 
     "libs/databases/mongo/demo",
     "libs/axum-playground/examples/axum-jon",
-    "libs/yew/*", "libs/gtk4/demo", "libs/relm4/demo"]
+    "libs/yew/*", 
+    "libs/gtk4/demo", 
+    "libs/relm4/demo", 
+    "libs/dioxus/demo"
+]
 resolver = "2"
