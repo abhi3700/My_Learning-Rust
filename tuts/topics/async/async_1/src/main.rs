@@ -6,7 +6,7 @@ mod tut_1;
 mod tut_2;
 
 fn main() {
-    tut_1::main();
-    println!("============");
-    tut_2::main();
+	tut_1::main();
+	println!("============");
+	tut_2::main();
 }

@@ -451,7 +451,126 @@ But, here it is not guaranteed that the threads will run in the order they are s
 
 Now, to set the order, we can use synchronization primitives like `Mutex`, `Condvar`, and `Barrier`. These primitives allow you to coordinate the execution of multiple threads and ensure that they execute in a specific order.
 
-TODO: Add more on this.
+### Concurrency
+
+#### Concurrency with `join_all`
+
+To add concurrency, we can use the `tokio::spawn` function to spawn multiple threads & then use `join_all` to wait for all the threads to finish.
+
+A simple example:
+
+```rust
+let mut handles = Vec::new();
+for i in 0..10 {
+   let handle = tokio::spawn(move || {
+      println!("I'm a thread {}", i);
+   });
+   handles.push(handle);
+}
+
+let _ = join_all(handles);
+```
+
+<details>
+<summary> Now, a complex example (from one of my private projects): </summary>
+
+```rust
+async fn get_onchain_balance_of(
+   &self,
+   user_addresses: HashMap<ChainProtocol, String>,
+   coin: &StableCoin,
+   latest: bool,
+) -> eyre::Result<HashMap<ChainName, U256>> {
+   let mut balances = HashMap::<ChainName, U256>::with_capacity(ChainName::all().len());
+   let mut tasks = Vec::new();
+
+   for chain in ChainName::all() {
+   let chain_protocol = chain.get_chain_protocol();
+   let user_address = user_addresses
+      .get(&chain_protocol)
+      .ok_or_eyre("Address not found for this protocol")?
+      .parse::<Address>()?;
+   let coin = coin.clone();
+   match chain_protocol {
+      ChainProtocol::Evm => {
+      let provider = self.get_evm_node_provider(chain).await?.ws;
+      tasks.push(tokio::spawn(async move {
+            let balance =
+               Sdk::coin_balance(provider, chain, &coin, user_address, latest).await?;
+            Ok::<_, eyre::Error>((chain, balance))
+            }));
+         },
+         // TODO: Add support for other chains
+      }
+   }
+
+  let results = tokio::join!(join_all(tasks));
+
+  for result in results.0 {
+      let (chain, balance) = result??;
+   balances.insert(*chain, balance);
+  }
+
+   Ok(balances)
+  }
+```
+
+Here, in order to update the `balances` hashmap, we need both keys & values. So, we add both (chain, balance) to each handle.
+
+</details>
+
+In this, if any of the task fails, the pending tasks won't run. So, it's either **all or none**.
+
+#### Concurrency with `JoinSet`
+
+The same complex example using `JoinSet`:
+
+<details>
+<summary> Code example: </summary>
+
+```rust
+async fn get_onchain_balance_of(
+    &self,
+    user_addresses: HashMap<ChainProtocol, String>,
+    coin: &StableCoin,
+    latest: bool,
+) -> eyre::Result<HashMap<ChainName, U256>> {
+    let mut balances = HashMap::with_capacity(ChainName::all().len());
+    let mut tasks = JoinSet::new();
+
+    for chain in ChainName::all() {
+        let chain_protocol = chain.get_chain_protocol();
+        let user_address = user_addresses
+            .get(&chain_protocol)
+            .ok_or_eyre("Address not found for this protocol")?
+            .clone();
+        
+        let provider = self.get_evm_node_provider(chain).await?.ws.clone();
+        let coin = coin.clone();
+
+         match chain_protocol {
+            ChainProtocol::Evm => {
+                  tasks.spawn(async move {
+                  let balance = Sdk::coin_balance(provider, &chain, &coin, user_address.parse()?, latest).await?;
+                  Ok::<_, eyre::Error>((chain, balance))
+               });
+            },
+            // TODO: Add support for other chains
+         }
+    }
+
+    while let Some(result) = tasks.join_next().await {
+        let (chain, balance) = result??;
+        balances.insert(chain, balance);
+    }
+
+    Ok(balances)
+}
+```
+
+</details>
+
+In this, if any of the task fails, the pending tasks would still run. So, it's **all or some**. So, use accordingly.
 
 ## API Server
 
