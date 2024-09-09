@@ -453,9 +453,10 @@ Now, to set the order, we can use synchronization primitives like `Mutex`, `Cond
 
 ### Concurrency
 
-#### Concurrency with `join_all`
+#### Concurrency with `futures::future::join_all`
 
 To add concurrency, we can use the `tokio::spawn` function to spawn multiple threads & then use `join_all` to wait for all the threads to finish.
+> Here, each handle is going to return future of same `Output`.
 
 A simple example:
 
@@ -520,6 +521,41 @@ Here, in order to update the `balances` hashmap, we need both keys & values. So,
 </details>
 
 In this, if any of the task fails, the pending tasks won't run. So, it's either **all or none**.
+
+#### Concurrency with `tokio::try_join!`
+
+Same as above, just that it can have handles of different `Output`.
+
+Like in this case:
+
+```rust
+// results is of tuple type holding the outputs of each handle
+let results = tokio::try_join!(task1, task2, task3);
+```
+
+> Here, `task1`, `task2`, `task3` are handles of different `Output`.
+
+Sample code:
+
+```rust
+// Add concurrency for health checks
+try_join!(
+   sdk.check_db_health(),
+   sdk.coingecko_health(&sdk.coingecko_api_key)
+)?;
+```
+
+where:
+
+```rust
+async fn check_db_health() -> Result<()> {
+   // ...
+}
+
+async fn coingecko_health(api_key: &str) -> Result<bool> {
+   // ...
+}
+```
 
 #### Concurrency with `JoinSet`
 
