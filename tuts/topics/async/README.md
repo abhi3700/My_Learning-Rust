@@ -451,16 +451,93 @@ But, here it is not guaranteed that the threads will run in the order they are s
 
 Now, to set the order, we can use synchronization primitives like `Mutex`, `Condvar`, and `Barrier`. These primitives allow you to coordinate the execution of multiple threads and ensure that they execute in a specific order.
 
-### Concurrency
+## Concurrency
+
+Concurrency can be achieved in 2 ways:
+
+1. Single thread via `try_join!`
+2. Multiple threads via `tokio::try_join!`, `futures::future::join_all`, `JoinSet`
+
+The major difference between single threaded environment vs multi-threaded environment is that in single threaded environment, the tasks are executed sequentially inspite of having joined together, whereas in multi-threaded environment, the tasks are executed concurrently i.e. by spawning multiple threads & putting the awaited task in each thread.
+
+---
+
+All the threads assignment is done by OS. But, in rust code, it's done by a runtime like `tokio` runtime. That's why, we need to tell the tokio runtime to run the code in a single threaded environment via `#[tokio::main(flavor = "current_thread")]`. And for multi-threaded environment, we don't need to do anything or can explicitly say `#[tokio::main(flavor = "multi_thread")]`.
+
+---
+Concurrency primitives:
+
+- `tokio::try_join!`
+
+> NOTE: Preferred over `tokio::join!`.
+
+- `futures::future::join_all`
+- `JoinSet`
+
+### Single threaded environment
+
+![](../../../img/concurrency_single_threaded.png)
+
+Use `tokio::try_join!` to run tasks concurrently in a single threaded environment.
+
+<details>
+<summary> Full code example: </summary>
+
+```rust
+use tokio::time::{sleep, Duration};
+use eyre::Result;
+use tokio::try_join;
+
+async fn async_task1() -> Result<&'static str> {
+    // Simulate some work with sleep
+    sleep(Duration::from_secs(2)).await;
+    println!("Task 1 completed");
+    Ok("Task 1 result")
+}
+
+async fn async_task2() -> Result<&'static str> {
+    // Simulate some work with sleep
+    sleep(Duration::from_secs(1)).await;
+    println!("Task 2 completed");
+    Ok("Task 2 result")
+}
+
+#[tokio::main(flavor = "current_thread")]  // Single-threaded runtime
+async fn main() -> Result<()> {
+    // 1. Run two tasks concurrently using try_join!
+    let (result1, result2) = try_join!(
+        async_task1(),
+        async_task2()
+    )?;
+
+    // 2. print the results
+    println!("Result 1: {}", result1);
+    println!("Result 2: {}", result2);
+
+    Ok(())
+}
+```
+
+</details>
+
+### Multi-threaded environment
+
+![](../../../img/concurrency_multi_threaded.png)
+
+> NOTE: To create/add a new thread, we can use the `tokio::tokio::spawn` function.
 
 #### Concurrency with `futures::future::join_all`
 
-To add concurrency, we can use the `tokio::spawn` function to spawn multiple threads & then use `join_all` to wait for all the threads to finish.
-> Here, each handle is going to return future of same `Output`.
+Use `join_all` to wait for all the threads to finish on top of multiple threads.
+> NOTE:
+>
+> - `join_all` accepts a vector of handles where each handle is going to return future of same `Output` in `impl Future<Output = ...>`.
+> - `join_all` is going to return a vector of `Output` of each handle.
 
-A simple example:
+**Code structure**:
 
 ```rust
+// 1. create the handles
 let mut handles = Vec::new();
 for i in 0..10 {
    let handle = tokio::spawn(move || {
@@ -469,93 +546,173 @@ for i in 0..10 {
    handles.push(handle);
 }
 
-let _ = join_all(handles);
+// 2. run the tasks concurrently
+let results = join_all(handles).await;
+
+// 3. print the results
+for result in results {
+   println!("{:?}", result);
+}
 ```
 
 <details>
-<summary> Now, a complex example (from one of my private projects): </summary>
+<summary> Full code example: </summary>
 
 ```rust
-async fn get_onchain_balance_of(
-   &self,
-   user_addresses: HashMap<ChainProtocol, String>,
-   coin: &StableCoin,
-   latest: bool,
-) -> eyre::Result<HashMap<ChainName, U256>> {
-   let mut balances = HashMap::<ChainName, U256>::with_capacity(ChainName::all().len());
-   let mut tasks = Vec::new();
+ async fn get_onchain_balance_of(
+  &self,
+  user_addresses: HashMap<ChainProtocol, String>,
+  coin: &StableCoin,
+  latest: bool,
+ ) -> eyre::Result<HashMap<ChainName, U256>> {
+  let mut balances = HashMap::<ChainName, U256>::with_capacity(ChainName::all().len());
+  let mut tasks = Vec::new();
 
-   for chain in ChainName::all() {
+  for chain in ChainName::all() {
    let chain_protocol = chain.get_chain_protocol();
    let user_address = user_addresses
-      .get(&chain_protocol)
-      .ok_or_eyre("Address not found for this protocol")?
-      .parse::<Address>()?;
+    .get(&chain_protocol)
+    .ok_or_eyre("Address not found for this protocol")?
+    .parse::<Address>()?;
    let coin = coin.clone();
    match chain_protocol {
-      ChainProtocol::Evm => {
-      let provider = self.get_evm_node_provider(chain).await?.ws;
-      tasks.push(tokio::spawn(async move {
-            let balance =
-               Sdk::coin_balance(provider, chain, &coin, user_address, latest).await?;
-            Ok::<_, eyre::Error>((chain, balance))
-            }));
-         },
-         // TODO: Add support for other chains
-      }
+    ChainProtocol::Evm => {
+     let provider = self.get_evm_node_provider(chain).await?.ws;
+     tasks.push(tokio::spawn(async move {
+      let balance =
+       Sdk::coin_balance(provider, chain, &coin, user_address, latest).await?;
+
+      Ok::<_, eyre::Error>((chain, balance))
+     }));
+    },
+    // TODO: Add support for other chains
    }
+  }
+  let results = join_all(tasks).await;
 
-  let results = tokio::join!(join_all(tasks));
-
-  for result in results.0 {
-      let (chain, balance) = result??;
+  for result in results {
+   let (chain, balance) = result??;
    balances.insert(*chain, balance);
   }
 
-   Ok(balances)
-  }
+  Ok(balances)
+ }
 ```
 
-Here, in order to update the `balances` hashmap, we need both keys & values. So, we add both (chain, balance) to each handle.
+Here, in order to update the `balances` hashmap, we need both keys & values. That's why, we add both (chain, balance) to each handle, otherwise, we would have been only added `balance` to each handle.
 
 </details>
 
-In this, if any of the task fails, the pending tasks won't run. So, it's either **all or none**.
+Here, if either of the tasks fail, the subsequent tasks won't run. So, it's either **all or none**.
 
 #### Concurrency with `tokio::try_join!`
 
-Same as above, just that it can have handles of different `Output`.
+Use `try_join` to wait for all the threads to finish on top of multiple threads.
+> NOTE:
+>
+> - `try_join` accepts a fixed set of handles where each handle may return future of different `Output` in `impl Future<Output = ...>`.
+> - `try_join` is going to return a tuple of `Output` of each handle.
+>
+> > Why tuple, not vector? as vector can't have different types, whereas tuple can have different types.
 
-Like in this case:
-
-```rust
-// results is of tuple type holding the outputs of each handle
-let results = tokio::try_join!(task1, task2, task3);
-```
-
-> Here, `task1`, `task2`, `task3` are handles of different `Output`.
-
-Sample code:
+**Code structure**:
 
 ```rust
-// Add concurrency for health checks
-try_join!(
-   sdk.check_db_health(),
-   sdk.coingecko_health(&sdk.coingecko_api_key)
-)?;
-```
-
-where:
-
-```rust
-async fn check_db_health() -> Result<()> {
+// 1. create the handles
+let handle1 = tokio::spawn(async {
    // ...
+});
+
+let handle2 = tokio::spawn(async {
+   // ...
+});
+
+// 2. run the tasks concurrently
+let results = try_join!(handle1, handle2);
+
+// 3. print the results
+println!("{:?}", results.0);
+println!("{:?}", results.1);
+```
+
+<details>
+<summary> Full Code example: </summary>
+
+```rust
+use std::sync::Arc;
+use tokio::task;
+use eyre::{Result, ensure, WrapErr};  // Wrapping errors for context
+use tracing::info;                     // Structured logging
+
+// Assuming this is your SDK struct
+struct Sdk {
+    // Your SDK fields here
 }
 
-async fn coingecko_health(api_key: &str) -> Result<bool> {
-   // ...
+impl Sdk {
+    async fn function1(&self) -> Result<String> {
+        // Simulating some async work
+        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+        Ok("Result from function1".to_string())
+    }
+
+    async fn function2(&self) -> Result<i32> {
+        // Simulating some async work
+        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+        Ok(42)
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    // Initialize tracing for structured logging
+    tracing_subscriber::fmt::init();
+    
+    // Create an Arc-wrapped SDK instance
+    let sdk = Arc::new(Sdk {
+        // Initialize your SDK fields here if any
+    });
+
+    // Spawn two tasks to run the functions concurrently
+    let task1 = {
+        let sdk = Arc::clone(&sdk);
+        task::spawn(async move {
+            sdk.function1().await.wrap_err("Error in function1")
+        })
+    };
+
+    let task2 = {
+        let sdk = Arc::clone(&sdk);
+        task::spawn(async move {
+            sdk.function2().await.wrap_err("Error in function2")
+        })
+    };
+
+    // Use try_join to propagate errors immediately
+    let (result1, result2) = tokio::try_join!(task1, task2)
+        .map_err(|e| eyre::eyre!("Failed to join tasks: {e}"))?;
+
+    // Unwrap results safely, as they're already validated by try_join
+    let result1 = result1?;
+    let result2 = result2?;
+
+    // Check conditions using eyre::ensure!
+    ensure!(result1.len() > 5, "Result1 is too short");
+    ensure!(result2 > 0, "Result2 should be positive");
+
+    // Log results
+    info!("Result1: {}", result1);
+    info!("Result2: {}", result2);
+
+    Ok(())
 }
 ```
+
+</details>
+
+Here also, if either of the tasks fail, the subsequent tasks won't run. So, it's either **all or none**.
+
+> NOTE: Always use `try_join!` for concurrency than `join_all` as it is more efficient considering error handling.
 
 #### Concurrency with `JoinSet`
 
