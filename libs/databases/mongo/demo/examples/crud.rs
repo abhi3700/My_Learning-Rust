@@ -2,7 +2,8 @@
 //!
 //! This is about doing CRUD operations on top of MongoDB.
 
-use futures_lite::StreamExt;
+// use futures_lite::StreamExt;
+use futures::StreamExt;
 use mongodb::{
 	bson::{doc, Document},
 	Client,
