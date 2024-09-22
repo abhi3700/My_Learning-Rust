@@ -171,6 +171,11 @@ So, here on left terminal, we have `$ cargo watch -x run` running, which will wa
 
 - `$ cargo add <package-name>`: add package to `[dependencies]` locally into the rust project. E.g. `$ cargo add dotenv`.
 - `$ cargo add <package-name> --dev`: add package to `[dev-dependencies]` locally into the rust project. E.g. `$ cargo add hex-literal --dev`.
+- Add dependency via git:
+
+```toml
+token_contract = {git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.51.1", directory="noir-projects/noir-contracts/contracts/token_contract"}
+```
 
 #### `install`
 
@@ -657,6 +662,124 @@ fn main() {
     }
 }
 ```
+
+### Visibility
+
+- `pub`: Public
+- `pub(crate)`: Public within the crate
+- `pub(super)`: Public within the parent module
+- `pub(in path)`: Public within the specified path
+- ``: Public within the current module
+
+<details><summary>Expand details:</summary>
+
+In Rust, visibility modifiers control the accessibility of items (such as functions, structs, enums, etc.) in your code. These modifiers help enforce encapsulation and module boundaries, making your code more modular and maintainable. Here's a detailed explanation of the different visibility modifiers in Rust:
+
+### 1. `pub`
+
+The `pub` keyword makes an item public, meaning it can be accessed from any module in the crate and from other crates.
+
+Example:
+
+```rust
+mod my_module {
+    pub fn public_function() {
+        println!("This is a public function.");
+    }
+}
+
+fn main() {
+    my_module::public_function();
+}
+```
+
+In this example, `public_function` can be accessed from the `main` function because it is declared as `pub`.
+
+### 2. `pub(crate)`
+
+The `pub(crate)` modifier makes an item visible throughout the current crate but not outside of it. This is useful for sharing functionality within the crate without exposing it to external crates.
+
+Example:
+
+```rust
+mod my_module {
+    pub(crate) fn crate_public_function() {
+        println!("This function is public within the crate.");
+    }
+}
+
+fn main() {
+    my_module::crate_public_function();
+}
+```
+
+In this example, `crate_public_function` can be accessed from anywhere within the same crate, but not from other crates.
+
+### 3. `pub(super)`
+
+The `pub(super)` modifier makes an item visible to the parent module. This is useful for sharing functionality with the immediate parent module but not more widely.
+
+Example:
+
+```rust
+mod parent_module {
+    pub mod child_module {
+        pub(super) fn parent_public_function() {
+            println!("This function is public to the parent module.");
+        }
+    }
+
+    fn parent_function() {
+        child_module::parent_public_function();
+    }
+}
+
+fn main() {
+    // The following line would cause a compilation error because the function is not accessible here:
+    // parent_module::child_module::parent_public_function();
+}
+```
+
+In this example, `parent_public_function` is accessible from `parent_function` within the `parent_module`, but not from the `main` function or any other modules outside `parent_module`.
+
+### 4. Default Visibility (private)
+
+By default, items in Rust are private to the module they are defined in. This means they can only be accessed from within the same module.
+
+Example:
+
+```rust
+mod my_module {
+    fn private_function() {
+        println!("This function is private.");
+    }
+
+    pub fn call_private_function() {
+        private_function();
+    }
+}
+
+fn main() {
+    // The following line would cause a compilation error because the function is private:
+    // my_module::private_function();
+
+    // This works because call_private_function is public and calls the private function internally:
+    my_module::call_private_function();
+}
+```
+
+In this example, `private_function` can only be accessed within `my_module`, but not from `main`.
+
+### Summary
+
+- **`pub`**: The item is accessible from any module in the crate and from other crates.
+- **`pub(crate)`**: The item is accessible from any module within the same crate, but not from other crates.
+- **`pub(super)`**: The item is accessible from the parent module.
+- **Default (private)**: The item is accessible only within the same module.
+
+These visibility modifiers help you control the scope and encapsulation of your code, allowing you to design robust and maintainable Rust programs.
+
+</details>
 
 ### [Casting](./tuts/topics/casting/README.md)
 
@@ -1196,3 +1319,4 @@ There is a section called [quiz](./quiz/) in this repo. It contains some questio
 - [Crust of Rust YT playlist](https://youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)
 - [Rust Powered Polymorphism ⚡️ With Traits](https://www.youtube.com/watch?v=CHRNj5oubwc) ✅
 - [5 Better ways to code in Rust](https://www.youtube.com/watch?v=BU1LYFkpJuk) ✅
+- [Rust Linz, January '22 - Error Handling in Rust - A Pragmatic Approach by Luca Palmieri](https://www.youtube.com/watch?v=jpVzSse7oJ4) ✅
