@@ -1,0 +1,8 @@
+[package]
+name = "freya-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+freya = "0.2"
+dioxus = { version = "0.5", features = ["macro", "hooks"], default-features = false }
