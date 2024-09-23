@@ -4,6 +4,8 @@ Mainly 2 types: Recoverable and Unrecoverable using Option and Result along with
 
 ## Coding
 
+### Recoverable vs Unrecoverable
+
 - Recoverable using `Result`
 
   - e.g. `Result::Err("burn and crash")` in case of function return type.
@@ -55,7 +57,7 @@ fn main() {
 }
 ```
 
----
+### Custom errors
 
 - Define custom errors like this:
 
@@ -84,7 +86,8 @@ fn main() {
   ```
 
 - If we want to attach a message to the error, we can use a crate `thiserror` as shown [here](./this_error.rs).
-- **`Option` vs `Result`**
+
+### `Option` vs `Result`
 
   | **Option**                                                                                                                                                                                  | **Result**                                                                                                                             |
   | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -238,14 +241,37 @@ fn main() -> Result<(), &'static str> {
 }
 ```
 
+`.expect()` also allows to supersede the default error message.
+
+> NOTE: `?` can be used only in functions that return `Result<T, E>` and doesn't panic if error occurs unlike `.expect()`.
+
+TLDR; `?` is used to propagate error, while `.expect()` is used for debugging purpose or where you want the function (especially caller/main) to panic if error occurs.
+
+E.g. In case of an app requiring `env` vars, we can use `.expect()` to panic if the required `env` var is not found like this:
+
+```rust
+fn main() {
+  dotenv::dotenv().ok();
+  let token = std::env::var("TOKEN").expect("Please set TOKEN env var");
+}
+```
+
+### `unwrap()` vs `expect()` vs `ok_or_eyre`
+
+- `unwrap()` should not be used inside production codebase as it might panic.
+- `expect()` is used for debugging purpose or where you want the function (especially caller/main) to panic if error occurs.
+- `ok_or_eyre("msg")?` is used to propagate error to the caller function.
+  - Previosly the alternative was `ok_or_else(||eyre::eyre!("msg"))?`. But, better to use `ok_or_eyre("msg")?` as it is more concise.
+
 ## External crates
 
 ### eyre
 
 - It is a fork of `anyhow`.
-- In place of `std::Result<String, &'static str>`, we can use `eyre::Result<String>`.
+- In place of `core::result::Result<String, &'static str>`, we can use `eyre::Result<String>`.
 - For Ok, `Ok("Rust is beautiful")` can be used in both cases.
-- And in place of `Err("Invalid input")`, we can use `Err(eyre::eyre!("Invalid input"))`.
+- And in place of `Err("Invalid input")`, we can use `Err(eyre::eyre!("Invalid input"))`. Also, better would be to use `bail!("Invalid Input")` instead of `return Err(eyre::eyre!("Invalid input"))`.
+- `bail!` is same as `return Err(eyre::Report::new(err))`.
 
 ## References
 

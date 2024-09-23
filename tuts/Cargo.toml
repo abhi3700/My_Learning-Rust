@@ -17,6 +17,14 @@ log = "0.4.20"
 thiserror = "1.0.52"
 tokio = { version = "1.35.0", features = ["full"] }
 
+[[example]]
+name = "hashmap_2"
+path = "examples/topics/collection/hashmap_2.rs"
+
+[[example]]
+name = "hashmap_3"
+path = "examples/topics/collection/hashmap_3.rs"
+
 [features]
 main1 = []
 main2 = []

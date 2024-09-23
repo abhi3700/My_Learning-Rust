@@ -1,8 +1,8 @@
 [workspace]
 members = [
     "tuts/", 
-    "tuts/topics/async/*",
-    "tuts/topics/pointer/pointers-jon",
+    "tuts/examples/topics/async/*",
+    "tuts/examples/topics/pointer/pointers-jon",
     "libs/axum-playground"  
     # "libs/chatgpt_demo"
     , "pro/rust-api-heroku", 
@@ -15,6 +15,7 @@ members = [
     "libs/yew/*", 
     "libs/gtk4/demo", 
     "libs/relm4/demo", 
-    "libs/dioxus/demo"
+    "libs/dioxus/demo",
+    "libs/freya/freya-app"
 ]
 resolver = "2"

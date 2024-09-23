@@ -476,7 +476,11 @@ Concurrency primitives:
 
 ### Single threaded environment
 
+Here, single core is used. So, it works asynchronously with single thread. This means it is concurrent but not parallel. Hence, when task-1 is running, task-2 is blocked. Then, if task-1 is waiting for some IO, then the core is working on subsequent tasks, if any.
+
 ![](../../../img/concurrency_single_threaded.png)
+
+#### Using `tokio::try_join!`
 
 Use `tokio::try_join!` to run tasks concurrently in a single threaded environment.
 
@@ -520,7 +524,129 @@ async fn main() -> Result<()> {
 
 </details>
 
+#### Using `futures::future::join_all`
+
+Just remove `tokio::spawn` in multi-threaded approach.
+
+<details>
+<summary> Code example: </summary>
+
+```rust
+pub(crate) async fn edit_preferred_default_chain(
+    &self,
+    user_id: &str,
+    new_preferred_default_chain: &ChainName,
+    session: &mut ClientSession,
+) -> eyre::Result<()> {
+    let users_collection: Collection<Document> =
+        self.db_client.database(USER_DB_NAME).collection(USER_USERS_COLLECTION_NAME);
+    let projection = doc! {
+        "wallet": 1,
+        "preferred_default_chain": 1,
+        "wallet_onchain": 1,
+        "wallet_offchain": 1,
+        "wallet_trading": 1,
+    };
+    let user_doc =
+        self.get_user_doc(user_id, &users_collection, Some(session), projection).await?;
+
+    let new_chain_protocol = new_preferred_default_chain.to_chain_protocol();
+    let wallet = Self::get_wallet_from(&user_doc)?;
+    let user_address = wallet
+        .get(&new_chain_protocol)
+        .ok_or_eyre("Error in getting user's address")?
+        .address
+        .parse::<Address>()?;
+    let old_preferred_default_chain = Self::get_preferred_default_chain_from(&user_doc)?;
+    ensure!(
+        &old_preferred_default_chain != new_preferred_default_chain,
+        "New preferred default chain is same as old one"
+    );
+
+    let offchain_balances = Self::get_wallet_offchain_from(&user_doc)?;
+    let trading_balances = Self::get_wallet_trading_from(&user_doc)?;
+
+    // TODO: Check edit feasibility by looking at the offchain, trading balances of old chain
+    // with onchain balance of new chain.
+
+    let tasks: Vec<_> = StableCoin::all().iter().map(|coin| {
+        let trading_balances = &trading_balances;
+        let offchain_balances = &offchain_balances;
+        let new_preferred_default_chain = new_preferred_default_chain.clone();
+
+        async move {
+            // Get the coin's net onchain (onchain - debited) balance at new preferred default chain
+            let net_onchain_balance = match new_chain_protocol {
+                ChainProtocol::Evm => {
+                    let provider = self.get_evm_node_provider(&new_preferred_default_chain).await?.ws;
+
+                    let onchain_debited_amount = Self::get_onchain_debited_from(
+                        &user_doc,
+                        *coin,
+                        &new_preferred_default_chain,
+                    )
+                    .unwrap_or(U256::ZERO);
+                    let onchain_balance_for_new_chain = Self::coin_balance(
+                        provider,
+                        &new_preferred_default_chain,
+                        *coin,
+                        user_address,
+                        true,
+                    )
+                    .await?;
+                    onchain_balance_for_new_chain
+                        .checked_sub(onchain_debited_amount)
+                        .ok_or_eyre("Error in getting net onchain balance of new chain")?
+                },
+            };
+
+            let OffchainBalance { credited, debited, .. } = offchain_balances
+                .get(coin)
+                .ok_or_eyre("Error in getting offchain balance of coin")?
+                .to_owned();
+            let offchain_balance_credited =
+                credited.unwrap_or("0".to_string()).parse::<U256>()?;
+            let offchain_balance_debited =
+                debited.unwrap_or("0".to_string()).parse::<U256>()?;
+            let trading_balance_in_orders =
+                trading_balances.get(coin).unwrap_or(&"0".to_string()).parse::<U256>()?;
+
+            let status = net_onchain_balance
+                .checked_add(offchain_balance_credited)
+                .and_then(|b| b.checked_sub(offchain_balance_debited))
+                .and_then(|b| b.checked_sub(trading_balance_in_orders))
+                .ok_or_eyre("Error in getting net onchain balance of new chain")
+                .is_ok();
+
+            ensure!(status, "Incompatible at coin: {}", coin);
+
+            Ok::<_, eyre::Error>(())
+        }
+    }).collect();
+
+    // Use `join_all` without `tokio::spawn` to await on all tasks.
+    let results = futures_util::future::join_all(tasks).await;
+
+    for result in results {
+        result??;
+    }
+
+    Ok(())
+}
+```
+
+This approach is concurrent with single thread. NOT Parallel at all.
+
+</details>
+
 ### Multi-threaded environment
+
+Also called **Parallelism**.
+
+**Cons**
+
+- When you use `tokio::spawn`, it spawns a new lightweight task on a thread pool, allowing for true parallel execution on multiple CPU cores. Each task runs independently and may run on a different thread from the original one.
+- Tasks are launched in a potentially multi-threaded environment, which is why `'static` lifetimes were required. When you spawn a task, it might outlive the function scope, which is why self and other data needed to be `'static`. That's why, we need to use `Arc` for data that is not `'static` to make it thread safe. Also clone the data before spawning new thread & inserting the task.
 
 ![](../../../img/concurrency_multi_threaded.png)
 
