@@ -1,0 +1,19 @@
+@host=http://localhost:3000
+
+###
+GET {{host}}/todos
+
+###
+GET {{host}}/todos?offset=1&limit=2
+
+###
+# @name newTodo
+POST {{host}}/todos
+Content-Type: application/json
+
+{
+    "title": "Learn Rust",
+    "notes": "Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.",
+    "assigned_to": "Rainer",
+    "completed": false
+}

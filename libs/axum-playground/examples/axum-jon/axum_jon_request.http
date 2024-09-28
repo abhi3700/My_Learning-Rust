@@ -1,0 +1,15 @@
+@host=http://0.0.0.0:3000
+
+###
+GET {{host}}/
+
+
+###
+# @name CreateUser
+POST {{host}}/users
+Content-Type: application/json
+
+{
+    "username": "abhi3700"
+}
+
