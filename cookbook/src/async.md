@@ -19,6 +19,8 @@ cargo add tokio --features full
 
 It then is going to add macro features when annotating the function (especially `main` function) with `#[tokio::main]`.
 
-Please go through this [example](../../tuts/examples/topics/async/sync10.rs) to understand how multiple threads are spawned & how they are awaited sequentially & concurrently. Finally their values received from the spawned threads are summed-up. Also, the latest value of the counter is printed.
+To understand **concurrency**, let's go through [this](https://github.com/abhi3700/My_Learning-Rust/blob/23ed14f3795741561c100251fc3e09cf40e6227d/tuts/examples/topics/async/README.md#L454).
+
+> For sleep inside an async task, don't use `std::thread::sleep(Duration::from_secs(..))`. It blocks the task. Instead use `tokio::time::sleep(..)`.
 
 For details, follow this [guide](https://github.com/abhi3700/My_Learning-Rust/blob/main/tuts/examples/topics/async/README.md).
