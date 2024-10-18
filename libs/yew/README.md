@@ -31,18 +31,20 @@ Yew is a modern Rust framework for creating multi-threaded front-end web apps wi
 
 ## Getting Started
 
-1. Create a new project: `$ cargo new yew-app`
+1. Create a new project: `$ cargo new hello-app`
 2. Add `yew` to `Cargo.toml`:
 
    ```toml
    [package]
-   name = "yew-app"
+   name = "hello-app"
    version = "0.1.0"
    edition = "2021"
 
    [dependencies]
    yew = { version = "0.20.0", features = ["csr"] }
    ```
+
+   > `csr` feature is required to use `yew::Renderer` in the code.
 
 3. Add this code to `src/main.rs`:
 
@@ -123,7 +125,7 @@ Yew is a modern Rust framework for creating multi-threaded front-end web apps wi
   - In this case, the attribute will create a component called `App` based on our `app` function.
   - Our function component here is a simplified version of a normal Component. Because normally a component is defined as a `struct` and has to implement the Component trait with certain functions. However, using `function_component` allows us to write a simple component with minimal code.
 
-### html!
+### html
 
 - `html!` is a macro that allows us to write macro allows us to write HTML and SVG code in a similar fashion as JSX in Rust source file.
 - Literals must always be quoted and wrapped in braces. That’s why we wrote `<h1>{"Basic Yew Web App"}</h1>` there.
@@ -151,3 +153,7 @@ yew = { version = "0.20", features = ["csr"] }
 - [ ] [WebAssembly Rust front-end with Yew: how to P1](https://tms-dev-blog.com/webassembly-rust-front-end-with-yew-how-to-p1/)
 - [ ] [CSS and JavaScript WASM Rust: Yew how to P2](https://tms-dev-blog.com/css-and-javascript-wasm-rust-yew-how-to-p2/)
 - [ ] [Exploring Yew, the rust-based frontend framework as a React Developer](https://dev.to/hackmamba/exploring-yew-the-rust-based-frontend-framework-as-a-react-developer-52l)
+
+### Libs
+
+- [material-yew](https://github.com/hamza1311/material-yew)

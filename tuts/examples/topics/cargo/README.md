@@ -2,7 +2,7 @@
 
 ## Overview
 
-- Every cargo project has a config file: `Cargo.toml`
+- Every cargo project has a config/manifest file: `Cargo.toml`
 - There is a main file created inside `./src/` - `main.rs`
 - After build, the cargo generates a `Cargo.lock` file & a `target/` folder. Just add this into `.gitignore` file for a `.git` repo.
 - The output file is present inside `./target/build/debug/`

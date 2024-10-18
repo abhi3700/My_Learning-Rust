@@ -7,16 +7,71 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.35"
-color-eyre = "0.6.2"
+chrono = "0.4.38"
+color-eyre = "0.6.3"
 dirs = "5.0.1"
-env_logger = "0.10.1"
-eyre = "0.6.8"
-hyper = "1.1.0"
-log = "0.4.20"
-thiserror = "1.0.52"
-tokio = { version = "1.35.0", features = ["full"] }
+env_logger = "0.11.5"
+eyre = "0.6.12"
+hyper = "1.5.0"
+log = "0.4.22"
+mini-redis = "0.4.1"
+thiserror = "1.0.64"
+tokio = { version = "1.40.0", features = ["full"] }
 
+# ==== Async examples, projects
+[[example]]
+name = "sync1"
+path = "examples/topics/async/sync1.rs"
+
+[[example]]
+name = "sync2"
+path = "examples/topics/async/sync2.rs"
+
+[[example]]
+name = "sync3"
+path = "examples/topics/async/sync3.rs"
+
+[[example]]
+name = "sync4"
+path = "examples/topics/async/sync4.rs"
+
+[[example]]
+name = "sync5"
+path = "examples/topics/async/sync5.rs"
+
+[[example]]
+name = "sync6"
+path = "examples/topics/async/sync6.rs"
+
+[[example]]
+name = "sync7"
+path = "examples/topics/async/sync7.rs"
+
+[[example]]
+name = "sync8"
+path = "examples/topics/async/sync8.rs"
+
+[[example]]
+name = "sync9"
+path = "examples/topics/async/sync9.rs"
+
+[[example]]
+name = "sync10"
+path = "examples/topics/async/sync10.rs"
+
+[[example]]
+name = "sync11"
+path = "examples/topics/async/sync11.rs"
+
+[[bin]]
+name="async-await-jon"
+path="examples/topics/async/async-await-jon/src/main.rs"
+
+[[bin]]
+name="tokio-hello"
+path="examples/topics/async/tokio-hello/src/main.rs"
+
+# ==== Collection examples
 [[example]]
 name = "hashmap_2"
 path = "examples/topics/collection/hashmap_2.rs"
@@ -24,6 +79,11 @@ path = "examples/topics/collection/hashmap_2.rs"
 [[example]]
 name = "hashmap_3"
 path = "examples/topics/collection/hashmap_3.rs"
+
+# ==== Pointer examples, projects
+[[example]]
+name = "box_1"
+path = "examples/topics/pointer/box_1.rs"
 
 [features]
 main1 = []

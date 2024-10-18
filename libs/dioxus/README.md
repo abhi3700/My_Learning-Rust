@@ -7,7 +7,7 @@
   - Web: Browser
   - LiveView
   - TUI i.e. for terminal.
-- Use TailwindCSS for styling of components. You can also use [Flowbite](https://flowbite.com/docs/components) which is built on top of TailwindCSS.
+- Use TailwindCSS for styling of components. You can also use [Flowbite](https://flowbite.com/#components) which is built on top of TailwindCSS.
 - Like Yew, has support for both CSR & SSR.
 - Yew has:
 - Comparo with:

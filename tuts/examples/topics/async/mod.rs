@@ -1,0 +1,2 @@
+#[path]
+mod sync1;

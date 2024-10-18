@@ -1,3 +1,8 @@
+week-6:
+☐ watch this for async: https://subspacenetwork.slack.com/archives/D05UETUVB8S/p1706057875182019
+☐ watch this for trait object: https://subspacenetwork.slack.com/archives/D05UETUVB8S/p1706840301809559
+☐ practice rustlings (by JetBrains): https://github.com/jetbrains-academy/rustlings-course/
+
 - Daily coding challenges
   - Iterator
   - Result
@@ -5,4 +10,3 @@
   - collections
   - Sync
   - Async
-    

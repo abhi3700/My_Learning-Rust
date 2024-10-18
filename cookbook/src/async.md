@@ -19,4 +19,6 @@ cargo add tokio --features full
 
 It then is going to add macro features when annotating the function (especially `main` function) with `#[tokio::main]`.
 
-Please go through this [example](../../tuts/topics/async/sync10.rs) to understand how multiple threads are spawned & how they are awaited sequentially & concurrently. Finally their values received from the spawned threads are summed-up. Also, the latest value of the counter is printed.
+Please go through this [example](../../tuts/examples/topics/async/sync10.rs) to understand how multiple threads are spawned & how they are awaited sequentially & concurrently. Finally their values received from the spawned threads are summed-up. Also, the latest value of the counter is printed.
+
+For details, follow this [guide](https://github.com/abhi3700/My_Learning-Rust/blob/main/tuts/examples/topics/async/README.md).
