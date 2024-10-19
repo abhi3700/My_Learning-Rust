@@ -13,6 +13,7 @@ members = [
     "libs/gtk4/demo", 
     "libs/relm4/demo", 
     "libs/dioxus/demo",
+    "libs/dioxus/playg",
     "libs/freya/freya-app",
     "tuts/", 
     "tuts/examples/topics/async/async-1",

@@ -17,6 +17,7 @@
 ## Installation
 
 - dioxus-cli: `$ cargo install dioxus-cli`
+  > To update by force: `cargo install dioxus-cli --force`.
 - [extension](https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus) for VSCode IDE.
 
 ## Quickstart
