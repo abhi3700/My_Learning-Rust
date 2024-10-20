@@ -4,18 +4,23 @@ mod blog;
 mod counter;
 mod home;
 
-use blog::Blog;
+use blog::{Blog, Toi, Tribune};
 use counter::Counter;
 use dioxus::prelude::*;
 use dioxus_logger::tracing::{info, Level};
 use home::Home;
 
+/// One global route for the entire App.
 #[derive(Clone, Routable, Debug, PartialEq)]
 enum Route {
 	#[route("/")]
 	Home {},
-	#[route("/blog/:id")]
-	Blog { id: i32 },
+	#[route("/blog")]
+	Blog {},
+	#[route("/blog/tribune")]
+	Tribune {},
+	#[route("/blog/toi")]
+	Toi {},
 	#[route("/counter/:id")]
 	Counter { id: i32 },
 }

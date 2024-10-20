@@ -2,24 +2,32 @@
 use crate::Route;
 use dioxus::prelude::*;
 
-// TODO: Add Tribune, TOI
-// enum Blog {
-// 	Tribune
-//	Toi
-// }
-
 #[component]
-pub(crate) fn Blog(id: i32) -> Element {
+pub(crate) fn Blog() -> Element {
 	rsx! {
 		div { style: "display: flex; gap: 5px; padding: 2px; flex-direction: column",
 			Link { to: Route::Home {},
-				button { "🔙" }
+				button { "🔙 🏠" }
 			}
 			nav { style: "display: flex; gap: 20px; padding: 10px; background-color: #EEC995;",
-				Link { to: "/blog/tribune", "Tribune" }
-				Link { to: "/blog/toi", "Times of India" }
+				Link { to: Route::Tribune {}, "Tribune" }
+				Link { to: Route::Toi {}, "Times of India" }
 			}
 		}
-		h2 { "Blog post {id}" }
+		h2 { "Blog" }
+	}
+}
+
+#[component]
+pub(crate) fn Tribune() -> Element {
+	rsx! {
+		h1 { "The Tribune" }
+	}
+}
+
+#[component]
+pub(crate) fn Toi() -> Element {
+	rsx! {
+		h1 { "The Times of India" }
 	}
 }
