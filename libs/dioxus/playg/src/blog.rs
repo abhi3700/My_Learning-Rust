@@ -21,13 +21,13 @@ pub(crate) fn Blog() -> Element {
 #[component]
 pub(crate) fn Tribune() -> Element {
 	rsx! {
-		h1 { "The Tribune" }
+		h1 { "📰 The Tribune" }
 	}
 }
 
 #[component]
 pub(crate) fn Toi() -> Element {
 	rsx! {
-		h1 { "The Times of India" }
+		h1 { "📰 The Times of India" }
 	}
 }
