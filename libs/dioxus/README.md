@@ -55,6 +55,106 @@ Options:
   -V, --version    Print version
 ```
 
+### Commands
+
+- `dx serve --hot-reload`: Hot reload the web page.
+
+## Coding
+
+- For "**web** + **vanilla** + **router**" option, in `Cargo.toml` file, it's like this:
+
+  ```toml
+  ...
+  dioxus = { version = "0.5.6", features = ["web", "router"] }
+  ```
+
+  > There is no `tailwind.config.js` file as it was not opted for during `$ dx new hello`.
+- Selecting desktop over web as default platform would
+  - change the feature in `Cargo.toml` file and,
+  - set desktop as default platform in `Dioxus.toml` file.
+
+### Deploy
+
+- For running on different platform, you need to pass the value (web, desktop, ..) in `platform` flag like: `$ dx serve --platform desktop`. This would override whichever default platform selected during project creation with `$ dx new ...`.
+- Dioxus is soon coming with feature <kbd>Deploy</kbd> as provided by **Vercel**.
+
+### Design
+
+- Use TailwindCSS. [Cheatsheet](https://www.creative-tim.com/twcomponents/cheatsheet) instead of adding `class` manually in "**assets/main.css**" file.
+  - [Guide](https://dioxuslabs.com/learn/0.5/cookbook/tailwind)
+  In the VSCode editor, corresponding to tailwindCSS extension, add this to User Settings:
+
+  ```json
+  "tailwindCSS.experimental.classRegex": [
+      "class: \"(.*)\""
+  ],
+  "tailwindCSS.includeLanguages": {
+      "rust": "html"
+  },
+  ```
+
+- During project creation via `$ dx new ..`, prefer **tailwind** option over **vanilla** for CSS.
+  - Then, follow this:
+    1. create `public/tailwind.css` file.
+    2. `cargo add manganis`
+    3. Add this line to "`main.rs`" file:
+
+      ```rust
+      use self::manganis;
+      ...
+      const _TAILWIND_URL: &str = manganis::mg!(file("./public/tailwind.css"));
+      ```
+
+- Using **vanilla CSS**, a button element could be written like this:
+
+```rust
+#[component]
+pub(crate) fn Counter(id: i32) -> Element {
+ let mut count = use_signal(|| id);
+
+ // NOTE: Unnecessary when using tailwind CSS.
+ let mut hovered = use_signal(|| false); // Track hover state
+
+ rsx! {
+    button {
+     // NOTE: It's CSS equivalent is working. Not sure how to add hover, so added "onmouseenter", "onmouseleave" fields.
+     style: format!(
+      "background-color: {}; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none;",
+      if hovered() { "#2563eb" } else { "#3B82F6" },
+     ),
+     onmouseenter: move |_| hovered.set(true),
+     onmouseleave: move |_| hovered.set(false),
+     onclick: move |_| count -= 1,
+     "Dislike 👎"
+    }
+   }
+}
+```
+
+- Using **tailwind CSS**, a button element could be written like this:
+
+```rust
+#[component]
+pub(crate) fn Counter(id: i32) -> Element {
+ let mut count = use_signal(|| id);
+
+ rsx! {
+    button {
+     // FIXME: tailwind css is not working.
+     class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+     "Dislike 👎"
+    }
+   }
+}
+```
+
+## Troubleshoot
+
+### 1. Error: Hot reload not working especially after TailwindCSS
+
+- _Cause_: In a tailwind CSS project, Hot reload functionality doesn't work with setup done in [playg](./playg/) project.
+- _Solution_: Just need to re-run `$ dx serve`.
+
 ## References
 
 - <https://github.com/DioxusLabs/dioxus>
@@ -63,5 +163,8 @@ Options:
 - [Community projects](https://github.com/dioxus-community/)
 - [dioxus-sdk](https://github.com/DioxusLabs/sdk): Get to use dioxus features into some other project
 - Component libraries:
-  - <https://github.com/RubixDev/material-dioxus>
   - <https://github.com/matthunz/dioxus-material>
+
+### Videos
+
+- [Cross Platform Development using RUST | Dioxus YT Playlist](https://www.youtube.com/playlist?list=PLDi2liHqCnVqDGWduQ2NuGbEX64-V0-sc)

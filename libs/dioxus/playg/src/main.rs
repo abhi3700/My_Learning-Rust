@@ -4,6 +4,7 @@ mod blog;
 mod counter;
 mod home;
 
+use self::manganis;
 use blog::{Blog, Toi, Tribune};
 use counter::Counter;
 use dioxus::prelude::*;
@@ -24,6 +25,9 @@ enum Route {
 	#[route("/counter/:id")]
 	Counter { id: i32 },
 }
+
+// Urls are relative to your Cargo.toml file
+const _TAILWIND_URL: &str = manganis::mg!(file("./public/tailwind.css"));
 
 fn main() {
 	// Init logger
